@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:riders/core/constants/colors.dart';
 import 'package:riders/features/Index/presentation/pages/Homepage.dart';
+import 'package:riders/features/Index/presentation/pages/RecentOrders.dart';
 
 class Index extends StatefulWidget {
   const Index({Key? key}) : super(key: key);
@@ -29,6 +30,7 @@ class _IndexState extends State<Index> {
       ///* isAdmin property. If isAdmin == true, show everything admin
       return const Homepage();
     } else if (index == 1) {
+      return const RecentOrders();
     } else if (index == 2) {
     } else {
       // return const BranchesPage();
@@ -50,11 +52,9 @@ class _IndexState extends State<Index> {
       },
       items: const [
         Icon(Icons.home, size: 20, color: Colors.white),
-        FaIcon(FontAwesomeIcons.o, color: Colors.white),
-        // FaIcon(FontAwesomeIcons.announcement),
-        Icon(Icons.announcement_outlined, size: 20, color: Colors.white),
+        Icon(Icons.receipt_long, size: 20, color: Colors.white),
+        Icon(Icons.wallet_outlined, size: 20, color: Colors.white),
         FaIcon(FontAwesomeIcons.applePay, color: Colors.white),
-        // FaIcon(FontAwesomeIcons.googlePay, color: Colors.white),
       ],
     );
   }

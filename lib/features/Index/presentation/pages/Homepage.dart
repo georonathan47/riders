@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:platform_maps_flutter/platform_maps_flutter.dart';
@@ -30,8 +31,15 @@ class _HomepageState extends State<Homepage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        // backgroundColor: Colors.white,
-        actions: [],
+        actions: [
+          AvatarGlow(
+            child: CircleAvatar(
+              child: Image.asset('assets/images/logo.png', height: 65),
+            ),
+            endRadius: 65,
+            glowColor: primaryColor,
+          ),
+        ],
         title: Text(
           ' ',
           style: GoogleFonts.poppins(),

@@ -45,10 +45,44 @@ Container screenBody(Size size, {List<Widget>? children}) {
     decoration: const BoxDecoration(),
     child: SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: children!,
       ),
+    ),
+  );
+}
+
+Text subText(String text, {FontWeight? fontWeight, Color? color}) {
+  return Text(
+    text,
+    style: GoogleFonts.poppins(
+      fontWeight: FontWeight.w400,
+      letterSpacing: .25,
+      fontSize: 16,
+    ),
+  );
+}
+
+Text mainText(String text) {
+  return Text(
+    text,
+    style: GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
+      letterSpacing: .25,
+      fontSize: 18,
+    ),
+  );
+}
+
+Text mainText16(String text) {
+  return Text(
+    text,
+    style: GoogleFonts.poppins(
+      fontWeight: FontWeight.w500,
+      letterSpacing: .25,
+      fontSize: 16,
     ),
   );
 }
