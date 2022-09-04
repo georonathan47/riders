@@ -80,9 +80,20 @@ Text mainText16(String text) {
   return Text(
     text,
     style: GoogleFonts.poppins(
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w600,
       letterSpacing: .25,
       fontSize: 16,
+    ),
+  );
+}
+
+Text mainText14(String text) {
+  return Text(
+    text,
+    style: GoogleFonts.poppins(
+      fontWeight: FontWeight.w600,
+      letterSpacing: .15,
+      fontSize: 14,
     ),
   );
 }

@@ -17,6 +17,8 @@ class Homepage extends StatefulWidget {
   State<Homepage> createState() => _HomepageState();
 }
 
+UtilService util = UtilService();
+
 class _HomepageState extends State<Homepage> {
   static const CameraPosition koforidua = CameraPosition(
     target: LatLng(6.078443, -0.271394),
@@ -33,12 +35,11 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         actions: [
           AvatarGlow(
-            child: CircleAvatar(
-              child: Image.asset('assets/images/logo.png', height: 65),
-            ),
-            endRadius: 65,
-            glowColor: primaryColor,
-          ),
+              child: CircleAvatar(
+                child: Image.asset('assets/images/logo.png', height: 65),
+              ),
+              endRadius: 65,
+              glowColor: Colors.white70),
         ],
         title: Text(
           ' ',
@@ -111,8 +112,11 @@ class _HomepageState extends State<Homepage> {
                             Column(
                               children: [
                                 ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.teal[300],
+                                    // shape: const CircleBorder(),
+                                  ),
                                   onPressed: () {
-                                    UtilService util = UtilService();
                                     util.newOrderToast(
                                       context,
                                       title: 'Order Accepted',
@@ -127,12 +131,16 @@ class _HomepageState extends State<Homepage> {
                                     style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 16,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.red[300],
+                                    // shape: const CircleBorder(),
+                                  ),
                                   onPressed: () {
-                                    UtilService util = UtilService();
                                     util.showSuccessToast(
                                       context,
                                       title: 'Order Cancelled Successfully.',
@@ -145,9 +153,11 @@ class _HomepageState extends State<Homepage> {
                                   },
                                   child: Text(
                                     'Cancel',
+                                    
                                     style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 16,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),

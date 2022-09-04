@@ -1,6 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:riders/index.dart';
+import 'package:riders/Splash.dart';
 
 import 'core/constants/theme.dart';
 
@@ -24,7 +24,7 @@ class Riders extends StatelessWidget {
         colors: lightTheme.toDark(),
         useMaterial3ErrorColors: true,
       ).toTheme,
-      home: const Index(),
+      home: const SplashScreen(),
     );
   }
 }

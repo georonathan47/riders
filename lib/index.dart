@@ -1,7 +1,8 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:riders/core/constants/colors.dart';
+import 'package:riders/features/Index/presentation/pages/AccountScreen.dart';
+import 'package:riders/features/Index/presentation/pages/Earnings.dart';
 import 'package:riders/features/Index/presentation/pages/Homepage.dart';
 import 'package:riders/features/Index/presentation/pages/RecentOrders.dart';
 
@@ -32,8 +33,9 @@ class _IndexState extends State<Index> {
     } else if (index == 1) {
       return const RecentOrders();
     } else if (index == 2) {
+      return const Earnings();
     } else {
-      // return const BranchesPage();
+      return const AccountScreen();
     }
     return null;
   }
@@ -54,7 +56,7 @@ class _IndexState extends State<Index> {
         Icon(Icons.home, size: 20, color: Colors.white),
         Icon(Icons.receipt_long, size: 20, color: Colors.white),
         Icon(Icons.wallet_outlined, size: 20, color: Colors.white),
-        FaIcon(FontAwesomeIcons.applePay, color: Colors.white),
+        Icon(Icons.person_outline_outlined, size: 20, color: Colors.white),
       ],
     );
   }

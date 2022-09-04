@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_share_me/flutter_share_me.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:riders/core/constants/colors.dart';
+
+FlutterShareMe shareMe = FlutterShareMe();
 
 Widget Sidebar(BuildContext context, {String? email, String? name}) {
   return Drawer(
@@ -11,7 +15,6 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              // decoration: BoxDecoration(color: PRIMARY_COLOR.withOpacity(0.2)),
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [primaryColor, Colors.lightBlue],
@@ -60,58 +63,7 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.pushNamed(context, '/notifications');
-                  },
-                ),
-              ),
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            //   child: Card(
-            //     // color: LABEL_COLOR,
-            //     elevation: .5,
-            //     child: ListTile(
-            //       leading:
-            //           Image.asset('assets/images/discount.png', height: 30),
-            //       title: Text(
-            //         'Promo Codes',
-            //         style: GoogleFonts.poppins(
-            //           fontSize: 16,
-            //           fontWeight: FontWeight.w400,
-            //           letterSpacing: .45,
-            //         ),
-            //       ),
-            //       onTap: () {
-            //         Navigator.pop(context);
-            //         // Navigator.push(
-            //         //   context,
-            //         //   MaterialPageRoute(
-            //         //     builder: (context) => const SettingsPage(),
-            //         //   ),
-            //         // );
-            //       },
-            //     ),
-            //   ),
-            // ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                elevation: .5,
-                child: ListTile(
-                  leading: const Icon(
-                    Icons.settings_outlined,
-                  ),
-                  title: Text(
-                    'Settings',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pushNamed(context, '/settings');
+                    // Navigator.push(context, '/notifications');
                   },
                 ),
               ),
@@ -138,6 +90,80 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                     //     builder: (context) => const FAQsPage(),
                     //   ),
                     // );
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Card(
+                // color: LABEL_COLOR,
+                elevation: .5,
+                child: ListTile(
+                  leading: Icon(Icons.share_outlined, size: 25),
+                  title: Text(
+                    'Invite a Friend',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: .45,
+                    ),
+                  ),
+                  onTap: () async {
+                    Navigator.pop(context);
+                    var response =
+                        shareMe.shareToSystem(msg: 'Hey, check out this app!');
+                    if (response == 'success') {
+                      print('navigate success');
+                    }
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => const SettingsPage(),
+                    //   ),
+                    // );
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Card(
+                color: Theme.of(context).cardColor,
+                elevation: .5,
+                child: ListTile(
+                  leading: FaIcon(FontAwesomeIcons.ticket),
+                  title: Text(
+                    'Open Ticket',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: .45,
+                    ),
+                  ),
+                  onTap: () => logout(context),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Card(
+                elevation: .5,
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.settings_outlined,
+                  ),
+                  title: Text(
+                    'Settings',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: .45,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    // Navigator.pushNamed(context, '/settings');
                   },
                 ),
               ),
