@@ -84,17 +84,11 @@ class _HomepageState extends State<Homepage> {
                         left: 25,
                         bottom: 10,
                       ),
-                      // padding: const EdgeInsets.all(7),
-                      decoration: const BoxDecoration(
-                        // color: Colors.white70,
+                      decoration: BoxDecoration(
                         gradient: LinearGradient(
-                            colors: [primaryColor, Colors.lightBlue]),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(35),
-                          topRight: Radius.circular(35),
-                          bottomLeft: Radius.circular(35),
-                          bottomRight: Radius.circular(35),
+                          colors: [primaryColor, secondLight],
                         ),
+                        borderRadius: BorderRadius.circular(35),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -153,7 +147,6 @@ class _HomepageState extends State<Homepage> {
                                   },
                                   child: Text(
                                     'Cancel',
-                                    
                                     style: GoogleFonts.poppins(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 16,

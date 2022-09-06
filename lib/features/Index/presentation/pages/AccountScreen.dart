@@ -66,165 +66,174 @@ class _AccountScreenState extends State<AccountScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Container(
-                            child: const Center(
-                              child: Image(
-                                height: 18,
-                                width: 18,
-                                color: Colors.white,
-                                image: AssetImage("assets/images/userIcon.png"),
-                              ),
-                            ),
-                          ),
-                        ),
-                        addHorizontal(7),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                    Card(
+                      elevation: 1,
+                      child: Container(
+                        child: Row(
                           children: [
                             Container(
-                              child: Text(
-                                "Profile",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  // color: LABEL_COLOR,
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Container(
+                                child: const Center(
+                                  child: Image(
+                                    height: 18,
+                                    width: 18,
+                                    color: Colors.white,
+                                    image: AssetImage(
+                                        "assets/images/userIcon.png"),
+                                  ),
                                 ),
                               ),
                             ),
-                            addHorizontal(5),
-                            Container(
-                              child: Text(
-                                "View your account details below",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 11.5,
-                                  fontWeight: FontWeight.w400,
-                                  // color: LABEL_COLOR,
+                            addHorizontal(7),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    "Profile",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                      // color: LABEL_COLOR,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            )
+                                addHorizontal(5),
+                                Container(
+                                  child: Text(
+                                    "View your account details below",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 11.5,
+                                      fontWeight: FontWeight.w400,
+                                      // color: LABEL_COLOR,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ],
                         ),
-                      ],
+                      ),
                     ),
-                    addVertical(18),
+                    addVertical(25),
                     ProfileCard(context),
                     addVertical(17),
-                    Row(
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Container(
-                            child: const Center(
-                              child: Image(
-                                height: 18,
-                                width: 18,
-                                color: Colors.white,
-                                image: AssetImage(
-                                  "assets/images/userIcon.png",
+                    Card(
+                      elevation: 1,
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Container(
+                              child: const Center(
+                                child: Image(
+                                  height: 20,
+                                  width: 20,
+                                  color: Colors.white,
+                                  image: AssetImage(
+                                    "assets/images/load.png",
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        addHorizontal(7),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Text(
-                                "Help and Feedback",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  // color: LABEL_COLOR,
+                          addHorizontal(7),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Text(
+                                  "Help and Feedback",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                    // color: LABEL_COLOR,
+                                  ),
                                 ),
                               ),
-                            ),
-                            addHorizontal(5),
-                            Container(
-                              child: Text(
-                                "Reach us with your feedback and questions",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 11.5,
-                                  fontWeight: FontWeight.w400,
-                                  // color: LABEL_COLOR,
+                              addHorizontal(5),
+                              Container(
+                                child: Text(
+                                  "Reach us with your feedback and questions",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 11.5,
+                                    fontWeight: FontWeight.w400,
+                                    // color: LABEL_COLOR,
+                                  ),
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                    addVertical(7),
+                    addVertical(25),
                     FeedbackCard(context),
                     addVertical(18),
-                    Row(
-                      children: [
-                        Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Container(
-                            child: const Center(
-                              child: Image(
-                                height: 20,
-                                width: 20,
-                                image: AssetImage(
-                                  "assets/images/logout.png",
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 7,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Text(
-                                "Account Session",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  // color: LABEL_COLOR,
-                                ),
-                              ),
-                            ),
-                            addHorizontal(5),
-                            Container(
-                              child: Text(
-                                "End your current active session",
-                                style: GoogleFonts.raleway(
-                                  fontSize: 11.5,
-                                  fontWeight: FontWeight.w400,
-                                  // color: LABEL_COLOR,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    addVertical(18),
+                    // Row(
+                    //   children: [
+                    //     Container(
+                    //       height: 40,
+                    //       width: 40,
+                    //       decoration: BoxDecoration(
+                    //         color: primaryColor,
+                    //         borderRadius: BorderRadius.circular(8),
+                    //       ),
+                    //       child: Container(
+                    //         child: const Center(
+                    //           child: Image(
+                    //             height: 20,
+                    //             width: 20,
+                    //             image: AssetImage(
+                    //               "assets/images/logout.png",
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 7,
+                    //     ),
+                    //     Column(
+                    //       crossAxisAlignment: CrossAxisAlignment.start,
+                    //       children: [
+                    //         Container(
+                    //           child: Text(
+                    //             "Account Session",
+                    //             style: GoogleFonts.raleway(
+                    //               fontSize: 13,
+                    //               fontWeight: FontWeight.w700,
+                    //               // color: LABEL_COLOR,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //         addHorizontal(5),
+                    //         Container(
+                    //           child: Text(
+                    //             "End your current active session",
+                    //             style: GoogleFonts.raleway(
+                    //               fontSize: 11.5,
+                    //               fontWeight: FontWeight.w400,
+                    //               // color: LABEL_COLOR,
+                    //             ),
+                    //           ),
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ],
+                    // ),
+                    // addVertical(18),
                     // GestureDetector(
                     //   onTap: () {
                     //     new UtilityService().confirmationBox(
@@ -367,6 +376,12 @@ class _AccountScreenState extends State<AccountScreen> {
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white12,
+            blurRadius: 5.0,
+          ),
+        ],
         // color: Colors.white,
       ),
       child: Padding(
@@ -459,10 +474,11 @@ class _AccountScreenState extends State<AccountScreen> {
                       child: Row(
                         children: [
                           Container(
-                            height: 18,
-                            width: 18,
+                            height: 30,
+                            width: 30,
                             decoration: BoxDecoration(
                               color: Colors.white,
+                              borderRadius: BorderRadius.circular(25),
                             ),
                             child: Icon(
                               Icons.phone,
@@ -504,6 +520,12 @@ class _AccountScreenState extends State<AccountScreen> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         // color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.white12,
+            blurRadius: 5.0,
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

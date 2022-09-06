@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:riders/core/constants/colors.dart';
-
-FlutterShareMe shareMe = FlutterShareMe();
 
 Widget Sidebar(BuildContext context, {String? email, String? name}) {
   return Drawer(
@@ -84,12 +81,6 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   onTap: () {
                     Navigator.pop(context);
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const FAQsPage(),
-                    //   ),
-                    // );
                   },
                 ),
               ),
@@ -111,17 +102,6 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   onTap: () async {
                     Navigator.pop(context);
-                    var response =
-                        shareMe.shareToSystem(msg: 'Hey, check out this app!');
-                    if (response == 'success') {
-                      print('navigate success');
-                    }
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const SettingsPage(),
-                    //   ),
-                    // );
                   },
                 ),
               ),
@@ -212,12 +192,8 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
 }
 
 logout(BuildContext context) async {
-  // var res = await PhamarxAPI().logout(LOGOUT_URL);
-  // var body = json.decode(res.body);
-
-  // print(body);
   Navigator.pop(context);
   // ? Clear User session and logout
 
-  Navigator.pushReplacementNamed(context, '/l');
+  // Navigator.pushReplacementNamed(context, '/l');
 }
