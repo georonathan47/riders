@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:riders/core/constants/colors.dart';
+import 'package:riders/features/DrawerScreens/presentation/pages/friend.dart';
 
 Widget Sidebar(BuildContext context, {String? email, String? name}) {
   return Drawer(
@@ -14,7 +15,7 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
             UserAccountsDrawerHeader(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [primaryColor, Colors.lightBlue],
+                  colors: [primaryColor, secondColor],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -102,6 +103,12 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   onTap: () async {
                     Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Invites(),
+                      ),
+                    );
                   },
                 ),
               ),

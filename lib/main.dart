@@ -15,13 +15,14 @@ class Riders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.light,
       theme: FlexColorScheme.light(
         colors: lightTheme,
         useMaterial3ErrorColors: true,
       ).toTheme,
       darkTheme: FlexColorScheme.dark(
         colors: lightTheme.toDark(),
+        background: Color.fromARGB(255, 0, 0, 0),
         useMaterial3ErrorColors: true,
       ).toTheme,
       home: const SplashScreen(),

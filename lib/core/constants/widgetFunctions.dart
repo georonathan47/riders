@@ -19,12 +19,13 @@ AppBar appBar(String title) {
       title,
       style: GoogleFonts.poppins(),
     ),
+    elevation: .75,
   );
 }
 
 AppBar appBarWithLeading(String title, {Function? onPressed}) {
   return AppBar(
-    backgroundColor: Colors.white,
+    // backgroundColor: Colors.white,
     elevation: 0.75,
     leading: Builder(
       builder: (context) => IconButton(

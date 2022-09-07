@@ -33,13 +33,16 @@ class _HomepageState extends State<Homepage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        elevation: .75,
         actions: [
           AvatarGlow(
-              child: CircleAvatar(
-                child: Image.asset('assets/images/logo.png', height: 65),
-              ),
-              endRadius: 65,
-              glowColor: Colors.white70),
+            child: CircleAvatar(
+              child: Image.asset('assets/images/logo.png', height: 65),
+            ),
+            endRadius: 65,
+            duration: const Duration(milliseconds: 1304),
+            glowColor: Colors.white70,
+          ),
         ],
         title: Text(
           ' ',
