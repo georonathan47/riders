@@ -45,14 +45,20 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AvatarGlow(
-                  glowColor: primaryColor.withOpacity(0.35),
+                  glowColor: primaryColor,
                   endRadius: 175,
                   repeat: true,
                   showTwoGlows: true,
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                    height: deviceSize.height * 0.5,
-                    width: deviceSize.width,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white54,
+                    ),
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      height: deviceSize.height * 0.5,
+                      width: deviceSize.width,
+                    ),
                   ),
                 ),
                 addVertical(deviceSize.height * 0.125),
@@ -61,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     Text(
                       'Desserts to Door',
                       style: GoogleFonts.raleway(
-                        fontSize: 18,
+                        fontSize: 20,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -69,7 +75,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     Text(
                       'RIDERS',
                       style: GoogleFonts.poppins(
-                        fontSize: 16,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

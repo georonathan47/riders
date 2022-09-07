@@ -92,7 +92,11 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                 // color: LABEL_COLOR,
                 elevation: .5,
                 child: ListTile(
-                  leading: Icon(Icons.share_outlined, size: 25),
+                  leading: Icon(
+                    Icons.share_outlined,
+                    size: 25,
+                    color: secondColor,
+                  ),
                   title: Text(
                     'Invite a Friend',
                     style: GoogleFonts.poppins(
@@ -139,6 +143,8 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                 child: ListTile(
                   leading: const Icon(
                     Icons.settings_outlined,
+                    color: secondColor,
+                    size: 25,
                   ),
                   title: Text(
                     'Settings',

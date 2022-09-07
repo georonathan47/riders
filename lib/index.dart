@@ -37,7 +37,6 @@ class _IndexState extends State<Index> {
     } else {
       return const AccountScreen();
     }
-    return null;
   }
 
   CurvedNavigationBar buildCurvedNavigationBar() {
