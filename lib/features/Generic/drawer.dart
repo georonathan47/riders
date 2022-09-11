@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:riders/core/constants/colors.dart';
 import 'package:riders/features/DrawerScreens/presentation/pages/friend.dart';
+import 'package:riders/features/DrawerScreens/presentation/pages/tickets.dart';
 
 Widget Sidebar(BuildContext context, {String? email, String? name}) {
   return Drawer(
@@ -123,17 +124,24 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                 color: Theme.of(context).cardColor,
                 elevation: .5,
                 child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.ticket),
-                  title: Text(
-                    'Open Ticket',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+                    leading: FaIcon(FontAwesomeIcons.ticket),
+                    title: Text(
+                      'Open Ticket',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .45,
+                      ),
                     ),
-                  ),
-                  onTap: () => logout(context),
-                ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Tickets(),
+                        ),
+                      );
+                    }),
               ),
             ),
             Padding(

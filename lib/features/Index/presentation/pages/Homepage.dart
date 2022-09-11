@@ -79,7 +79,7 @@ class _HomepageState extends State<Homepage> {
               alignment: Alignment.bottomCenter,
               child: !hasBeenTapped
                   ? Container(
-                      height: size.height * 0.11,
+                      height: size.height * 0.115,
                       width: size.width * 0.75,
                       margin: const EdgeInsets.only(
                         top: 25,
@@ -94,24 +94,23 @@ class _HomepageState extends State<Homepage> {
                         borderRadius: BorderRadius.circular(35),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Delivery Available',
+                              'Delivery\nAvailable',
                               style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w400,
                                 fontSize: 18,
                                 color: Colors.white,
                               ),
                             ),
-                            addHorizontal(25),
                             Column(
                               children: [
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    primary: Colors.teal[300],
-                                    // shape: const CircleBorder(),
+                                    backgroundColor: Colors.teal[300],
                                   ),
                                   onPressed: () {
                                     util.newOrderToast(
@@ -126,15 +125,15 @@ class _HomepageState extends State<Homepage> {
                                   child: Text(
                                     'Accept',
                                     style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.white,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    primary: Colors.red[300],
+                                    backgroundColor: Colors.red[300],
                                     // shape: const CircleBorder(),
                                   ),
                                   onPressed: () {
@@ -151,9 +150,9 @@ class _HomepageState extends State<Homepage> {
                                   child: Text(
                                     'Cancel',
                                     style: GoogleFonts.poppins(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.white,
+                                      fontWeight: FontWeight.w400,
                                     ),
                                   ),
                                 ),
