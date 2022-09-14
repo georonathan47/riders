@@ -16,7 +16,12 @@ class _TicketsState extends State<Tickets> {
       appBar: appBar('Open Tickets - 0'),
       body: screenBody(
         size,
-        children: [],
+        children: [
+          addVertical(10),
+          Center(
+            child: mainText14('⛔ No open tickets'),
+          ),
+        ],
       ),
     );
   }

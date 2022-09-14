@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:riders/core/constants/widgetFunctions.dart';
+import 'package:riders/core/utils/UtilService.dart';
 
 class Invites extends StatefulWidget {
   const Invites({Key? key}) : super(key: key);
@@ -47,14 +48,21 @@ class _InvitesState extends State<Invites> {
                   addVertical(30),
                   SizedBox(
                     width: size.width * 0.45,
+                    height: size.height * 0.055,
                     child: ElevatedButton(
-                      onPressed: null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.teal[500],
+                        shape: const StadiumBorder(),
+                      ),
+                      onPressed: () {
+                        UtilService().showSuccessToast(
+                          context,
+                          desc: 'Copied to clipboard!',
+                        );
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          subText('Copy Link'),
-                          FaIcon(FontAwesomeIcons.share, size: 25)
-                        ],
+                        children: [subText('Copy Link'), FaIcon(FontAwesomeIcons.share, size: 25)],
                       ),
                     ),
                   )

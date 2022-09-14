@@ -48,10 +48,17 @@ class _AccountScreenState extends State<AccountScreen> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              "assets/images/logo.png",
-              height: 65,
+            padding: const EdgeInsets.all(5),
+            child: CircleAvatar(
+              backgroundColor: Colors.white70,
+              child: AvatarGlow(
+                endRadius: 53,
+                duration: const Duration(milliseconds: 1500),
+                child: Image.asset(
+                  "assets/images/logo.png",
+                  height: 65,
+                ),
+              ),
             ),
           ),
         ],
@@ -84,8 +91,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                     height: 18,
                                     width: 18,
                                     color: Colors.white,
-                                    image: AssetImage(
-                                        "assets/images/userIcon.png"),
+                                    image: AssetImage("assets/images/userIcon.png"),
                                   ),
                                 ),
                               ),
@@ -561,19 +567,16 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                       ),
                       addVertical(6),
-                      // Container(
-                      //   child: Text(
-                      //     (globalDashboardModel != null &&
-                      //             globalDashboardModel.prrCount != null)
-                      //         ? 'All Properties- ${globalDashboardModel.prrCount}'
-                      //         : '-',
-                      //     style: GoogleFonts.raleway(
-                      //       fontSize: 14,
-                      //       fontWeight: FontWeight.w600,
-                      //       color: LABEL_COLOR,
-                      //     ),
-                      //   ),
-                      // ),
+                      Container(
+                        child: Text(
+                          'Big Danny',
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: .45,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

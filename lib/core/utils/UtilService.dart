@@ -11,7 +11,7 @@ class UtilService {
   }) {
     AchievementView(
       context,
-      title: title!,
+      title: title ?? 'Success',
       subTitle: desc!,
       elevation: elevation!,
       color: Colors.teal[400]!.withOpacity(0.75),

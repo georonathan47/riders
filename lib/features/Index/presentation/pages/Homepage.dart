@@ -38,14 +38,15 @@ class _HomepageState extends State<Homepage> {
           AvatarGlow(
             child: CircleAvatar(
               child: Image.asset('assets/images/logo.png', height: 65),
+              backgroundColor: Colors.white70,
             ),
             endRadius: 65,
-            duration: const Duration(milliseconds: 1304),
-            glowColor: Colors.white70,
+            duration: const Duration(milliseconds: 1500),
+            glowColor: Colors.white,
           ),
         ],
         title: Text(
-          ' ',
+          'Homepage',
           style: GoogleFonts.poppins(),
         ),
         centerTitle: true,
@@ -111,6 +112,7 @@ class _HomepageState extends State<Homepage> {
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.teal[300],
+                                    shape: const StadiumBorder(),
                                   ),
                                   onPressed: () {
                                     util.newOrderToast(
@@ -134,14 +136,13 @@ class _HomepageState extends State<Homepage> {
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.red[300],
-                                    // shape: const CircleBorder(),
+                                    shape: const StadiumBorder(),
                                   ),
                                   onPressed: () {
                                     util.showSuccessToast(
                                       context,
                                       title: 'Order Cancelled Successfully.',
-                                      desc:
-                                          'You have cancelled order D2D-01235',
+                                      desc: 'You have cancelled order D2D-01235',
                                     );
                                     setState(() {
                                       hasBeenTapped = true;

@@ -52,10 +52,10 @@ class EarningsCard extends StatelessWidget {
                                     FontAwesomeIcons.locationPin,
                                     color: Colors.red[400],
                                   ),
-                                  mainText14('Two Streams'),
+                                  mainText14('Adweso'),
                                 ],
                               ),
-                              addHorizontal(2),
+                              addHorizontal(1),
                               SizedBox(
                                 width: size.width * 0.15,
                                 child: const Divider(
