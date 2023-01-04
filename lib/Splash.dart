@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:riders/core/constants/colors.dart';
-import 'package:riders/index.dart';
 
+import 'core/constants/colors.dart';
 import 'core/constants/widgetFunctions.dart';
+import 'features/Generic/auth/login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const Index(),
+          builder: (context) => const Login(),
         ),
       ),
     );

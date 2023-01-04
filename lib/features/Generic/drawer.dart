@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:riders/core/constants/colors.dart';
-import 'package:riders/features/DrawerScreens/presentation/pages/friend.dart';
-import 'package:riders/features/DrawerScreens/presentation/pages/tickets.dart';
+
+import '../../core/constants/colors.dart';
+import '../../core/services/apiService.dart';
+import '../DrawerScreens/presentation/pages/friend.dart';
+import '../DrawerScreens/presentation/pages/tickets.dart';
+import 'auth/login.dart';
 
 Widget Sidebar(BuildContext context, {String? email, String? name}) {
   return Drawer(
@@ -72,6 +75,26 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
               child: Card(
                 elevation: .5,
                 child: ListTile(
+                  leading: Icon(Icons.wallet_outlined, size: 25, color: secondColor),
+                  title: Text(
+                    'Wallet',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: .45,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Card(
+                elevation: .5,
+                child: ListTile(
                   leading: Image.asset('assets/images/faq.png', height: 30),
                   title: Text(
                     'FAQs',
@@ -124,24 +147,25 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                 color: Theme.of(context).cardColor,
                 elevation: .5,
                 child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.ticket),
-                    title: Text(
-                      'Open Ticket',
-                      style: GoogleFonts.poppins(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: .45,
-                      ),
+                  leading: FaIcon(FontAwesomeIcons.ticket),
+                  title: Text(
+                    'Open Ticket',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: .45,
                     ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Tickets(),
-                        ),
-                      );
-                    }),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Tickets(),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             Padding(
@@ -215,6 +239,14 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
 logout(BuildContext context) async {
   Navigator.pop(context);
   // ? Clear User session and logout
+  await ApiService().logout(refreshToken).then((value) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const Login(),
+      ),
+    );
+  });
 
   // Navigator.pushReplacementNamed(context, '/l');
 }

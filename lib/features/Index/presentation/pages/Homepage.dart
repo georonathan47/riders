@@ -3,12 +3,13 @@ import 'dart:async';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:platform_maps_flutter/platform_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 import 'package:riders/core/constants/colors.dart';
 import 'package:riders/core/utils/UtilService.dart';
 import 'package:riders/features/Generic/drawer.dart';
 
-import '../../../../core/constants/widgetFunctions.dart';
+// import '../../../../core/constants/widgetFunctions.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _HomepageState extends State<Homepage> {
     zoom: 16,
   );
   // final Set<Marker> _markers = {};
-  final Completer<PlatformMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
   bool hasBeenTapped = false;
   @override
@@ -69,10 +70,10 @@ class _HomepageState extends State<Homepage> {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            PlatformMap(
+            GoogleMap(
               initialCameraPosition: koforidua,
               mapType: MapType.satellite,
-              onMapCreated: (PlatformMapController controller) {
+              onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
             ),
