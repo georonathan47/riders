@@ -116,7 +116,8 @@ Widget buildTextField(
       readOnly: uneditable ? true : false,
       obscureText: isPasswordTextField ? true : false,
       controller: controller,
-      keyboardType: isContact == true ? TextInputType.phone : TextInputType.text,
+      keyboardType:
+          isContact == true ? TextInputType.phone : TextInputType.text,
       decoration: InputDecoration(
         prefixIcon: isPasswordTextField
             ? const Icon(
@@ -153,16 +154,19 @@ Widget buildTextField(
         hintStyle: GoogleFonts.raleway(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: Colors.black54,
+          // color: Colors.black54,
         ),
         labelStyle: GoogleFonts.raleway(
           fontSize: 16,
           fontWeight: FontWeight.w400,
-          color: Colors.black,
+          // color: Colors.black,
           letterSpacing: .25,
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.black54, width: 0.5),
+          borderSide: const BorderSide(
+            // color: Colors.black54,
+            width: 0.5,
+          ),
           borderRadius: BorderRadius.circular(15),
         ),
         focusedBorder: OutlineInputBorder(

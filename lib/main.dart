@@ -1,15 +1,40 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:riders/Splash.dart';
+import 'package:provider/provider.dart';
 
+import 'Splash.dart';
 import 'core/constants/theme.dart';
+import 'core/utils/appConfig.dart';
 
-void main() {
-  runApp(const Riders());
+dynamic envVar;
+
+void main({String? env}) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  env ??= 'dev';
+  print('Working from the $env environment');
+  final config = await AppConfig.forEnvironment(env);
+  envVar = config.env;
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (context) => AppConfig(
+          env: config.env,
+          version: config.version,
+          baseUrl: config.baseUrl,
+          loginUrl: config.loginUrl,
+          logoutUrl: config.logoutUrl,
+          registerUrl: config.registerUrl,
+        ),
+      ),
+    ],
+    child: Riders(config: config),
+  );
 }
 
 class Riders extends StatelessWidget {
-  const Riders({Key? key}) : super(key: key);
+  final AppConfig config;
+  const Riders({Key? key, required this.config}) : super(key: key);
 
   // This widget is the root of your application.
   @override

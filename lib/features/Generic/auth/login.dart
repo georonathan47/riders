@@ -22,11 +22,11 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3F3F3),
+      // backgroundColor: const Color(0xFFF3F3F3),
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(),
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
+          margin: const EdgeInsets.only(left: 20, right: 20, top: 80),
           child: Padding(
             padding: const EdgeInsets.only(top: 40),
             child: Form(
@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
                           'Log',
                           style: GoogleFonts.lato(
                             fontWeight: FontWeight.w700,
-                            color: Colors.black,
+                            // color: Colors.black,
                             fontSize: 40,
                           ),
                         ),
@@ -65,7 +65,7 @@ class _LoginState extends State<Login> {
                       'Enter credentials to continue!',
                       style: GoogleFonts.lato(
                         fontWeight: FontWeight.w400,
-                        color: Colors.black54,
+                        // color: Colors.black54,
                         fontSize: 20,
                       ),
                     ),
@@ -80,7 +80,8 @@ class _LoginState extends State<Login> {
                     ),
                     addVertical(10),
                     Padding(
-                      padding: const EdgeInsets.only(top: 1.5, left: 5, right: 5, bottom: 7.5),
+                      padding: const EdgeInsets.only(
+                          top: 1.5, left: 5, right: 5, bottom: 7.5),
                       child: TextFormField(
                         readOnly: false,
                         obscureText: seePassword,
@@ -116,20 +117,26 @@ class _LoginState extends State<Login> {
                           hintStyle: GoogleFonts.raleway(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
-                            color: Colors.black54,
+                            // color: Colors.black54,
                           ),
                           labelStyle: GoogleFonts.raleway(
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
-                            color: Colors.black,
+                            // color: Colors.black,
                             letterSpacing: .25,
                           ),
                           enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.black54, width: 0.5),
+                            borderSide: const BorderSide(
+                              // color: Colors.black54,
+                              width: 0.5,
+                            ),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: primaryColor, width: 1),
+                            borderSide: const BorderSide(
+                              color: primaryColor,
+                              width: 1,
+                            ),
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
@@ -138,7 +145,8 @@ class _LoginState extends State<Login> {
                     addVertical(30),
                     ElevatedButton(
                       onPressed: () async {
-                        if (usernameController.text.isEmpty && passwordController.text.isEmpty) {
+                        if (usernameController.text.isEmpty &&
+                            passwordController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
@@ -164,7 +172,7 @@ class _LoginState extends State<Login> {
                               backgroundColor: Colors.red[200],
                             ),
                           );
-                        } else if (usernameController.text.length < 6) {
+                        } else if (passwordController.text.length < 6) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(
@@ -215,7 +223,8 @@ class _LoginState extends State<Login> {
         .then(
       (value) {
         print('Refresh Token: $refreshToken');
-        if (value.statusCode == 201) {
+        if (value!.statusCode == 200) {
+          print('Response: ${value.body}');
           refreshToken = value.body[0];
           print('Refresh Token: $refreshToken');
           Navigator.pushReplacement(

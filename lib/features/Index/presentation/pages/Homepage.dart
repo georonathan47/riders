@@ -79,7 +79,7 @@ class _HomepageState extends State<Homepage> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: !hasBeenTapped
+              child: hasBeenTapped
                   ? Container(
                       height: size.height * 0.115,
                       width: size.width * 0.75,
@@ -143,7 +143,8 @@ class _HomepageState extends State<Homepage> {
                                     util.showSuccessToast(
                                       context,
                                       title: 'Order Cancelled Successfully.',
-                                      desc: 'You have cancelled order D2D-01235',
+                                      desc:
+                                          'You have cancelled order D2D-01235',
                                     );
                                     setState(() {
                                       hasBeenTapped = true;
