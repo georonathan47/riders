@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:riders/core/constants/colors.dart';
-import 'package:riders/core/constants/widgetFunctions.dart';
+
+import '../../../../core/constants/colors.dart';
+import '../../../../core/constants/widgetFunctions.dart';
 
 class RecentCard extends StatefulWidget {
   const RecentCard({Key? key}) : super(key: key);

@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart';
 
+import '../../core/components/progressDialog.dart';
 import '../../core/constants/colors.dart';
 import '../../core/services/apiService.dart';
+import '../../core/utils/appConfig.dart';
+import '../../main.dart';
 import '../DrawerScreens/presentation/pages/friend.dart';
 import '../DrawerScreens/presentation/pages/tickets.dart';
 import 'auth/login.dart';
@@ -52,15 +58,24 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Card(
                 // color: WARNING.shade100,
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
                 elevation: .5,
                 child: ListTile(
                   leading: Image.asset('assets/images/bell.png', height: 25),
                   title: Text(
                     'Notifications',
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+                      letterSpacing: .65,
                     ),
                   ),
                   onTap: () {
@@ -73,15 +88,25 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
                 elevation: .5,
                 child: ListTile(
-                  leading: Icon(Icons.wallet_outlined, size: 25, color: secondColor),
+                  leading:
+                      Icon(Icons.wallet_outlined, size: 25, color: secondColor),
                   title: Text(
                     'Wallet',
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+                      letterSpacing: .65,
                     ),
                   ),
                   onTap: () {
@@ -93,15 +118,24 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
                 elevation: .5,
                 child: ListTile(
                   leading: Image.asset('assets/images/faq.png', height: 30),
                   title: Text(
                     'FAQs',
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+                      letterSpacing: .65,
                     ),
                   ),
                   onTap: () {
@@ -113,6 +147,15 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
                 // color: LABEL_COLOR,
                 elevation: .5,
                 child: ListTile(
@@ -124,9 +167,9 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   title: Text(
                     'Invite a Friend',
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+                      letterSpacing: .65,
                     ),
                   ),
                   onTap: () async {
@@ -144,6 +187,15 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
                 color: Theme.of(context).cardColor,
                 elevation: .5,
                 child: ListTile(
@@ -151,9 +203,9 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   title: Text(
                     'Open Ticket',
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+                      letterSpacing: .65,
                     ),
                   ),
                   onTap: () {
@@ -171,6 +223,15 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
                 elevation: .5,
                 child: ListTile(
                   leading: const Icon(
@@ -181,9 +242,9 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   title: Text(
                     'Settings',
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+                      letterSpacing: .65,
                     ),
                   ),
                   onTap: () {
@@ -196,6 +257,15 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
                 color: Theme.of(context).cardColor,
                 elevation: .5,
                 child: ListTile(
@@ -203,9 +273,9 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   title: Text(
                     'Logout',
                     style: GoogleFonts.poppins(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+                      letterSpacing: .65,
                     ),
                   ),
                   onTap: () => logout(context),
@@ -223,10 +293,10 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
             alignment: Alignment.bottomCenter,
             child: Text(
               'Version: v1.0.0',
-              style: GoogleFonts.poppins(
-                fontSize: 16,
+              style: GoogleFonts.raleway(
+                fontSize: 14,
                 fontWeight: FontWeight.w400,
-                letterSpacing: .5,
+                letterSpacing: .75,
               ),
             ),
           ),
@@ -237,16 +307,63 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
 }
 
 logout(BuildContext context) async {
-  Navigator.pop(context);
-  // ? Clear User session and logout
-  await ApiService().logout(refreshToken).then((value) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const Login(),
+  final config = await AppConfig.forEnvironment(envVar);
+  try {
+    Navigator.pop(context);
+    // ? Clear User session and logout
+    // await ApiService().logout(refreshToken).then((value) {
+    showDialog(
+      context: context,
+      builder: (context) => const ProgressDialog(
+        displayMessage: 'Logging out...',
       ),
     );
-  });
 
-  // Navigator.pushReplacementNamed(context, '/l');
+    Future.delayed(const Duration(seconds: 2));
+
+    Response? response = await ApiService().postData(
+      url: config.logoutUrl,
+      body: jsonEncode(refreshToken),
+    );
+
+    print(response!.statusCode);
+    if (response.statusCode == 201) {
+      print('Logout successful');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Login(),
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'You have successfully logged out!',
+            style: GoogleFonts.raleway(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: Colors.teal[200],
+        ),
+      );
+    } else {
+      print('Logout failed');
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'An error occurred! Please try again later!',
+            style: GoogleFonts.raleway(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: Colors.red[200],
+        ),
+      );
+    }
+  } catch (error, stacktrace) {
+    print('Exception occured: $error\n stackTrace: $stacktrace');
+  }
 }

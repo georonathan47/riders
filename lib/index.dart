@@ -9,7 +9,8 @@ import 'features/Index/presentation/pages/Homepage.dart';
 import 'features/Index/presentation/pages/RecentOrders.dart';
 
 class Index extends StatefulWidget {
-  const Index({Key? key}) : super(key: key);
+  String? username;
+  Index({Key? key, this.username}) : super(key: key);
 
   @override
   State<Index> createState() => _IndexState();
@@ -31,9 +32,7 @@ class _IndexState extends State<Index> {
     if (index == 0) {
       return const Dashboard();
     } else if (index == 1) {
-      ///* do another if check here to see if the login details have a
-      ///* isAdmin property. If isAdmin == true, show everything admin
-      return const Homepage();
+      return Homepage(username: widget.username);
     } else if (index == 2) {
       return const RecentOrders();
     } else if (index == 3) {

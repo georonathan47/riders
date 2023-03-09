@@ -12,7 +12,8 @@ import 'package:riders/features/Generic/drawer.dart';
 // import '../../../../core/constants/widgetFunctions.dart';
 
 class Homepage extends StatefulWidget {
-  const Homepage({Key? key}) : super(key: key);
+  final String? username;
+  const Homepage({Key? key, this.username}) : super(key: key);
 
   @override
   State<Homepage> createState() => _HomepageState();

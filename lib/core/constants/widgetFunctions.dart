@@ -154,23 +154,23 @@ Widget buildTextField(
         hintStyle: GoogleFonts.raleway(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          // color: Colors.black54,
         ),
         labelStyle: GoogleFonts.raleway(
           fontSize: 16,
           fontWeight: FontWeight.w400,
-          // color: Colors.black,
           letterSpacing: .25,
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            // color: Colors.black54,
             width: 0.5,
           ),
           borderRadius: BorderRadius.circular(15),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: primaryColor, width: 1),
+          borderSide: BorderSide(
+            color: primaryColor.withOpacity(0.35),
+            width: 1,
+          ),
           borderRadius: BorderRadius.circular(15),
         ),
       ),
