@@ -45,6 +45,7 @@ class Riders extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: envVar == 'prod' ? false : true,
       themeMode: ThemeMode.system,
       theme: ThemeData(
         brightness: Brightness.light,

@@ -10,8 +10,12 @@ import '../../core/constants/colors.dart';
 import '../../core/services/apiService.dart';
 import '../../core/utils/appConfig.dart';
 import '../../main.dart';
+import '../DrawerScreens/presentation/pages/Notifications.dart';
+import '../DrawerScreens/presentation/pages/faqs.dart';
 import '../DrawerScreens/presentation/pages/friend.dart';
+import '../DrawerScreens/presentation/pages/settings.dart';
 import '../DrawerScreens/presentation/pages/tickets.dart';
+import '../DrawerScreens/presentation/pages/wallet.dart';
 import 'auth/login.dart';
 
 Widget Sidebar(BuildContext context, {String? email, String? name}) {
@@ -80,6 +84,12 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationsPage(),
+                      ),
+                    );
                     // Navigator.push(context, '/notifications');
                   },
                 ),
@@ -111,6 +121,12 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WalletPage(),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -140,6 +156,12 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FAQs(),
+                      ),
+                    );
                   },
                 ),
               ),
@@ -249,6 +271,12 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SettingsPage(),
+                      ),
+                    );
                     // Navigator.pushNamed(context, '/settings');
                   },
                 ),
@@ -321,13 +349,13 @@ logout(BuildContext context) async {
 
     Future.delayed(const Duration(seconds: 2));
 
-    Response? response = await ApiService().postData(
+    Response? logoutResponse = await ApiService().postData(
       url: config.logoutUrl,
-      body: jsonEncode(refreshToken),
+      body: jsonEncode({refreshToken}),
     );
 
-    print(response!.statusCode);
-    if (response.statusCode == 201) {
+    print(logoutResponse!.statusCode);
+    if (logoutResponse.statusCode == 201) {
       print('Logout successful');
       Navigator.pushReplacement(
         context,

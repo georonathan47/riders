@@ -220,7 +220,7 @@ class _LoginState extends State<Login> {
         ),
       );
 
-      Response? loginResponse = await ApiService().postData(
+      Response? response = await ApiService().postData(
         url: config.loginUrl,
         body: jsonEncode({
           'username': usernameController.text.trim(),
@@ -229,9 +229,10 @@ class _LoginState extends State<Login> {
       );
 
       Future.delayed(const Duration(seconds: 1));
-      if (loginResponse!.statusCode == 200) {
-        print('Response: ${loginResponse.body}');
-        refreshToken = loginResponse.body[0];
+      if (response!.statusCode == 200) {
+        var loginResponse = jsonDecode(response.body);
+        print('loginResponse: ${loginResponse}');
+        refreshToken = loginResponse['refresh'];
         print('Refresh Token: $refreshToken');
         username = usernameController.text.trim();
         Navigator.of(context, rootNavigator: true).pop();
