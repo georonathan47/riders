@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/components/progressDialog.dart';
 import '../../core/constants/colors.dart';
@@ -16,6 +17,7 @@ import '../DrawerScreens/presentation/pages/friend.dart';
 import '../DrawerScreens/presentation/pages/settings.dart';
 import '../DrawerScreens/presentation/pages/tickets.dart';
 import '../DrawerScreens/presentation/pages/wallet.dart';
+import 'auth/authProvider.dart';
 import 'auth/login.dart';
 
 Widget Sidebar(BuildContext context, {String? email, String? name}) {
@@ -232,12 +234,7 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Tickets(),
-                      ),
-                    );
+                    fetchTickets(context);
                   },
                 ),
               ),
@@ -334,6 +331,44 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
   );
 }
 
+fetchTickets(BuildContext context) async {
+  final config = await AppConfig.forEnvironment(envVar);
+  try {
+    showDialog(
+      context: context,
+      builder: (context) => const ProgressDialog(
+        displayMessage: 'Fetching tickets...\nPlease wait!',
+      ),
+    );
+
+    Response? response = await ApiService().getDataWithAuth(
+      url: config.ticketingUrl!,
+      auth: context.read<AuthProvider>().accessToken,
+    );
+    print('response: $response');
+
+    if (response!.statusCode == 200) {
+      // ? TODO: Fix response return string instead of list
+      var fetchTicketsResponse = response.body;
+      print('fetchTicketsResponse: $fetchTicketsResponse');
+
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Tickets(response: fetchTicketsResponse),
+        ),
+      );
+    } else {
+      Navigator.pop(context);
+      print(response.body);
+    }
+  } catch (error, stackTrace) {
+    print('Exception occured: $error\nstackTrace: $stackTrace');
+    Navigator.pop(context);
+  }
+}
+
 logout(BuildContext context) async {
   final config = await AppConfig.forEnvironment(envVar);
   try {
@@ -351,7 +386,7 @@ logout(BuildContext context) async {
 
     Response? logoutResponse = await ApiService().postData(
       url: config.logoutUrl,
-      body: jsonEncode({refreshToken}),
+      body: jsonEncode({context.read<AuthProvider>().accessToken}),
     );
 
     print(logoutResponse!.statusCode);

@@ -10,6 +10,7 @@ class AppConfig extends ChangeNotifier {
   String? registerUrl;
   String? ridersUrl;
   String? approvalUrl;
+  String? ticketingUrl;
 
   AppConfig({
     this.env,
@@ -20,6 +21,7 @@ class AppConfig extends ChangeNotifier {
     this.registerUrl,
     this.approvalUrl,
     this.ridersUrl,
+    this.ticketingUrl,
   });
 
   static Future<AppConfig> forEnvironment(String env) async {
@@ -41,6 +43,7 @@ class AppConfig extends ChangeNotifier {
       registerUrl: dotenv.env["RegisterUrl"],
       approvalUrl: dotenv.env["ApprovalUrl"],
       ridersUrl: dotenv.env["RidersUrl"],
+      ticketingUrl: dotenv.env["TicketingUrl"],
     );
   }
 }

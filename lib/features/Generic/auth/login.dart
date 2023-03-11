@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/widgetFunctions.dart';
@@ -11,6 +12,7 @@ import '../../../core/services/apiService.dart';
 import '../../../core/utils/appConfig.dart';
 import '../../../index.dart';
 import '../../../main.dart';
+import 'authProvider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -19,7 +21,7 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-String refreshToken = '';
+String accessToken = '';
 String? username;
 
 class _LoginState extends State<Login> {
@@ -232,8 +234,9 @@ class _LoginState extends State<Login> {
       if (response!.statusCode == 200) {
         var loginResponse = jsonDecode(response.body);
         print('loginResponse: ${loginResponse}');
-        refreshToken = loginResponse['refresh'];
-        print('Refresh Token: $refreshToken');
+        accessToken = loginResponse['access'];
+        context.read<AuthProvider>().saveAccessToken(accessToken);
+        print('Access Token: $accessToken');
         username = usernameController.text.trim();
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.pushReplacement(

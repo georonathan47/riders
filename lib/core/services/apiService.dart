@@ -1,27 +1,13 @@
-import 'dart:io';
-
 import 'package:http/http.dart';
 
 class ApiService {
-  Future<Response?> getData(String url,
-      {Map<String, String>? queryParameters}) async {
-    Map<String, String> headers = {
-      'Content-type': 'application/json',
-    };
-    try {
-      var uri = Uri.parse(url);
-      Response response = await get(uri, headers: headers);
-      return response;
-    } catch (e) {
-      print('Network Service Error: ${e.toString()}');
-      return null;
-    }
-  }
-
   Future<Response?> getDataWithAuth({String? url, String? auth}) async {
     var uri = Uri.parse(url!);
 
-    Map<String, String> headers = {HttpHeaders.authorizationHeader: auth!};
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer $auth',
+    };
     try {
       Response response = await get(uri, headers: headers);
       return response;
@@ -31,9 +17,10 @@ class ApiService {
     }
   }
 
-  Future<Response?> postData({String? url, String? body}) async {
+  Future<Response?> postData({String? url, String? body, String? auth}) async {
     Map<String, String> headers = {
       'Content-type': 'application/json',
+      'Authorization': 'Bearer $auth',
     };
     var uri = Uri.parse(url!);
     try {
@@ -45,10 +32,12 @@ class ApiService {
     }
   }
 
-  Future<Response?> putData({String? url, String? body}) async {
+  Future<Response?> putDataWithAuth(
+      {String? url, String? body, String? auth}) async {
     // final config = await AppConfig.forEnvironment(envVar);
     Map<String, String> headers = {
       'Content-type': 'application/json',
+      'Authorization': 'Bearer $auth',
     };
     var uri = Uri.parse(url!);
     try {
@@ -60,12 +49,15 @@ class ApiService {
     }
   }
 
-  Future<Response?> postDataWithAuth(
-      {String? url, String? body, String? auth}) async {
+  Future<Response?> postDataWithAuth({
+    String? url,
+    String? body,
+    String? auth,
+  }) async {
     var uri = Uri.parse(url!);
     Map<String, String> headers = {
       'Content-type': 'application/json',
-      HttpHeaders.authorizationHeader: auth!
+      'Authorization': 'Bearer $auth',
     };
     try {
       Response response = await post(uri, headers: headers, body: body);

@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'Splash.dart';
 import 'core/constants/colors.dart';
 import 'core/utils/appConfig.dart';
+import 'features/Generic/auth/authProvider.dart';
 
 dynamic envVar;
 
@@ -19,6 +20,7 @@ void main({String? env}) async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(
           create: (context) => AppConfig(
             env: config.env,

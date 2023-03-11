@@ -42,100 +42,102 @@ class _HomepageState extends State<Homepage> {
             GoogleMap(
               initialCameraPosition: koforidua,
               mapType: MapType.normal,
+              zoomControlsEnabled: false,
+              zoomGesturesEnabled: false,
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
             ),
             Align(
-                alignment: Alignment.bottomCenter,
-                child: // hasBeenTapped
-                    // ?
-                    Container(
-                  height: size.height * 0.115,
-                  width: size.width * 0.75,
-                  margin: const EdgeInsets.only(
-                    top: 25,
-                    right: 15,
-                    left: 25,
-                    bottom: 10,
-                  ),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [primaryColor, secondLight],
-                    ),
-                    borderRadius: BorderRadius.circular(35),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Delivery\nAvailable',
-                          style: GoogleFonts.poppins(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
+              alignment: Alignment.bottomCenter,
+              child: hasBeenTapped
+                  ? Container(
+                      height: size.height * 0.115,
+                      width: size.width * 0.75,
+                      margin: const EdgeInsets.only(
+                        top: 25,
+                        right: 15,
+                        left: 25,
+                        bottom: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [primaryColor, secondLight],
                         ),
-                        Column(
+                        borderRadius: BorderRadius.circular(35),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.teal[300],
-                                shape: const StadiumBorder(),
-                              ),
-                              onPressed: () {
-                                util.newOrderToast(
-                                  context,
-                                  title: 'Order Accepted',
-                                  desc: 'You have accepted order D2D-01235',
-                                );
-                                setState(() {
-                                  hasBeenTapped = true;
-                                });
-                              },
-                              child: Text(
-                                'Accept',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                            Text(
+                              'Delivery\nAvailable',
+                              style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18,
+                                color: Colors.white,
                               ),
                             ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.red[300],
-                                shape: const StadiumBorder(),
-                              ),
-                              onPressed: () {
-                                util.showSuccessToast(
-                                  context,
-                                  title: 'Order Cancelled Successfully.',
-                                  desc: 'You have cancelled order D2D-01235',
-                                );
-                                setState(() {
-                                  hasBeenTapped = true;
-                                });
-                              },
-                              child: Text(
-                                'Cancel',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
+                            Column(
+                              children: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.teal[300],
+                                    shape: const StadiumBorder(),
+                                  ),
+                                  onPressed: () {
+                                    util.newOrderToast(
+                                      context,
+                                      title: 'Order Accepted',
+                                      desc: 'You have accepted order D2D-01235',
+                                    );
+                                    setState(() {
+                                      hasBeenTapped = true;
+                                    });
+                                  },
+                                  child: Text(
+                                    'Accept',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.red[300],
+                                    shape: const StadiumBorder(),
+                                  ),
+                                  onPressed: () {
+                                    util.showSuccessToast(
+                                      context,
+                                      title: 'Order Cancelled Successfully.',
+                                      desc:
+                                          'You have cancelled order D2D-01235',
+                                    );
+                                    setState(() {
+                                      hasBeenTapped = true;
+                                    });
+                                  },
+                                  child: Text(
+                                    'Cancel',
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                )
-                // : null,
-                ),
+                      ),
+                    )
+                  : null,
+            ),
           ],
         ),
       ),

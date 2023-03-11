@@ -73,7 +73,7 @@ class _RecentCardState extends State<RecentCard> {
                       isExpanded = !isExpanded;
                     });
                   },
-                  icon: isExpanded
+                  icon: isExpanded == false
                       ? Icon(
                           size: 35,
                           color: secondColor,
