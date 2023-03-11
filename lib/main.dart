@@ -131,6 +131,7 @@ class Riders extends StatelessWidget {
             ),
           ).titleLarge,
         ),
+        
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),

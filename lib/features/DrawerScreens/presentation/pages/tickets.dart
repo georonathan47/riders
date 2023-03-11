@@ -17,7 +17,7 @@ class _TicketsState extends State<Tickets> {
   void initState() {
     super.initState();
     setState(() {
-      ticketSize = widget.response.toList().length;
+      ticketSize = widget.response.length;
     });
   }
 
@@ -30,13 +30,39 @@ class _TicketsState extends State<Tickets> {
         size,
         children: [
           addVertical(10),
-          Center(
-            child: ticketSize == 0
-                ? mainText14('⛔ No open tickets')
-                : mainText14('🎫 Open Tickets'),
-          ),
+          ticketSize == 0
+              ? mainText14('⛔ No open tickets')
+              : availableTickets(),
         ],
       ),
     );
   }
+}
+
+Widget availableTickets() {
+  return ListView.builder(
+    itemCount: ticketSize,
+    shrinkWrap: true,
+    physics: BouncingScrollPhysics(),
+    itemBuilder: (context, index) => Card(
+      shape: ShapeBorder.lerp(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        0.75,
+      ),
+      child: Container(
+        height: 100,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          // color: Colors.red[100],
+          borderRadius: BorderRadius.circular(7.5),
+        ),
+        margin: const EdgeInsets.all(5),
+      ),
+    ),
+  );
 }

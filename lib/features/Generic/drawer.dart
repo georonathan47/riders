@@ -20,313 +20,323 @@ import '../DrawerScreens/presentation/pages/wallet.dart';
 import 'auth/authProvider.dart';
 import 'auth/login.dart';
 
+dynamic version;
 Widget Sidebar(BuildContext context, {String? email, String? name}) {
   return Drawer(
     elevation: 1.25,
-    child: Stack(
-      children: [
-        ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [primaryColor, secondColor],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+    child: GestureDetector(
+      onTap: () async {
+        final config = await AppConfig.forEnvironment(envVar);
+        version = config.version;
+      },
+      child: Stack(
+        children: [
+          ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              UserAccountsDrawerHeader(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [primaryColor, secondColor],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                currentAccountPicture: CircleAvatar(
+                  radius: 65,
+                  backgroundColor: Colors.white60,
+                  child: Image.asset('assets/images/logo.png'),
+                ),
+                accountName: Text(
+                  'Hello, $name!',
+                  style: GoogleFonts.lato(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: .25,
+                  ),
+                ),
+                accountEmail: Text(
+                  email!,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: .25,
+                  ),
                 ),
               ),
-              currentAccountPicture: CircleAvatar(
-                radius: 65,
-                backgroundColor: Colors.white60,
-                child: Image.asset('assets/images/logo.png'),
-              ),
-              accountName: Text(
-                'Hello, $name!',
-                style: GoogleFonts.lato(
-                  fontSize: 14,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: .25,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  // color: WARNING.shade100,
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  elevation: .5,
+                  child: ListTile(
+                    leading: Image.asset('assets/images/bell.png', height: 25),
+                    title: Text(
+                      'Notifications',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NotificationsPage(),
+                        ),
+                      );
+                      // Navigator.push(context, '/notifications');
+                    },
+                  ),
                 ),
               ),
-              accountEmail: Text(
-                email!,
-                style: GoogleFonts.poppins(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  elevation: .5,
+                  child: ListTile(
+                    leading: Icon(Icons.wallet_outlined,
+                        size: 25, color: secondColor),
+                    title: Text(
+                      'Wallet',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => WalletPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  elevation: .5,
+                  child: ListTile(
+                    leading: Image.asset('assets/images/faq.png', height: 30),
+                    title: Text(
+                      'FAQs',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FAQs(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  // color: LABEL_COLOR,
+                  elevation: .5,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.share_outlined,
+                      size: 25,
+                      color: secondColor,
+                    ),
+                    title: Text(
+                      'Invite a Friend',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () async {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Invites(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  color: Theme.of(context).cardColor,
+                  elevation: .5,
+                  child: ListTile(
+                    leading: FaIcon(FontAwesomeIcons.ticket),
+                    title: Text(
+                      'Open Ticket',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      fetchTickets(context);
+                    },
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  elevation: .5,
+                  child: ListTile(
+                    leading: const Icon(
+                      Icons.settings_outlined,
+                      color: secondColor,
+                      size: 25,
+                    ),
+                    title: Text(
+                      'Settings',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SettingsPage(),
+                        ),
+                      );
+                      // Navigator.pushNamed(context, '/settings');
+                    },
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  color: Theme.of(context).cardColor,
+                  elevation: .5,
+                  child: ListTile(
+                    leading:
+                        Image.asset('assets/images/logout.png', height: 30),
+                    title: Text(
+                      'Logout',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () => logout(context),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            // top: 720,
+            bottom: 10,
+            left: 0,
+            right: 0,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                version == null || version == ''
+                    ? 'Version: v$version'
+                    : 'Version: v1.0.0',
+                style: GoogleFonts.raleway(
                   fontSize: 14,
-                  color: Colors.white,
                   fontWeight: FontWeight.w400,
-                  letterSpacing: .25,
+                  letterSpacing: .75,
                 ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                // color: WARNING.shade100,
-                shape: ShapeBorder.lerp(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  0.5,
-                ),
-                elevation: .5,
-                child: ListTile(
-                  leading: Image.asset('assets/images/bell.png', height: 25),
-                  title: Text(
-                    'Notifications',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .65,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => NotificationsPage(),
-                      ),
-                    );
-                    // Navigator.push(context, '/notifications');
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                shape: ShapeBorder.lerp(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  0.5,
-                ),
-                elevation: .5,
-                child: ListTile(
-                  leading:
-                      Icon(Icons.wallet_outlined, size: 25, color: secondColor),
-                  title: Text(
-                    'Wallet',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .65,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WalletPage(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                shape: ShapeBorder.lerp(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  0.5,
-                ),
-                elevation: .5,
-                child: ListTile(
-                  leading: Image.asset('assets/images/faq.png', height: 30),
-                  title: Text(
-                    'FAQs',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .65,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const FAQs(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                shape: ShapeBorder.lerp(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  0.5,
-                ),
-                // color: LABEL_COLOR,
-                elevation: .5,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.share_outlined,
-                    size: 25,
-                    color: secondColor,
-                  ),
-                  title: Text(
-                    'Invite a Friend',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .65,
-                    ),
-                  ),
-                  onTap: () async {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Invites(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                shape: ShapeBorder.lerp(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  0.5,
-                ),
-                color: Theme.of(context).cardColor,
-                elevation: .5,
-                child: ListTile(
-                  leading: FaIcon(FontAwesomeIcons.ticket),
-                  title: Text(
-                    'Open Ticket',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .65,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    fetchTickets(context);
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                shape: ShapeBorder.lerp(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  0.5,
-                ),
-                elevation: .5,
-                child: ListTile(
-                  leading: const Icon(
-                    Icons.settings_outlined,
-                    color: secondColor,
-                    size: 25,
-                  ),
-                  title: Text(
-                    'Settings',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .65,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => SettingsPage(),
-                      ),
-                    );
-                    // Navigator.pushNamed(context, '/settings');
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                shape: ShapeBorder.lerp(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  0.5,
-                ),
-                color: Theme.of(context).cardColor,
-                elevation: .5,
-                child: ListTile(
-                  leading: Image.asset('assets/images/logout.png', height: 30),
-                  title: Text(
-                    'Logout',
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .65,
-                    ),
-                  ),
-                  onTap: () => logout(context),
-                ),
-              ),
-            ),
-          ],
-        ),
-        Positioned(
-          // top: 720,
-          bottom: 10,
-          left: 0,
-          right: 0,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              'Version: v1.0.0',
-              style: GoogleFonts.raleway(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                letterSpacing: .75,
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }

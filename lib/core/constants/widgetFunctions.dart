@@ -57,13 +57,18 @@ Container screenBody(Size size, {List<Widget>? children}) {
   );
 }
 
-Text subText(String text, {FontWeight? fontWeight, Color? color}) {
+Text subText(
+  String text, {
+  FontWeight? fontWeight,
+  Color? color,
+  double? fontSize,
+}) {
   return Text(
     text,
     style: GoogleFonts.poppins(
-      fontWeight: FontWeight.w400,
+      fontWeight: fontWeight ?? FontWeight.w400,
       letterSpacing: .25,
-      fontSize: 16,
+      fontSize: fontSize ?? 16,
     ),
   );
 }
