@@ -1,10 +1,11 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:riders/core/constants/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/widgetFunctions.dart';
+import '../../../DrawerScreens/presentation/pages/faqs.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen();
@@ -91,7 +92,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                     height: 18,
                                     width: 18,
                                     color: Colors.white,
-                                    image: AssetImage("assets/images/userIcon.png"),
+                                    image: AssetImage(
+                                        "assets/images/userIcon.png"),
                                   ),
                                 ),
                               ),
@@ -407,12 +409,14 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 33.0),
                   child: GestureDetector(
-                    // onTap: () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const FAQsScreen(),
-                    //   ),
-                    // ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FAQs(),
+                        ),
+                      );
+                    },
                     child: Container(
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),

@@ -20,24 +20,12 @@ class _FAQsState extends State<FAQs> with TickerProviderStateMixin {
   Animation? _arrowAnimation4;
   Animation? _arrowAnimation5;
   Animation? _arrowAnimation6;
-  Animation? _arrowAnimation7;
-  Animation? _arrowAnimation8;
-  Animation? _arrowAnimation9;
-  Animation? _arrowAnimation10;
-  Animation? _arrowAnimation11;
-  Animation? _arrowAnimation12;
   AnimationController? _arrowAnimationController;
   AnimationController? _arrowAnimationController2;
   AnimationController? _arrowAnimationController3;
   AnimationController? _arrowAnimationController4;
   AnimationController? _arrowAnimationController5;
   AnimationController? _arrowAnimationController6;
-  AnimationController? _arrowAnimationController7;
-  AnimationController? _arrowAnimationController8;
-  AnimationController? _arrowAnimationController9;
-  AnimationController? _arrowAnimationController10;
-  AnimationController? _arrowAnimationController11;
-  AnimationController? _arrowAnimationController12;
 
   @override
   void initState() {
@@ -78,47 +66,6 @@ class _FAQsState extends State<FAQs> with TickerProviderStateMixin {
     );
     _arrowAnimation6 =
         Tween(begin: 0.0, end: pi).animate(_arrowAnimationController6!);
-
-    _arrowAnimationController7 = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _arrowAnimation7 =
-        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController7!);
-
-    _arrowAnimationController8 = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _arrowAnimation8 =
-        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController8!);
-
-    _arrowAnimationController9 = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _arrowAnimation9 =
-        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController9!);
-
-    _arrowAnimationController10 = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _arrowAnimation10 =
-        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController10!);
-
-    _arrowAnimationController11 = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _arrowAnimation11 =
-        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController11!);
-    _arrowAnimationController12 = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _arrowAnimation12 =
-        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController12!);
   }
 
   @override
@@ -130,12 +77,6 @@ class _FAQsState extends State<FAQs> with TickerProviderStateMixin {
     _arrowAnimationController4!.dispose();
     _arrowAnimationController5!.dispose();
     _arrowAnimationController6!.dispose();
-    _arrowAnimationController7!.dispose();
-    _arrowAnimationController8!.dispose();
-    _arrowAnimationController9!.dispose();
-    _arrowAnimationController10!.dispose();
-    _arrowAnimationController11!.dispose();
-    _arrowAnimationController12!.dispose();
   }
 
   bool _showAnswer1 = false;
@@ -144,12 +85,6 @@ class _FAQsState extends State<FAQs> with TickerProviderStateMixin {
   bool _showAnswer4 = false;
   bool _showAnswer5 = false;
   bool _showAnswer6 = false;
-  bool _showAnswer7 = false;
-  bool _showAnswer8 = false;
-  bool _showAnswer9 = false;
-  bool _showAnswer10 = false;
-  bool _showAnswer11 = false;
-  bool _showAnswer12 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

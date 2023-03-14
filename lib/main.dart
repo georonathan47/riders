@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import 'Splash.dart';
 import 'core/constants/colors.dart';
 import 'core/utils/appConfig.dart';
-import 'features/Generic/auth/authProvider.dart';
+import 'features/Generic/features/authentication/presentation/pages/login.dart';
+import 'features/Generic/features/authentication/presentation/provider/authProvider.dart';
 
 dynamic envVar;
 
@@ -99,8 +99,6 @@ class Riders extends StatelessWidget {
           ),
         ),
         iconTheme: const IconThemeData(color: secondColor),
-        // colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)
-        // .copyWith(background: Colors.white),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -131,7 +129,6 @@ class Riders extends StatelessWidget {
             ),
           ).titleLarge,
         ),
-        
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(16),
@@ -188,11 +185,9 @@ class Riders extends StatelessWidget {
           ),
         ),
         iconTheme: const IconThemeData(color: Colors.white),
-        // colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green)
-        //     .copyWith(background: const Color(0xFF29292b))
-        //     .copyWith(secondary: const Color.fromARGB(255, 93, 238, 120)),
       ),
-      home: const SplashScreen(),
+      // home: const SplashScreen(),
+      home: const Login(),
     );
   }
 }

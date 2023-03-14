@@ -5,14 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/widgetFunctions.dart';
-import '../../../core/components/progressDialog.dart';
-import '../../../core/services/apiService.dart';
-import '../../../core/utils/appConfig.dart';
-import '../../../index.dart';
-import '../../../main.dart';
-import 'authProvider.dart';
+import '../../../../../../../core/constants/colors.dart';
+import '../../../../../../../core/constants/widgetFunctions.dart';
+import '../../../../../../core/components/progressDialog.dart';
+import '../../../../../../core/services/apiService.dart';
+import '../../../../../../core/utils/appConfig.dart';
+import '../../../../../../index.dart';
+import '../../../../../../main.dart';
+import '../../data/models/UserModel.dart';
+import '../provider/authProvider.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -22,6 +23,7 @@ class Login extends StatefulWidget {
 }
 
 String accessToken = '';
+String refreshToken = '';
 String? username;
 
 class _LoginState extends State<Login> {
@@ -235,7 +237,23 @@ class _LoginState extends State<Login> {
         var loginResponse = jsonDecode(response.body);
         print('loginResponse: ${loginResponse}');
         accessToken = loginResponse['access'];
+        refreshToken = loginResponse['refresh'];
+        context.read<AuthProvider>().saveLoginResponseID(loginResponse['id']);
+        User user = User(
+          id: loginResponse['user']['id'],
+          lincense: loginResponse['user']['lincense'],
+          typeOfVehicle: loginResponse['user']['typeOfVehicle'],
+          vehicleRegistrationNumber: loginResponse['user']
+              ['vehicleRegistrationNumber'],
+          status: loginResponse['user']['status'],
+          user: loginResponse['user']['user'],
+        );
+
+        print('user: ${user.toJson()}');
         context.read<AuthProvider>().saveAccessToken(accessToken);
+        context.read<AuthProvider>().saveRefreshToken(refreshToken);
+
+        context.read<AuthProvider>().saveRiderDetails(user);
         print('Access Token: $accessToken');
         username = usernameController.text.trim();
         Navigator.of(context, rootNavigator: true).pop();

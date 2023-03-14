@@ -87,8 +87,8 @@ Text mainText(String text) {
 Text mainText16(String text) {
   return Text(
     text,
-    style: GoogleFonts.poppins(
-      fontWeight: FontWeight.w600,
+    style: GoogleFonts.raleway(
+      fontWeight: FontWeight.w500,
       letterSpacing: .25,
       fontSize: 16,
     ),
@@ -98,8 +98,8 @@ Text mainText16(String text) {
 Text mainText14(String text) {
   return Text(
     text,
-    style: GoogleFonts.poppins(
-      fontWeight: FontWeight.w600,
+    style: GoogleFonts.raleway(
+      fontWeight: FontWeight.w500,
       letterSpacing: .15,
       fontSize: 14,
     ),

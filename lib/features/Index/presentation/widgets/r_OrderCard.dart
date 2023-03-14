@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-import '../../../../core/constants/colors.dart';
-import '../../../../core/constants/widgetFunctions.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../core/constants/WidgetFunctions.dart';
 
 class RecentCard extends StatefulWidget {
   const RecentCard({Key? key}) : super(key: key);
@@ -10,108 +12,642 @@ class RecentCard extends StatefulWidget {
   State<RecentCard> createState() => _RecentCardState();
 }
 
-class _RecentCardState extends State<RecentCard> {
+class _RecentCardState extends State<RecentCard> with TickerProviderStateMixin {
+  bool _showAnswer1 = false;
+  bool _showAnswer2 = false;
+  bool _showAnswer3 = false;
+  bool _showAnswer4 = false;
+  bool _showAnswer5 = false;
+  Animation? _arrowAnimation;
+  Animation? _arrowAnimation2;
+  Animation? _arrowAnimation3;
+  Animation? _arrowAnimation4;
+  Animation? _arrowAnimation5;
+  AnimationController? _arrowAnimationController;
+  AnimationController? _arrowAnimationController2;
+  AnimationController? _arrowAnimationController3;
+  AnimationController? _arrowAnimationController4;
+  AnimationController? _arrowAnimationController5;
+  void initState() {
+    super.initState();
+    _arrowAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _arrowAnimation =
+        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController!);
+    _arrowAnimationController2 = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _arrowAnimation2 =
+        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController2!);
+    _arrowAnimationController3 = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _arrowAnimation3 =
+        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController3!);
+    _arrowAnimationController4 = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _arrowAnimation4 =
+        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController4!);
+    _arrowAnimationController5 = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _arrowAnimation5 =
+        Tween(begin: 0.0, end: pi).animate(_arrowAnimationController5!);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _arrowAnimationController!.dispose();
+    _arrowAnimationController2!.dispose();
+    _arrowAnimationController3!.dispose();
+    _arrowAnimationController4!.dispose();
+    _arrowAnimationController5!.dispose();
+  }
+
+  bool isTapped = true;
+
   @override
   Widget build(BuildContext context) {
-    bool isExpanded = true;
-    // bool isExpanded2 = true;
-    return Container(
-      height: 95,
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Card(
-        elevation: 1,
-        shape: ShapeBorder.lerp(
-          const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-          ),
-          const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-          ),
-          0.5,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(5),
-          child: ListView(
-            physics: BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
             children: [
-              ListTile(
-                leading: Padding(
-                  padding: const EdgeInsets.all(9),
-                  child: const Icon(
-                    Icons.info_outlined,
-                    color: secondColor,
-                    size: 30,
+              Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
                   ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
                 ),
-                title: Column(
-                  children: [
-                    Row(
+                child: Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 14.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        mainText('Order ID:'),
-                        addHorizontal(10),
-                        subText('d2d-0d2d'),
-                      ],
-                    ),
-                    addVertical(12),
-                    Row(
-                      children: [
-                        mainText('Earnings:'),
-                        addHorizontal(10),
-                        subText('GH¢ 3'),
-                      ],
-                    ),
-                  ],
-                ),
-                trailing: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
-                  },
-                  icon: isExpanded == false
-                      ? Icon(
-                          size: 35,
-                          color: secondColor,
-                          Icons.keyboard_arrow_down,
-                        )
-                      : Icon(
-                          size: 35,
-                          color: primaryColor,
-                          Icons.keyboard_arrow_up,
+                        Center(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                'How do I become a rider for Desserts\n to Door?',
+                                style: GoogleFonts.raleway(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                ),
-              ),
-              isExpanded ? SizedBox() : SizedBox(height: 20),
-              AnimatedCrossFade(
-                firstChild: Text(
-                  '',
-                  style: TextStyle(
-                    fontSize: 0,
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onHighlightChanged: (value) {
+                            setState(() {
+                              isTapped = value;
+                            });
+                          },
+                          onTap: () {
+                            setState(
+                              () {
+                                _arrowAnimationController!.isCompleted
+                                    ? _arrowAnimationController!.reverse()
+                                    : _arrowAnimationController!.forward();
+                                _showAnswer1 = !_showAnswer1;
+                              },
+                            );
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            height: isTapped ? 45 : 50,
+                            width: isTapped ? 45 : 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: AnimatedBuilder(
+                              animation: _arrowAnimationController!,
+                              builder: (context, child) => Transform.rotate(
+                                angle: _arrowAnimation!.value,
+                                child: const Icon(
+                                  Icons.expand_more,
+                                  size: 30.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                secondChild: Text(
-                  'More details',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15.7,
+              ),
+              _showAnswer1
+                  ? Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Card(
+                        shape: ShapeBorder.lerp(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          0.5,
+                        ),
+                        child: Container(
+                          // height: 292,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              'To become a rider for Desserts to Door, download the app and sign up as a rider. You will need to provide some basic information, including your name, contact details, and vehicle information.',
+                              style: GoogleFonts.raleway(
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: .15,
+                              ),
+                              // textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              addVertical(7),
+              Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
+                child: Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Center(
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Text(
+                                'Are there any delivery fees?',
+                                style: GoogleFonts.raleway(
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onHighlightChanged: (value) {
+                            setState(() {
+                              isTapped = value;
+                            });
+                          },
+                          onTap: () {
+                            setState(
+                              () {
+                                _arrowAnimationController2!.isCompleted
+                                    ? _arrowAnimationController2!.reverse()
+                                    : _arrowAnimationController2!.forward();
+                                _showAnswer2 = !_showAnswer2;
+                              },
+                            );
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            height: isTapped ? 45 : 50,
+                            width: isTapped ? 45 : 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: AnimatedBuilder(
+                              animation: _arrowAnimationController2!,
+                              builder: (context, child) => Transform.rotate(
+                                angle: _arrowAnimation2!.value,
+                                child: const Icon(
+                                  Icons.expand_more,
+                                  size: 30.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                crossFadeState: isExpanded
-                    ? CrossFadeState.showFirst
-                    : CrossFadeState.showSecond,
-                duration: Duration(milliseconds: 1200),
-                reverseDuration: Duration.zero,
-                sizeCurve: Curves.fastLinearToSlowEaseIn,
               ),
+              _showAnswer2
+                  ? Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Card(
+                        shape: ShapeBorder.lerp(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          0.5,
+                        ),
+                        child: Container(
+                          // height: 162,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              'Yes, there is a small delivery fee for each order. The exact amount depends on your location and the size of your order.',
+                              style: GoogleFonts.raleway(
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: .15,
+                              ),
+                              // textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              addVertical(7),
+              Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
+                child: Container(
+                  // height: 70,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  'How much can I earn as a Desserts to Door rider?',
+                                  style: GoogleFonts.raleway(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onHighlightChanged: (value) {
+                            setState(() {
+                              isTapped = value;
+                            });
+                          },
+                          onTap: () {
+                            setState(
+                              () {
+                                _arrowAnimationController3!.isCompleted
+                                    ? _arrowAnimationController3!.reverse()
+                                    : _arrowAnimationController3!.forward();
+                                _showAnswer3 = !_showAnswer3;
+                              },
+                            );
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            height: isTapped ? 45 : 50,
+                            width: isTapped ? 45 : 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: AnimatedBuilder(
+                              animation: _arrowAnimationController3!,
+                              builder: (context, child) => Transform.rotate(
+                                angle: _arrowAnimation3!.value,
+                                child: const Icon(
+                                  Icons.expand_more,
+                                  size: 30.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              _showAnswer3
+                  ? Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Card(
+                        shape: ShapeBorder.lerp(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          0.5,
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              'The amount you earn as a rider depends on the number of deliveries you make and the distance you travel. You will receive a percentage of the delivery fee for each order you complete.',
+                              style: GoogleFonts.raleway(
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: .15,
+                              ),
+                              // textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              addVertical(7),
+              Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
+                child: Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  'How do I navigate to the customer\'s location?',
+                                  style: GoogleFonts.raleway(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onHighlightChanged: (value) {
+                            setState(() {
+                              isTapped = value;
+                            });
+                          },
+                          onTap: () {
+                            setState(
+                              () {
+                                _arrowAnimationController4!.isCompleted
+                                    ? _arrowAnimationController4!.reverse()
+                                    : _arrowAnimationController4!.forward();
+                                _showAnswer4 = !_showAnswer4;
+                              },
+                            );
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            height: isTapped ? 45 : 50,
+                            width: isTapped ? 45 : 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: AnimatedBuilder(
+                              animation: _arrowAnimationController4!,
+                              builder: (context, child) => Transform.rotate(
+                                angle: _arrowAnimation4!.value,
+                                child: const Icon(
+                                  Icons.expand_more,
+                                  size: 30.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              _showAnswer4
+                  ? Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Card(
+                        shape: ShapeBorder.lerp(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          0.5,
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              'The app provides turn-by-turn directions to the customer\'s location. You can also use your preferred navigation app to get directions.',
+                              style: GoogleFonts.raleway(
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: .15,
+                              ),
+                              // textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              addVertical(7),
+              Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  0.5,
+                ),
+                child: Container(
+                  height: 70,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Center(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Text(
+                                  'What should I do if there is an issue with the order?',
+                                  style: GoogleFonts.raleway(
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onHighlightChanged: (value) {
+                            setState(() {
+                              isTapped = value;
+                            });
+                          },
+                          onTap: () {
+                            setState(
+                              () {
+                                _arrowAnimationController5!.isCompleted
+                                    ? _arrowAnimationController5!.reverse()
+                                    : _arrowAnimationController5!.forward();
+                                _showAnswer5 = !_showAnswer5;
+                              },
+                            );
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.fastLinearToSlowEaseIn,
+                            height: isTapped ? 45 : 50,
+                            width: isTapped ? 45 : 50,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            child: AnimatedBuilder(
+                              animation: _arrowAnimationController5!,
+                              builder: (context, child) => Transform.rotate(
+                                angle: _arrowAnimation5!.value,
+                                child: const Icon(
+                                  Icons.expand_more,
+                                  size: 30.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              _showAnswer5
+                  ? Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Card(
+                        shape: ShapeBorder.lerp(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          0.5,
+                        ),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              'If there is an issue with the order, such as a missing item or incorrect address, you can contact the customer through the app or contact customer support for assistance.',
+                              style: GoogleFonts.raleway(
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: .15,
+                              ),
+                              // textAlign: TextAlign.justify,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
+              addVertical(7),
             ],
           ),
         ),
-      ),
+      ],
     );
   }
 }

@@ -11,14 +11,12 @@ import '../../core/constants/colors.dart';
 import '../../core/services/apiService.dart';
 import '../../core/utils/appConfig.dart';
 import '../../main.dart';
-import '../DrawerScreens/presentation/pages/Notifications.dart';
 import '../DrawerScreens/presentation/pages/faqs.dart';
 import '../DrawerScreens/presentation/pages/friend.dart';
-import '../DrawerScreens/presentation/pages/settings.dart';
 import '../DrawerScreens/presentation/pages/tickets.dart';
 import '../DrawerScreens/presentation/pages/wallet.dart';
-import 'auth/authProvider.dart';
-import 'auth/login.dart';
+import 'features/authentication/presentation/pages/login.dart';
+import 'features/authentication/presentation/provider/authProvider.dart';
 
 dynamic version;
 Widget Sidebar(BuildContext context, {String? email, String? name}) {
@@ -66,43 +64,43 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Card(
-                  // color: WARNING.shade100,
-                  shape: ShapeBorder.lerp(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    0.5,
-                  ),
-                  elevation: .5,
-                  child: ListTile(
-                    leading: Image.asset('assets/images/bell.png', height: 25),
-                    title: Text(
-                      'Notifications',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: .65,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => NotificationsPage(),
-                        ),
-                      );
-                      // Navigator.push(context, '/notifications');
-                    },
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              //   child: Card(
+              //     // color: WARNING.shade100,
+              //     shape: ShapeBorder.lerp(
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15),
+              //       ),
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15),
+              //       ),
+              //       0.5,
+              //     ),
+              //     elevation: .5,
+              //     child: ListTile(
+              //       leading: Image.asset('assets/images/bell.png', height: 25),
+              //       title: Text(
+              //         'Notifications',
+              //         style: GoogleFonts.poppins(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400,
+              //           letterSpacing: .65,
+              //         ),
+              //       ),
+              //       onTap: () {
+              //         Navigator.pop(context);
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => NotificationsPage(),
+              //           ),
+              //         );
+              //         // Navigator.push(context, '/notifications');
+              //       },
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Card(
@@ -133,41 +131,6 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                         context,
                         MaterialPageRoute(
                           builder: (context) => WalletPage(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Card(
-                  shape: ShapeBorder.lerp(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    0.5,
-                  ),
-                  elevation: .5,
-                  child: ListTile(
-                    leading: Image.asset('assets/images/faq.png', height: 30),
-                    title: Text(
-                      'FAQs',
-                      style: GoogleFonts.poppins(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        letterSpacing: .65,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const FAQs(),
                         ),
                       );
                     },
@@ -245,6 +208,7 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Card(
@@ -259,13 +223,9 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   ),
                   elevation: .5,
                   child: ListTile(
-                    leading: const Icon(
-                      Icons.settings_outlined,
-                      color: secondColor,
-                      size: 25,
-                    ),
+                    leading: Image.asset('assets/images/faq.png', height: 30),
                     title: Text(
-                      'Settings',
+                      'FAQs',
                       style: GoogleFonts.poppins(
                         fontSize: 14,
                         fontWeight: FontWeight.w400,
@@ -277,14 +237,53 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SettingsPage(),
+                          builder: (context) => const FAQs(),
                         ),
                       );
-                      // Navigator.pushNamed(context, '/settings');
                     },
                   ),
                 ),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              //   child: Card(
+              //     shape: ShapeBorder.lerp(
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15),
+              //       ),
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15),
+              //       ),
+              //       0.5,
+              //     ),
+              //     elevation: .5,
+              //     child: ListTile(
+              //       leading: const Icon(
+              //         Icons.settings_outlined,
+              //         color: secondColor,
+              //         size: 25,
+              //       ),
+              //       title: Text(
+              //         'Settings',
+              //         style: GoogleFonts.poppins(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400,
+              //           letterSpacing: .65,
+              //         ),
+              //       ),
+              //       onTap: () {
+              //         Navigator.pop(context);
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => SettingsPage(),
+              //           ),
+              //         );
+              //         // Navigator.pushNamed(context, '/settings');
+              //       },
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Card(
@@ -352,14 +351,15 @@ fetchTickets(BuildContext context) async {
     );
 
     Response? response = await ApiService().getDataWithAuth(
-      url: config.ticketingUrl!,
+      url:
+          '${config.ticketingUrl}/?user_id=${context.read<AuthProvider>().riderModel!.id}',
       auth: context.read<AuthProvider>().accessToken,
     );
-    print('response: $response');
+    // print('response: ${jsonDecode(response)}');
 
     if (response!.statusCode == 200) {
       // ? TODO: Fix response return string instead of list
-      var fetchTicketsResponse = response.body;
+      var fetchTicketsResponse = jsonDecode(response.body);
       print('fetchTicketsResponse: $fetchTicketsResponse');
 
       Navigator.pop(context);
@@ -371,11 +371,35 @@ fetchTickets(BuildContext context) async {
       );
     } else {
       Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'An error occured. Please try again later!',
+            style: GoogleFonts.raleway(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: Colors.red[200],
+        ),
+      );
       print(response.body);
     }
   } catch (error, stackTrace) {
     print('Exception occured: $error\nstackTrace: $stackTrace');
     Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'An error occured. Please try again later!',
+          style: GoogleFonts.raleway(
+            fontSize: 16,
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.red[200],
+      ),
+    );
   }
 }
 
@@ -393,14 +417,18 @@ logout(BuildContext context) async {
     );
 
     Future.delayed(const Duration(seconds: 2));
+    print('Refresh token: ${context.read<AuthProvider>().refreshToken}');
+
+    var jsonBody = {"refresh": context.read<AuthProvider>().accessToken};
 
     Response? logoutResponse = await ApiService().postData(
       url: config.logoutUrl,
-      body: jsonEncode({context.read<AuthProvider>().accessToken}),
+      body: jsonEncode(jsonBody),
+      auth: context.read<AuthProvider>().accessToken,
     );
 
     print(logoutResponse!.statusCode);
-    if (logoutResponse.statusCode == 201) {
+    if (logoutResponse.statusCode >= 200 && logoutResponse.statusCode < 300) {
       print('Logout successful');
       Navigator.pushReplacement(
         context,

@@ -32,8 +32,11 @@ class ApiService {
     }
   }
 
-  Future<Response?> putDataWithAuth(
-      {String? url, String? body, String? auth}) async {
+  Future<Response?> putDataWithAuth({
+    String? url,
+    String? body,
+    String? auth,
+  }) async {
     // final config = await AppConfig.forEnvironment(envVar);
     Map<String, String> headers = {
       'Content-type': 'application/json',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:riders/core/constants/widgetFunctions.dart';
 
+import '../../../../core/constants/widgetFunctions.dart';
 import '../widgets/r_OrderCard.dart';
 
 class RecentOrders extends StatefulWidget {
@@ -24,12 +24,16 @@ class _RecentOrdersState extends State<RecentOrders> {
           addVertical(10),
           SizedBox(
             height: size.height,
-            child: ListView.separated(
-              itemBuilder: (context, index) {
-                return RecentCard();
-              },
-              separatorBuilder: (context, index) => addVertical(7),
-              itemCount: 5,
+            child: MediaQuery.removePadding(
+              removeTop: true,
+              context: context,
+              child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return RecentCard();
+                },
+                separatorBuilder: (context, index) => addVertical(7),
+                itemCount: 1,
+              ),
             ),
           ),
         ],

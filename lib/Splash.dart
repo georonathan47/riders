@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'core/constants/colors.dart';
 import 'core/constants/widgetFunctions.dart';
-import 'features/Generic/auth/login.dart';
+import 'features/Generic/features/authentication/presentation/pages/login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
