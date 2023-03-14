@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'core/constants/colors.dart';
 import 'features/Index/presentation/pages/AccountScreen.dart';
 import 'features/Index/presentation/pages/Dashboard.dart';
-import 'features/Index/presentation/pages/Earnings.dart';
 import 'features/Index/presentation/pages/Homepage.dart';
 import 'features/Index/presentation/pages/RecentOrders.dart';
 
@@ -35,8 +34,8 @@ class _IndexState extends State<Index> {
       return Homepage(username: widget.username);
     } else if (index == 2) {
       return const RecentOrders();
-    } else if (index == 3) {
-      return const Earnings();
+      // } else if (index == 3) {
+      // return const Earnings();
     } else {
       return const AccountScreen();
     }
@@ -58,7 +57,7 @@ class _IndexState extends State<Index> {
         Icon(Icons.dashboard, size: 20, color: Colors.white),
         Icon(Icons.home, size: 20, color: Colors.white),
         Icon(Icons.receipt_long, size: 20, color: Colors.white),
-        Icon(Icons.wallet_outlined, size: 20, color: Colors.white),
+        // Icon(Icons.wallet_outlined, size: 20, color: Colors.white),
         Icon(Icons.person_outline_outlined, size: 20, color: Colors.white),
       ],
     );
