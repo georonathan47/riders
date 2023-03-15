@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:platform_maps_flutter/platform_maps_flutter.dart';
@@ -19,14 +20,55 @@ class Homepage extends StatefulWidget {
 }
 
 UtilService util = UtilService();
+LatLng? initialPosition;
+LatLng? currentLocation;
 
 class _HomepageState extends State<Homepage> {
-  static const CameraPosition koforidua = CameraPosition(
-    target: LatLng(6.078443, -0.271394),
+  Future requestLocationPermission() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location is denied');
+    }
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied,we cannot request permissions.');
+    }
+  }
+
+  static CameraPosition koforidua = CameraPosition(
+    target: currentLocation!,
     zoom: 14,
   );
   // final Set<Marker> _markers = {};
   final Completer<GoogleMapController> _controller = Completer();
+    Future getCurrentLocation() async {
+    var position = await GeolocatorPlatform.instance.getCurrentPosition(
+      locationSettings:
+          const LocationSettings(accuracy: LocationAccuracy.bestForNavigation),
+    );
+
+    setState(() {
+      initialPosition = LatLng(position.latitude, position.longitude);
+      currentLocation = initialPosition;
+
+      print('This is my currentLocation : $currentLocation');
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    requestLocationPermission();
+    getCurrentLocation();
+  }
 
   bool hasBeenTapped = false;
   @override
