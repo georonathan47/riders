@@ -21,38 +21,47 @@ class EarningsCard extends StatelessWidget {
         ),
         0.5,
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 5),
-        child: ListTile(
-          leading: Container(
-            height: size.height * 0.05,
-            width: size.width * 0.1,
-            decoration: BoxDecoration(
-              color: secondColor,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Center(
-              child: Text(
-                '$index',
-                style: GoogleFonts.raleway(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+      child: ListTile(
+        leading: Container(
+          height: size.height * 0.05,
+          width: size.width * 0.1,
+          decoration: BoxDecoration(
+            color: secondColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Center(
+            child: Text(
+              '$index',
+              style: GoogleFonts.raleway(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
-          title: Text(
-            'Earnings',
-            style: GoogleFonts.raleway(),
+        ),
+        title: Text(
+          'Earnings',
+          style: GoogleFonts.raleway(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            letterSpacing: .45,
           ),
-          subtitle: Text(
-            'Total Earnings',
-            style: GoogleFonts.raleway(),
+        ),
+        subtitle: Text(
+          'Total Earnings',
+          style: GoogleFonts.raleway(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            letterSpacing: .45,
           ),
-          trailing: Text(
-            '₦ 0.00',
-            style: GoogleFonts.raleway(),
+        ),
+        trailing: Text(
+          '₦ 0.00',
+          style: GoogleFonts.raleway(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            letterSpacing: .45,
           ),
         ),
       ),

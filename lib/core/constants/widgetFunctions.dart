@@ -132,7 +132,7 @@ Widget buildTextField(
               )
             : isContact == true
                 ? const Icon(
-                    Icons.email_outlined,
+                    Icons.phone_in_talk_outlined,
                     color: primaryColor,
                     size: 20,
                   )

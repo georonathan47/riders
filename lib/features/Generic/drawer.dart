@@ -192,7 +192,8 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                   color: Theme.of(context).cardColor,
                   elevation: .5,
                   child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.ticket),
+                    leading: FaIcon(FontAwesomeIcons.ticket,
+                        size: 25, color: secondColor),
                     title: Text(
                       'Open Ticket',
                       style: GoogleFonts.poppins(
@@ -323,9 +324,7 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Text(
-                version == null || version == ''
-                    ? 'Version: v$version'
-                    : 'Version: v1.0.0',
+                'Version: v1.0.0',
                 style: GoogleFonts.raleway(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,

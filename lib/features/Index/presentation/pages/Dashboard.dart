@@ -182,7 +182,7 @@ class _DashboardState extends State<Dashboard> {
                   var counter = index + 1;
                   return EarningsCard(index: counter);
                 },
-                separatorBuilder: (context, index) => addVertical(7),
+                separatorBuilder: (context, index) => addVertical(5),
                 itemCount: 15,
               ),
             ),
