@@ -27,15 +27,12 @@ class _IndexState extends State<Index> {
   }
 
   Widget? navigator(int index) {
-    // Provider.of<AppData>(context, listen: false).updateUserData(customer);
     if (index == 0) {
       return const Dashboard();
     } else if (index == 1) {
       return Homepage(username: widget.username);
     } else if (index == 2) {
       return const RecentOrders();
-      // } else if (index == 3) {
-      // return const Earnings();
     } else {
       return const AccountScreen();
     }
@@ -57,7 +54,6 @@ class _IndexState extends State<Index> {
         Icon(Icons.dashboard, size: 20, color: Colors.white),
         Icon(Icons.home, size: 20, color: Colors.white),
         Icon(Icons.receipt_long, size: 20, color: Colors.white),
-        // Icon(Icons.wallet_outlined, size: 20, color: Colors.white),
         Icon(Icons.person_outline_outlined, size: 20, color: Colors.white),
       ],
     );

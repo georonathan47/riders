@@ -90,7 +90,7 @@ class _WalletPageState extends State<WalletPage> {
                   ),
                   const Divider(thickness: 0.65),
                   subText(
-                    'Select Network',
+                    'Select Your Network',
                     fontSize: 14,
                   ),
                   addVertical(10),
@@ -172,6 +172,77 @@ class _WalletPageState extends State<WalletPage> {
                   fontSize: 14,
                 ),
                 const Divider(thickness: 0.65),
+                subText(
+                  'Select Your Bank...',
+                  fontSize: 14,
+                ),
+                addVertical(10),
+                RadioButton(
+                  description: "Access Bank",
+                  value: "access",
+                  groupValue: 'Mobile Money',
+                  textStyle: GoogleFonts.raleway(
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: .75,
+                    fontSize: 18,
+                  ),
+                  onChanged: (value) => setState(
+                    () {
+                      singleValue = value;
+                      print('value: $value');
+                    },
+                  ),
+                  fillColor: secondColor,
+                  activeColor: primaryColor,
+                ),
+                RadioButton(
+                  description: "GCB Bank",
+                  value: "GCB",
+                  groupValue: 'Mobile Money',
+                  textStyle: GoogleFonts.raleway(
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: .75,
+                    fontSize: 18,
+                  ),
+                  onChanged: (value) => setState(
+                    () {
+                      singleValue1 = value;
+                      print('value: $value');
+                    },
+                  ),
+                  fillColor: secondColor,
+                  activeColor: primaryColor,
+                ),
+                RadioButton(
+                  description: "Standard Chartered Bank",
+                  value: "stanchart",
+                  groupValue: 'Mobile Money',
+                  textStyle: GoogleFonts.raleway(
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: .75,
+                    fontSize: 18,
+                  ),
+                  onChanged: (value) => setState(
+                    () {
+                      singleValue2 = value;
+                      print('value: $value');
+                    },
+                  ),
+                  activeColor: primaryColor,
+                  fillColor: secondColor,
+                ),
+                addVertical(20),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: buildTextField(
+                    'Phone Number',
+                    'Eg: 0201234567',
+                    false,
+                    false,
+                    phoneController,
+                    isContact: true,
+                  ),
+                ),
               ],
             ),
           ],

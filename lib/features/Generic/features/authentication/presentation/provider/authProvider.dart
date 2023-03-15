@@ -7,7 +7,7 @@ class AuthProvider extends ChangeNotifier {
   String? refreshToken;
   User? riderModel;
   int? loginResponseID;
-
+  LoginResponseModel? responseModel;
   saveAccessToken(String? token) {
     accessToken = token;
     notifyListeners();
@@ -20,6 +20,12 @@ class AuthProvider extends ChangeNotifier {
 
   saveLoginResponseID(int? id) {
     loginResponseID = id;
+    notifyListeners();
+  }
+
+  saveLoginResponse(LoginResponseModel loginResponseModel) async {
+    responseModel = loginResponseModel;
+    print('Rider Model From Provider: ${loginResponseModel.toJson()}');
     notifyListeners();
   }
 

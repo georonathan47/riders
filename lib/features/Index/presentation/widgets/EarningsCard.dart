@@ -5,7 +5,9 @@ import '../../../../core/constants/colors.dart';
 
 class EarningsCard extends StatelessWidget {
   final int index;
-  const EarningsCard({Key? key, required this.index}) : super(key: key);
+  final List<dynamic> data;
+  const EarningsCard({Key? key, required this.index, required this.data})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class EarningsCard extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Earnings',
+          'Hello',
           style: GoogleFonts.raleway(
             fontSize: 18,
             fontWeight: FontWeight.w500,

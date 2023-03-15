@@ -9,6 +9,7 @@ import 'features/Generic/features/authentication/presentation/pages/login.dart';
 import 'features/Generic/features/authentication/presentation/provider/authProvider.dart';
 
 dynamic envVar;
+dynamic appVersion;
 
 void main({String? env}) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +18,7 @@ void main({String? env}) async {
   print('Working from the $env environment');
   final config = await AppConfig.forEnvironment(env);
   envVar = config.env;
+  appVersion = config.version;
   runApp(
     MultiProvider(
       providers: [
@@ -31,6 +33,7 @@ void main({String? env}) async {
             registerUrl: config.registerUrl,
             approvalUrl: config.approvalUrl,
             ridersUrl: config.ridersUrl,
+            fetchRecentRides: config.fetchRecentRides,
           ),
         ),
       ],

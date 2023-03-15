@@ -248,6 +248,9 @@ class _LoginState extends State<Login> {
           status: loginResponse['user']['status'],
           user: loginResponse['user']['user'],
         );
+        LoginResponseModel initialLoginResponse =
+            LoginResponseModel.fromJson(loginResponse);
+        context.read<AuthProvider>().saveLoginResponse(initialLoginResponse);
 
         print('user: ${user.toJson()}');
         context.read<AuthProvider>().saveAccessToken(accessToken);

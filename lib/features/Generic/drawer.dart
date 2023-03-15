@@ -18,8 +18,7 @@ import '../DrawerScreens/presentation/pages/wallet.dart';
 import 'features/authentication/presentation/pages/login.dart';
 import 'features/authentication/presentation/provider/authProvider.dart';
 
-dynamic version;
-Widget Sidebar(BuildContext context, {String? email, String? name}) {
+Widget Sidebar(BuildContext context, {String? email, String? name, String? version}) {
   return Drawer(
     elevation: 1.25,
     child: GestureDetector(

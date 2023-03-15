@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
@@ -135,13 +137,39 @@ openTicket(String ticketMessage, BuildContext context) async {
       builder: (context) =>
           const ProgressDialog(displayMessage: 'Opening Ticket...'),
     );
-
+    var jsonBody = jsonEncode({'message': ticketMessage});
     Response? response = await ApiService().postDataWithAuth(
       url: config.ticketingUrl,
       auth: context.read<AuthProvider>().accessToken,
-      // body: 
+      body: jsonBody,
     );
-    } catch (e) {
+
+    print('Response: ${response}');
+
+    if (response!.statusCode == 201) {
+      var openTicketResponse = jsonDecode(response.body);
+      Navigator.pop(context);
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(openTicketResponse['message']),
+          backgroundColor: Colors.teal[200],
+        ),
+      );
+      // Navigator.pop(context);
+    } else {
+      Navigator.pop(context);
+      Navigator.pop(context);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${response.statusCode}: Failed to open ticket'),
+          backgroundColor: Colors.red[200],
+        ),
+      );
+    }
+  } catch (e) {
     print(e);
+    Navigator.pop(context);
   }
 }
