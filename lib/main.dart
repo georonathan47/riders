@@ -102,6 +102,24 @@ class Riders extends StatelessWidget {
           ),
         ),
         iconTheme: const IconThemeData(color: secondColor),
+        tabBarTheme: TabBarTheme(
+          indicatorColor: primaryColor,
+          dividerColor: primaryColor,
+          labelColor: primaryColor,
+          unselectedLabelColor: Colors.grey.shade600,
+          labelStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+          unselectedLabelStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: primaryColor,
+          foregroundColor: Colors.white,
+        ),
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
@@ -187,7 +205,23 @@ class Riders extends StatelessWidget {
             ),
           ),
         ),
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: secondColor),
+        tabBarTheme: TabBarTheme(
+          labelColor: secondColor,
+          unselectedLabelColor: Colors.white54,
+          labelStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+          unselectedLabelStyle: GoogleFonts.raleway(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: secondColor,
+          foregroundColor: Colors.white,
+        ),
       ),
       // home: const SplashScreen(),
       home: const Login(),

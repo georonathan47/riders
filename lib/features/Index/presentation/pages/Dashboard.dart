@@ -222,7 +222,7 @@ class _DashboardState extends State<Dashboard> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                mainText16('Recent Rides'),
+                mainText16('Rides History'),
                 const Divider(thickness: 0.5),
                 MediaQuery.removePadding(
                   context: context,

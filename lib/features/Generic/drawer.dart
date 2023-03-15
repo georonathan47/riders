@@ -18,7 +18,8 @@ import '../DrawerScreens/presentation/pages/wallet.dart';
 import 'features/authentication/presentation/pages/login.dart';
 import 'features/authentication/presentation/provider/authProvider.dart';
 
-Widget Sidebar(BuildContext context, {String? email, String? name, String? version}) {
+Widget Sidebar(BuildContext context,
+    {String? email, String? name, String? version}) {
   return Drawer(
     elevation: 1.25,
     child: GestureDetector(
@@ -350,7 +351,7 @@ fetchTickets(BuildContext context) async {
 
     Response? response = await ApiService().getDataWithAuth(
       url:
-          '${config.ticketingUrl}/?user_id=${context.read<AuthProvider>().riderModel!.id}',
+          '${config.ticketingUrl}?user_id=${context.read<AuthProvider>().riderModel!.id}',
       auth: context.read<AuthProvider>().accessToken,
     );
     // print('response: ${jsonDecode(response)}');

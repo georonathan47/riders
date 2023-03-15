@@ -23,6 +23,7 @@ UtilService util = UtilService();
 LatLng? initialPosition;
 LatLng? currentLocation;
 Set<Marker> markers = {};
+Set<Polyline> polylines = {};
 
 class _HomepageState extends State<Homepage> {
   Future<Position> determinePosition() async {
@@ -127,6 +128,7 @@ class _HomepageState extends State<Homepage> {
             currentLocation == null
                 ? Center(child: const CircularProgressIndicator())
                 : GoogleMap(
+                    // polylines: polylines,
                     myLocationEnabled: true,
                     myLocationButtonEnabled: false,
                     initialCameraPosition: koforidua,
@@ -138,25 +140,25 @@ class _HomepageState extends State<Homepage> {
                       _controller.complete(controller);
                       controller.setMapStyle('''
                       [
-      {
-          "featureType": "all",
-          "elementType": "all",
-          "stylers": [
-              {
-                  "saturation": -50
-              },
-              {
-                  "gamma": 0.75
-              }
-          ]
-      }
-]
+                          {
+                              "featureType": "all",
+                              "elementType": "all",
+                              "stylers": [
+                                  {
+                                      "saturation": -50
+                                  },
+                                  {
+                                      "gamma": 0.75
+                                  }
+                              ]
+                          }
+                    ]
                   ''');
                     },
                   ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: hasBeenTapped
+              child: !hasBeenTapped
                   ? Container(
                       height: size.height * 0.115,
                       width: size.width * 0.75,
@@ -181,7 +183,7 @@ class _HomepageState extends State<Homepage> {
                               'Delivery\nAvailable',
                               style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w400,
-                                fontSize: 18,
+                                fontSize: 14,
                                 color: Colors.white,
                               ),
                             ),
@@ -189,7 +191,7 @@ class _HomepageState extends State<Homepage> {
                               children: [
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.teal[300],
+                                    backgroundColor: Colors.teal,
                                     shape: const StadiumBorder(),
                                   ),
                                   onPressed: () {
@@ -213,7 +215,7 @@ class _HomepageState extends State<Homepage> {
                                 ),
                                 ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.red[300],
+                                    backgroundColor: Colors.red,
                                     shape: const StadiumBorder(),
                                   ),
                                   onPressed: () {

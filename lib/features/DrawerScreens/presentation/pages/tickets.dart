@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
@@ -137,33 +138,43 @@ openTicket(String ticketMessage, BuildContext context) async {
       builder: (context) =>
           const ProgressDialog(displayMessage: 'Opening Ticket...'),
     );
-    var jsonBody = jsonEncode({'message': ticketMessage});
+    var jsonBody = {
+      'message': ticketMessage,
+      'subject': 'Rider Ticket',
+      'support': '',
+    };
+
     Response? response = await ApiService().postDataWithAuth(
       url: config.ticketingUrl,
       auth: context.read<AuthProvider>().accessToken,
-      body: jsonBody,
+      body: jsonEncode(jsonBody),
     );
 
-    print('Response: ${response}');
+    print('Ticketing Response: ${response!.body}');
 
-    if (response!.statusCode == 201) {
+    if (response.statusCode == 200) {
       var openTicketResponse = jsonDecode(response.body);
       Navigator.pop(context);
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(openTicketResponse['message']),
+          content: Text(
+            '${response.statusCode}: You have successfully opened a ticket.\nA support agent will get back to you shortly.',
+            style: GoogleFonts.raleway(color: Colors.black),
+          ),
           backgroundColor: Colors.teal[200],
         ),
       );
-      // Navigator.pop(context);
     } else {
       Navigator.pop(context);
       Navigator.pop(context);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${response.statusCode}: Failed to open ticket'),
+          content: Text(
+            '${response.statusCode}: Failed to open ticket',
+            style: GoogleFonts.raleway(color: Colors.black),
+          ),
           backgroundColor: Colors.red[200],
         ),
       );

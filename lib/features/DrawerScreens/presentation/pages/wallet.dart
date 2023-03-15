@@ -15,27 +15,13 @@ class WalletPage extends StatefulWidget {
 String? singleValue;
 String? singleValue1;
 String? singleValue2;
+String? singleValue3;
+String? singleValue4;
+String? singleValue5;
 
 class _WalletPageState extends State<WalletPage> {
-  List<Map> networks = [
-    {
-      'MTN':
-          'https://yt3.ggpht.com/a/AATXAJwVJYu-ZeC_08lpH05PZXWmfnugDP-znS5E7A=s900-c-k-c0xffffffff-no-rj-mo',
-      'color': Colors.yellow[700],
-    },
-    {
-      'Vodafone':
-          'https://diginomica.com/sites/default/files/images/2016-10/vodafone.jpg',
-      'color': Colors.red[700]
-    },
-    {
-      'AirtelTigo':
-          'https://pcbossonline.com/wp-content/uploads/2020/04/airteltigo-money-logo.webp',
-      'color': Colors.white,
-    },
-  ];
-
   final phoneController = TextEditingController();
+  final amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -150,7 +136,8 @@ class _WalletPageState extends State<WalletPage> {
                   ),
                   addVertical(20),
                   Padding(
-                    padding: const EdgeInsets.all(20),
+                    padding:
+                        const EdgeInsets.only(top: 20, left: 20, right: 20),
                     child: buildTextField(
                       'Phone Number',
                       'Eg: 0201234567',
@@ -158,6 +145,21 @@ class _WalletPageState extends State<WalletPage> {
                       false,
                       phoneController,
                       isContact: true,
+                    ),
+                  ),
+                  addVertical(10),
+                  // ? Change icon color
+                  // ? Add sequencing
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 10, left: 20, right: 20),
+                    child: buildTextField1(
+                      'Amount to Withdraw',
+                      'Eg: 0201234567',
+                      false,
+                      false,
+                      amountController,
+                      isAmount: true,
                     ),
                   ),
                 ],
@@ -188,7 +190,7 @@ class _WalletPageState extends State<WalletPage> {
                   ),
                   onChanged: (value) => setState(
                     () {
-                      singleValue = value;
+                      singleValue3 = value;
                       print('value: $value');
                     },
                   ),
@@ -206,7 +208,7 @@ class _WalletPageState extends State<WalletPage> {
                   ),
                   onChanged: (value) => setState(
                     () {
-                      singleValue1 = value;
+                      singleValue4 = value;
                       print('value: $value');
                     },
                   ),
@@ -224,7 +226,7 @@ class _WalletPageState extends State<WalletPage> {
                   ),
                   onChanged: (value) => setState(
                     () {
-                      singleValue2 = value;
+                      singleValue5 = value;
                       print('value: $value');
                     },
                   ),
@@ -233,14 +235,24 @@ class _WalletPageState extends State<WalletPage> {
                 ),
                 addVertical(20),
                 Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: buildTextField(
-                    'Phone Number',
-                    'Eg: 0201234567',
+                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  child: buildTextField1(
+                    'Account Number',
+                    'Eg: 2011xxxxxxxxxxxxxx',
                     false,
                     false,
                     phoneController,
-                    isContact: true,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  child: buildTextField1(
+                    'Amount to Withdraw',
+                    'Eg: 0201234567',
+                    false,
+                    false,
+                    amountController,
+                    isAmount: true,
                   ),
                 ),
               ],
