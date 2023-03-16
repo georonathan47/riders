@@ -158,9 +158,9 @@ class _HomepageState extends State<Homepage> {
                   ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: !hasBeenTapped
+              child: hasBeenTapped
                   ? Container(
-                      height: size.height * 0.115,
+                      height: size.height * 0.125,
                       width: size.width * 0.75,
                       margin: const EdgeInsets.only(
                         top: 25,
@@ -180,10 +180,10 @@ class _HomepageState extends State<Homepage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Delivery\nAvailable',
-                              style: GoogleFonts.poppins(
+                              'Delivery Available.\nTap to accept!',
+                              style: GoogleFonts.lato(
                                 fontWeight: FontWeight.w400,
-                                fontSize: 14,
+                                fontSize: 16,
                                 color: Colors.white,
                               ),
                             ),
