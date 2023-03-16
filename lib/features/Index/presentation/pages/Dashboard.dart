@@ -193,7 +193,6 @@ class _DashboardState extends State<Dashboard> {
                     child: DashboardCardComponent(
                       icon: const Icon(
                         Icons.wallet_membership_outlined,
-                        color: Color.fromARGB(255, 148, 113, 223),
                         size: 30,
                       ),
                       label: 'Recent Rides',
@@ -207,7 +206,6 @@ class _DashboardState extends State<Dashboard> {
                     child: const DashboardCardComponent(
                       icon: Icon(
                         Icons.payment_outlined,
-                        color: Color.fromARGB(182, 173, 101, 109),
                         size: 30,
                       ),
                       label: 'Current Earnings',

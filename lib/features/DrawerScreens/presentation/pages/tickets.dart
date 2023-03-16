@@ -34,6 +34,8 @@ class _TicketsState extends State<Tickets> {
   @override
   Widget build(BuildContext context) {
     final ticketController = TextEditingController();
+    final subjectController = TextEditingController();
+    final deptController = TextEditingController();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: appBar('Open Tickets - $ticketSize'),
@@ -52,35 +54,76 @@ class _TicketsState extends State<Tickets> {
                 ),
                 0.75,
               ),
-              child: Container(
-                height: 200,
-                width: 200,
-                decoration: const BoxDecoration(),
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    mainText16('Open Ticket'),
-                    addVertical(10),
-                    Card(
-                      child: buildTextField(
-                        'Ticket',
-                        '',
-                        false,
-                        false,
-                        ticketController,
+              child: Card(
+                shape: ShapeBorder.lerp(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  0.75,
+                ),
+                child: Container(
+                  height: size.height * 0.375,
+                  width: 200,
+                  decoration: const BoxDecoration(),
+                  padding: const EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      mainText16('Open Ticket'),
+                      addVertical(10),
+                      Column(
+                        children: [
+                          buildTextFieldNoIcons(
+                            'Subject',
+                            'Eg: I can\'t withdraw funds...',
+                            false,
+                            false,
+                            subjectController,
+                          ),
+                          buildTextFieldNoIcons(
+                            'Department',
+                            '',
+                            false,
+                            false,
+                            deptController,
+                          ),
+                          buildTextFieldNoIcons(
+                            'Message',
+                            '',
+                            false,
+                            false,
+                            ticketController,
+                          ),
+                        ],
                       ),
-                    ),
-                    addVertical(10),
-                    ElevatedButton(
-                      onPressed: () async {
-                        if (ticketController.text.isEmpty) {
-                        } else {
-                          openTicket(ticketController.text, context);
-                        }
-                      },
-                      child: mainText16('Open'),
-                    ),
-                  ],
+                      addVertical(10),
+                      ElevatedButton(
+                        onPressed: () async {
+                          if (ticketController.text.isEmpty ||
+                              subjectController.text.isEmpty ||
+                              deptController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content:
+                                    mainText14('⛔ All fields are required'),
+                                backgroundColor: Colors.red[200],
+                              ),
+                            );
+                          } else {
+                            openTicket(
+                              context,
+                              ticketMessage: ticketController.text,
+                              subject: subjectController.text,
+                              department: deptController.text,
+                            );
+                          }
+                        },
+                        child: mainText16('Open Ticket'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -129,19 +172,24 @@ Widget availableTickets() {
   );
 }
 
-openTicket(String ticketMessage, BuildContext context) async {
+openTicket(
+  BuildContext context, {
+  String? ticketMessage,
+  String? subject,
+  String? department,
+}) async {
   final config = await AppConfig.forEnvironment(envVar);
 
   try {
     showDialog(
       context: context,
       builder: (context) =>
-          const ProgressDialog(displayMessage: 'Opening Ticket...'),
+          const ProgressDialog(displayMessage: 'Raising Ticket...'),
     );
     var jsonBody = {
       'message': ticketMessage,
-      'subject': 'Rider Ticket',
-      'support': '',
+      'subject': subject,
+      'department': department,
     };
 
     Response? response = await ApiService().postDataWithAuth(

@@ -246,3 +246,48 @@ Widget buildTextField1(
     ),
   );
 }
+
+Widget buildTextFieldNoIcons(
+  String labelText,
+  String placeholder,
+  bool isPasswordTextField,
+  bool uneditable,
+  TextEditingController controller,
+) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 1.5, left: 5, right: 5, bottom: 7.5),
+    child: TextFormField(
+      readOnly: uneditable ? true : false,
+      obscureText: isPasswordTextField ? true : false,
+      controller: controller,
+      keyboardType: TextInputType.phone,
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.only(left: 15),
+        labelText: labelText,
+        hintText: placeholder,
+        hintStyle: GoogleFonts.raleway(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+        labelStyle: GoogleFonts.raleway(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          letterSpacing: .25,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+            width: 0.5,
+          ),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: primaryColor.withOpacity(0.35),
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(15),
+        ),
+      ),
+    ),
+  );
+}
