@@ -201,7 +201,7 @@ openTicket(
     print('Ticketing Response: ${response!.body}');
 
     if (response.statusCode == 200) {
-      var openTicketResponse = jsonDecode(response.body);
+      // var openTicketResponse = jsonDecode(response.body);
       Navigator.pop(context);
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(

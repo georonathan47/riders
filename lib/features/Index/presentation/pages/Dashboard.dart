@@ -8,6 +8,7 @@ import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/components/progressDialog.dart';
+import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/widgetFunctions.dart';
 import '../../../../core/services/apiService.dart';
 import '../../../../core/utils/appConfig.dart';
@@ -31,7 +32,6 @@ dynamic configure;
 class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     recentRides == null ? fetchCurrentRides() : null;
   }
@@ -81,7 +81,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             endRadius: 65,
             duration: const Duration(milliseconds: 1500),
-            glowColor: Colors.white,
+            glowColor: secondColor,
           ),
         ],
         title: Text(

@@ -357,7 +357,6 @@ fetchTickets(BuildContext context) async {
     // print('response: ${jsonDecode(response)}');
 
     if (response!.statusCode == 200) {
-      // ? TODO: Fix response return string instead of list
       var fetchTicketsResponse = jsonDecode(response.body);
       print('fetchTicketsResponse: $fetchTicketsResponse');
 

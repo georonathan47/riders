@@ -8,8 +8,8 @@ import 'features/Index/presentation/pages/Homepage.dart';
 import 'features/Index/presentation/pages/RecentOrders.dart';
 
 class Index extends StatefulWidget {
-  String? username;
-  Index({Key? key, this.username}) : super(key: key);
+  final String? username;
+  const Index({Key? key, this.username}) : super(key: key);
 
   @override
   State<Index> createState() => _IndexState();
