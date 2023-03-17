@@ -34,6 +34,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
+    Brightness brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.light;
     return Material(
       child: SizedBox(
         height: deviceSize.height,
@@ -49,17 +51,17 @@ class _SplashScreenState extends State<SplashScreen> {
                   endRadius: 175,
                   repeat: true,
                   showTwoGlows: true,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.white54,
-                    ),
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      height: deviceSize.height * 0.5,
-                      width: deviceSize.width,
-                    ),
-                  ),
+                  child: isDarkMode
+                      ? Image.asset(
+                          'assets/images/logo.png',
+                          height: deviceSize.height * 0.5,
+                          width: deviceSize.width,
+                        )
+                      : Image.asset(
+                          'assets/images/darkLogo.png',
+                          height: deviceSize.height * 0.5,
+                          width: deviceSize.width,
+                        ),
                 ),
                 addVertical(deviceSize.height * 0.125),
                 Column(

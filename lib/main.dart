@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'Splash.dart';
 import 'core/constants/colors.dart';
 import 'core/utils/appConfig.dart';
-import 'features/Generic/features/authentication/presentation/pages/login.dart';
 import 'features/Generic/features/authentication/presentation/provider/authProvider.dart';
 
 dynamic envVar;
@@ -42,10 +42,17 @@ void main({String? env}) async {
   );
 }
 
-class Riders extends StatelessWidget {
+class Riders extends StatefulWidget {
   final AppConfig config;
   const Riders({Key? key, required this.config}) : super(key: key);
 
+  @override
+  State<Riders> createState() => _RidersState();
+}
+
+Brightness brightness = Brightness.light;
+
+class _RidersState extends State<Riders> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -223,8 +230,8 @@ class Riders extends StatelessWidget {
           foregroundColor: Colors.white,
         ),
       ),
-      // home: const SplashScreen(),
-      home: const Login(),
+      home: const SplashScreen(),
+      // home: const Login(),
     );
   }
 }

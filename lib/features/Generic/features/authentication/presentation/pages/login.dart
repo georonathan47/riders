@@ -32,6 +32,9 @@ class _LoginState extends State<Login> {
   bool seePassword = true;
   @override
   Widget build(BuildContext context) {
+    Brightness brightness = MediaQuery.of(context).platformBrightness;
+    bool isDarkMode = brightness == Brightness.light;
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -44,8 +47,10 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.125,
-                    child: Image.asset('assets/images/logo.png'),
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    child: isDarkMode
+                        ? Image.asset('assets/images/logo.png')
+                        : Image.asset('assets/images/darkLogo.png'),
                   ),
                   Row(
                     children: [
@@ -53,7 +58,6 @@ class _LoginState extends State<Login> {
                         'Log',
                         style: GoogleFonts.lato(
                           fontWeight: FontWeight.w700,
-                          // color: Colors.black,
                           fontSize: 40,
                         ),
                       ),
@@ -282,10 +286,12 @@ class _LoginState extends State<Login> {
         );
       } else {
         Navigator.of(context, rootNavigator: true).pop();
+        var loginResponse = jsonDecode(response.body);
+        print('Login Response: $loginResponse');
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'An error occurred! Please try again later!',
+              '${loginResponse['detail']}!',
               style: GoogleFonts.raleway(
                 fontSize: 16,
                 color: Colors.black,
