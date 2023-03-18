@@ -43,7 +43,7 @@ class EarningsCard extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Hello',
+          'Date: ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
           style: GoogleFonts.raleway(
             fontSize: 18,
             fontWeight: FontWeight.w500,
@@ -51,21 +51,21 @@ class EarningsCard extends StatelessWidget {
           ),
         ),
         subtitle: Text(
-          'Total Earnings',
+          'Total Earned: ₦ 5.70',
           style: GoogleFonts.raleway(
             fontSize: 16,
             fontWeight: FontWeight.w500,
             letterSpacing: .45,
           ),
         ),
-        trailing: Text(
-          '₦ 0.00',
-          style: GoogleFonts.raleway(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-            letterSpacing: .45,
-          ),
-        ),
+        // trailing: Text(
+        //   '₦ 0.00',
+        //   style: GoogleFonts.raleway(
+        //     fontSize: 16,
+        //     fontWeight: FontWeight.w500,
+        //     letterSpacing: .45,
+        //   ),
+        // ),
       ),
     );
   }

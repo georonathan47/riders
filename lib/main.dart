@@ -230,7 +230,7 @@ class _RidersState extends State<Riders> {
           foregroundColor: Colors.white,
         ),
       ),
-      home: const SplashScreen(),
+      home:  const SplashScreen(),
       // home: const Login(),
     );
   }

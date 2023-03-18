@@ -262,6 +262,8 @@ Widget buildTextFieldNoIcons(
       controller: controller,
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
+        floatingLabelBehavior:
+            uneditable == true ? FloatingLabelBehavior.always : null,
         contentPadding: const EdgeInsets.only(left: 15),
         labelText: labelText,
         hintText: placeholder,

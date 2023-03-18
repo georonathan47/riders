@@ -27,7 +27,7 @@ class _TicketsState extends State<Tickets> {
   void initState() {
     super.initState();
     setState(() {
-      ticketSize = widget.response.length;
+      ticketSize = 3;
     });
   }
 
@@ -76,18 +76,18 @@ class _TicketsState extends State<Tickets> {
                       Column(
                         children: [
                           buildTextFieldNoIcons(
+                            'Department',
+                            'Support',
+                            false,
+                            true,
+                            deptController,
+                          ),
+                          buildTextFieldNoIcons(
                             'Subject',
                             'Eg: I can\'t withdraw funds...',
                             false,
                             false,
                             subjectController,
-                          ),
-                          buildTextFieldNoIcons(
-                            'Department',
-                            '',
-                            false,
-                            false,
-                            deptController,
                           ),
                           buildTextFieldNoIcons(
                             'Message',
@@ -102,8 +102,7 @@ class _TicketsState extends State<Tickets> {
                       ElevatedButton(
                         onPressed: () async {
                           if (ticketController.text.isEmpty ||
-                              subjectController.text.isEmpty ||
-                              deptController.text.isEmpty) {
+                              subjectController.text.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content:
@@ -160,13 +159,26 @@ Widget availableTickets() {
         0.75,
       ),
       child: Container(
-        height: 100,
+        height: 120,
         width: double.infinity,
         decoration: BoxDecoration(
           // color: Colors.red[100],
           borderRadius: BorderRadius.circular(7.5),
         ),
         margin: const EdgeInsets.all(5),
+        child: ListTile(
+          title: mainText16('Ticket ID: $index'),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Divider(thickness: .45),
+              mainText16('Date: $index'),
+              mainText16('Ride ID: $index'),
+              mainText16('Subject: This is just dummy data'),
+            ],
+          ),
+          trailing: mainText16('Status: open'),
+        ),
       ),
     ),
   );
@@ -189,7 +201,7 @@ openTicket(
     var jsonBody = {
       'message': ticketMessage,
       'subject': subject,
-      'department': department,
+      'support': 'Support',
     };
 
     Response? response = await ApiService().postDataWithAuth(

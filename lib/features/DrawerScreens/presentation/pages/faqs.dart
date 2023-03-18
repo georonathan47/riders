@@ -219,7 +219,7 @@ class _FAQsState extends State<FAQs> with TickerProviderStateMixin {
                                 child: Padding(
                                   padding: const EdgeInsets.all(15.0),
                                   child: Text(
-                                    'To become a rider for Desserts to Door, download the app and sign up as a rider. You will need to provide some basic information, including your name, contact details, and vehicle information.',
+                                    'To become a rider for Desserts to Door, download the app and make sure you have been registerd as a rider by the D2D team. You will need to provide some basic information, including your name, contact details, and vehicle information, etc.',
                                     style: GoogleFonts.raleway(
                                       fontWeight: FontWeight.w500,
                                       letterSpacing: .15,
@@ -814,8 +814,6 @@ class _FAQsState extends State<FAQs> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-
-              // else blank
             ],
           ),
         ),

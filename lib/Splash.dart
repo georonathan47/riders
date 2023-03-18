@@ -3,10 +3,13 @@ import 'dart:async';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'core/constants/colors.dart';
 import 'core/constants/widgetFunctions.dart';
 import 'features/Generic/features/authentication/presentation/pages/login.dart';
+import 'features/Generic/features/authentication/presentation/provider/authProvider.dart';
+import 'index.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,12 +25,21 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 5),
       // ? Implement check when integration is done!
-      () => Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Login(),
-        ),
-      ),
+      () {
+        context.read<AuthProvider>().riderModel == null
+            ? Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Login(),
+                ),
+              )
+            : Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Index(),
+                ),
+              );
+      },
     );
   }
 
