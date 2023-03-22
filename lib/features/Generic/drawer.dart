@@ -72,6 +72,26 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
               child: Card(
                 elevation: .5,
                 child: ListTile(
+                  leading: Icon(Icons.wallet_outlined, size: 25, color: secondColor),
+                  title: Text(
+                    'Wallet',
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      letterSpacing: .45,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Card(
+                elevation: .5,
+                child: ListTile(
                   leading: Image.asset('assets/images/faq.png', height: 30),
                   title: Text(
                     'FAQs',
