@@ -1,7 +1,12 @@
 PODS:
   - apple_maps_flutter (0.0.1):
     - Flutter
+  - connectivity_plus (0.0.1):
+    - Flutter
+    - ReachabilitySwift
   - Flutter (1.0.0)
+  - geolocator_apple (1.2.0):
+    - Flutter
   - google_maps_flutter_ios (0.0.1):
     - Flutter
     - GoogleMaps
@@ -12,6 +17,7 @@ PODS:
     - GoogleMaps/Base
   - path_provider_ios (0.0.1):
     - Flutter
+  - ReachabilitySwift (5.0.0)
   - shared_preferences_ios (0.0.1):
     - Flutter
   - url_launcher_ios (0.0.1):
@@ -19,7 +25,9 @@ PODS:
 
 DEPENDENCIES:
   - apple_maps_flutter (from `.symlinks/plugins/apple_maps_flutter/ios`)
+  - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
+  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_maps_flutter_ios (from `.symlinks/plugins/google_maps_flutter_ios/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
@@ -28,12 +36,17 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - GoogleMaps
+    - ReachabilitySwift
 
 EXTERNAL SOURCES:
   apple_maps_flutter:
     :path: ".symlinks/plugins/apple_maps_flutter/ios"
+  connectivity_plus:
+    :path: ".symlinks/plugins/connectivity_plus/ios"
   Flutter:
     :path: Flutter
+  geolocator_apple:
+    :path: ".symlinks/plugins/geolocator_apple/ios"
   google_maps_flutter_ios:
     :path: ".symlinks/plugins/google_maps_flutter_ios/ios"
   path_provider_ios:
@@ -45,10 +58,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   apple_maps_flutter: c59725efea39e13e703cde52a1d2b14866ad68a8
+  connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  geolocator_apple: cc556e6844d508c95df1e87e3ea6fa4e58c50401
   google_maps_flutter_ios: 66201f392bf62d500f07670a30488a247b9bb5b9
   GoogleMaps: 008e2c80e38605b56b560e8deb73d4194ff30bef
   path_provider_ios: 14f3d2fd28c4fdb42f44e0f751d12861c43cee02
+  ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
 

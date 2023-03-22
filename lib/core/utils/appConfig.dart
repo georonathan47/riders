@@ -12,6 +12,7 @@ class AppConfig extends ChangeNotifier {
   String? approvalUrl;
   String? ticketingUrl;
   String? fetchRecentRides;
+  String? fetchTransactionsUrl;
 
   AppConfig({
     this.env,
@@ -24,11 +25,12 @@ class AppConfig extends ChangeNotifier {
     this.ridersUrl,
     this.ticketingUrl,
     this.fetchRecentRides,
+    this.fetchTransactionsUrl,
   });
 
   static Future<AppConfig> forEnvironment(String env) async {
     // set default to prod if nothing was passed
-    env = env.isEmpty ? 'dev' : env;
+    env = env.isEmpty ? 'prod' : env;
 
     // load the dotenv file
     await dotenv.load(
@@ -42,11 +44,11 @@ class AppConfig extends ChangeNotifier {
       baseUrl: dotenv.env["BASE_URL"],
       loginUrl: dotenv.env['LoginUrl'],
       logoutUrl: dotenv.env["LogoutUrl"],
-      registerUrl: dotenv.env["RegisterUrl"],
       approvalUrl: dotenv.env["ApprovalUrl"],
       ridersUrl: dotenv.env["RidersUrl"],
       ticketingUrl: dotenv.env["TicketingUrl"],
-      fetchRecentRides: dotenv.env["FetchRecentRides"],
+      fetchRecentRides: dotenv.env["FetchRecentRidesUrl"],
+      fetchTransactionsUrl: dotenv.env["FetchTransactionsUrl"],
     );
   }
 }

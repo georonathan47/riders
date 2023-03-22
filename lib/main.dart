@@ -34,6 +34,7 @@ void main({String? env}) async {
             approvalUrl: config.approvalUrl,
             ridersUrl: config.ridersUrl,
             fetchRecentRides: config.fetchRecentRides,
+            fetchTransactionsUrl: config.fetchTransactionsUrl,
           ),
         ),
       ],
