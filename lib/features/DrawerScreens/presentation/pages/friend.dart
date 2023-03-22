@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:riders/core/constants/widgetFunctions.dart';
-import 'package:riders/core/utils/UtilService.dart';
+
+import '../../../../core/constants/widgetFunctions.dart';
+import '../../../../core/utils/UtilService.dart';
 
 class Invites extends StatefulWidget {
   const Invites({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _InvitesState extends State<Invites> {
           mainText14('Refer A Friend'),
           const Divider(),
           Container(
-            height: size.height * .25,
+            height: size.height * .275,
             width: size.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -35,7 +36,7 @@ class _InvitesState extends State<Invites> {
               ],
             ),
             margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 170),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
             child: Center(
               child: Column(
                 children: [
@@ -62,7 +63,10 @@ class _InvitesState extends State<Invites> {
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [subText('Copy Link'), FaIcon(FontAwesomeIcons.share, size: 25)],
+                        children: [
+                          subText('Copy Link'),
+                          FaIcon(FontAwesomeIcons.copy, size: 22.5)
+                        ],
                       ),
                     ),
                   )

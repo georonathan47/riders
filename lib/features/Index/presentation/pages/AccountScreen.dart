@@ -1,10 +1,11 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:riders/core/constants/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/widgetFunctions.dart';
+import '../../../DrawerScreens/presentation/pages/faqs.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen();
@@ -74,8 +75,18 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Column(
                   children: [
                     Card(
+                      shape: ShapeBorder.lerp(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        0.75,
+                      ),
                       elevation: 1,
                       child: Container(
+                        padding: const EdgeInsets.all(10),
                         child: Row(
                           children: [
                             Container(
@@ -91,7 +102,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                     height: 18,
                                     width: 18,
                                     color: Colors.white,
-                                    image: AssetImage("assets/images/userIcon.png"),
+                                    image: AssetImage(
+                                        "assets/images/userIcon.png"),
                                   ),
                                 ),
                               ),
@@ -131,57 +143,69 @@ class _AccountScreenState extends State<AccountScreen> {
                     ProfileCard(context),
                     addVertical(17),
                     Card(
+                      shape: ShapeBorder.lerp(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        0.75,
+                      ),
                       elevation: 1,
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              color: primaryColor,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Container(
-                              child: const Center(
-                                child: Image(
-                                  height: 20,
-                                  width: 20,
-                                  color: Colors.white,
-                                  image: AssetImage(
-                                    "assets/images/load.png",
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Container(
+                                child: const Center(
+                                  child: Image(
+                                    height: 20,
+                                    width: 20,
+                                    color: Colors.white,
+                                    image: AssetImage(
+                                      "assets/images/load.png",
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                          addHorizontal(7),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  "Help and Feedback",
-                                  style: GoogleFonts.raleway(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w700,
-                                    // color: LABEL_COLOR,
+                            addHorizontal(7),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    "Help and Feedback",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                      // color: LABEL_COLOR,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              addHorizontal(5),
-                              Container(
-                                child: Text(
-                                  "Reach us with your feedback and questions",
-                                  style: GoogleFonts.raleway(
-                                    fontSize: 11.5,
-                                    fontWeight: FontWeight.w400,
-                                    // color: LABEL_COLOR,
+                                addHorizontal(5),
+                                Container(
+                                  child: Text(
+                                    "Reach us with your feedback and questions",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 11.5,
+                                      fontWeight: FontWeight.w400,
+                                      // color: LABEL_COLOR,
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     addVertical(25),
@@ -407,12 +431,14 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 33.0),
                   child: GestureDetector(
-                    // onTap: () => Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const FAQsScreen(),
-                    //   ),
-                    // ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FAQs(),
+                        ),
+                      );
+                    },
                     child: Container(
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -462,7 +488,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       "Contact Us",
                       style: GoogleFonts.raleway(
                         fontSize: 14,
-                        fontWeight: FontWeight.w300,
+                        fontWeight: FontWeight.w400,
                         // color: LABEL_COLOR,
                       ),
                     ),
@@ -601,7 +627,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     "Phone",
                     style: GoogleFonts.raleway(
                       fontSize: 14,
-                      fontWeight: FontWeight.w300,
+                      fontWeight: FontWeight.w400,
                       // color: LABEL_COLOR,
                     ),
                   ),

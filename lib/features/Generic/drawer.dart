@@ -1,156 +1,128 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:riders/core/constants/colors.dart';
-import 'package:riders/features/DrawerScreens/presentation/pages/friend.dart';
-import 'package:riders/features/DrawerScreens/presentation/pages/tickets.dart';
+import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
-Widget Sidebar(BuildContext context, {String? email, String? name}) {
+import '../../core/components/progressDialog.dart';
+import '../../core/constants/colors.dart';
+import '../../core/services/apiService.dart';
+import '../../core/utils/appConfig.dart';
+import '../../main.dart';
+import '../DrawerScreens/presentation/pages/faqs.dart';
+import '../DrawerScreens/presentation/pages/friend.dart';
+import '../DrawerScreens/presentation/pages/tickets.dart';
+import '../DrawerScreens/presentation/pages/wallet.dart';
+import 'features/authentication/presentation/pages/login.dart';
+import 'features/authentication/presentation/provider/authProvider.dart';
+
+Widget Sidebar(BuildContext context,
+    {String? email, String? name, String? version}) {
   return Drawer(
     elevation: 1.25,
-    child: Stack(
-      children: [
-        ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [primaryColor, secondColor],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+    child: GestureDetector(
+      onTap: () async {
+        final config = await AppConfig.forEnvironment(envVar);
+        version = config.version;
+      },
+      child: Stack(
+        children: [
+          ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              UserAccountsDrawerHeader(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [primaryColor, secondColor],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                currentAccountPicture: CircleAvatar(
+                  radius: 65,
+                  backgroundColor: Colors.white60,
+                  child: Image.asset('assets/images/logo.png'),
+                ),
+                accountName: Text(
+                  'Hello, $name!',
+                  style: GoogleFonts.lato(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: .25,
+                  ),
+                ),
+                accountEmail: Text(
+                  email!,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: .25,
+                  ),
                 ),
               ),
-              currentAccountPicture: CircleAvatar(
-                radius: 65,
-                backgroundColor: Colors.white60,
-                child: Image.asset('assets/images/logo.png'),
-              ),
-              accountName: Text(
-                'Hello, $name!',
-                style: GoogleFonts.lato(
-                  fontSize: 14,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: .25,
-                ),
-              ),
-              accountEmail: Text(
-                email!,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  letterSpacing: .25,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                // color: WARNING.shade100,
-                elevation: .5,
-                child: ListTile(
-                  leading: Image.asset('assets/images/bell.png', height: 25),
-                  title: Text(
-                    'Notifications',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              //   child: Card(
+              //     // color: WARNING.shade100,
+              //     shape: ShapeBorder.lerp(
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15),
+              //       ),
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15),
+              //       ),
+              //       0.5,
+              //     ),
+              //     elevation: .5,
+              //     child: ListTile(
+              //       leading: Image.asset('assets/images/bell.png', height: 25),
+              //       title: Text(
+              //         'Notifications',
+              //         style: GoogleFonts.poppins(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400,
+              //           letterSpacing: .65,
+              //         ),
+              //       ),
+              //       onTap: () {
+              //         Navigator.pop(context);
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => NotificationsPage(),
+              //           ),
+              //         );
+              //         // Navigator.push(context, '/notifications');
+              //       },
+              //     ),
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    // Navigator.push(context, '/notifications');
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                elevation: .5,
-                child: ListTile(
-                  leading: Icon(Icons.wallet_outlined, size: 25, color: secondColor),
-                  title: Text(
-                    'Wallet',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
+                    0.5,
                   ),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                elevation: .5,
-                child: ListTile(
-                  leading: Image.asset('assets/images/faq.png', height: 30),
-                  title: Text(
-                    'FAQs',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                // color: LABEL_COLOR,
-                elevation: .5,
-                child: ListTile(
-                  leading: Icon(
-                    Icons.share_outlined,
-                    size: 25,
-                    color: secondColor,
-                  ),
-                  title: Text(
-                    'Invite a Friend',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
-                    ),
-                  ),
-                  onTap: () async {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const Invites(),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                color: Theme.of(context).cardColor,
-                elevation: .5,
-                child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.ticket),
+                  elevation: .5,
+                  child: ListTile(
+                    leading: Icon(Icons.wallet_outlined,
+                        size: 25, color: secondColor),
                     title: Text(
-                      'Open Ticket',
+                      'Wallet',
                       style: GoogleFonts.poppins(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w400,
-                        letterSpacing: .45,
+                        letterSpacing: .65,
                       ),
                     ),
                     onTap: () {
@@ -158,83 +130,339 @@ Widget Sidebar(BuildContext context, {String? email, String? name}) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Tickets(),
+                          builder: (context) => WalletPage(),
                         ),
                       );
-                    }),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                elevation: .5,
-                child: ListTile(
-                  leading: const Icon(
-                    Icons.settings_outlined,
-                    color: secondColor,
-                    size: 25,
+                    },
                   ),
-                  title: Text(
-                    'Settings',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context);
-                    // Navigator.pushNamed(context, '/settings');
-                  },
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Card(
-                color: Theme.of(context).cardColor,
-                elevation: .5,
-                child: ListTile(
-                  leading: Image.asset('assets/images/logout.png', height: 30),
-                  title: Text(
-                    'Logout',
-                    style: GoogleFonts.poppins(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: .45,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
                     ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
                   ),
-                  onTap: () => logout(context),
+                  // color: LABEL_COLOR,
+                  elevation: .5,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.share_outlined,
+                      size: 25,
+                      color: secondColor,
+                    ),
+                    title: Text(
+                      'Invite a Friend',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () async {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Invites(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        Positioned(
-          // top: 720,
-          bottom: 10,
-          left: 0,
-          right: 0,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              'Version: v1.0.0',
-              style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                letterSpacing: .5,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  color: Theme.of(context).cardColor,
+                  elevation: .5,
+                  child: ListTile(
+                    leading: FaIcon(FontAwesomeIcons.ticket,
+                        size: 25, color: secondColor),
+                    title: Text(
+                      'Open Ticket',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      fetchTickets(context);
+                    },
+                  ),
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  elevation: .5,
+                  child: ListTile(
+                    leading: Image.asset('assets/images/faq.png', height: 30),
+                    title: Text(
+                      'FAQs',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FAQs(),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              //   child: Card(
+              //     shape: ShapeBorder.lerp(
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15),
+              //       ),
+              //       RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15),
+              //       ),
+              //       0.5,
+              //     ),
+              //     elevation: .5,
+              //     child: ListTile(
+              //       leading: const Icon(
+              //         Icons.settings_outlined,
+              //         color: secondColor,
+              //         size: 25,
+              //       ),
+              //       title: Text(
+              //         'Settings',
+              //         style: GoogleFonts.poppins(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w400,
+              //           letterSpacing: .65,
+              //         ),
+              //       ),
+              //       onTap: () {
+              //         Navigator.pop(context);
+              //         Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //             builder: (context) => SettingsPage(),
+              //           ),
+              //         );
+              //         // Navigator.pushNamed(context, '/settings');
+              //       },
+              //     ),
+              //   ),
+              // ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Card(
+                  shape: ShapeBorder.lerp(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    0.5,
+                  ),
+                  color: Theme.of(context).cardColor,
+                  elevation: .5,
+                  child: ListTile(
+                    leading:
+                        Image.asset('assets/images/logout.png', height: 30),
+                    title: Text(
+                      'Logout',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        letterSpacing: .65,
+                      ),
+                    ),
+                    onTap: () => logout(context),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            // top: 720,
+            bottom: 10,
+            left: 0,
+            right: 0,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                'Version: v1.0.0',
+                style: GoogleFonts.raleway(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  letterSpacing: .75,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     ),
   );
 }
 
-logout(BuildContext context) async {
-  Navigator.pop(context);
-  // ? Clear User session and logout
+fetchTickets(BuildContext context) async {
+  final config = await AppConfig.forEnvironment(envVar);
+  try {
+    showDialog(
+      context: context,
+      builder: (context) => const ProgressDialog(
+        displayMessage: 'Fetching tickets...\nPlease wait!',
+      ),
+    );
 
-  // Navigator.pushReplacementNamed(context, '/l');
+    Response? response = await ApiService().getDataWithAuth(
+      url:
+          '${config.ticketingUrl}?user_id=${context.read<AuthProvider>().riderModel!.id}',
+      auth: context.read<AuthProvider>().accessToken,
+    );
+    // print('response: ${jsonDecode(response)}');
+
+    if (response!.statusCode == 200) {
+      var fetchTicketsResponse = jsonDecode(response.body);
+      print('fetchTicketsResponse: $fetchTicketsResponse');
+
+      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Tickets(response: fetchTicketsResponse),
+        ),
+      );
+    } else {
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'An error occured. Please try again later!',
+            style: GoogleFonts.raleway(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: Colors.red[200],
+        ),
+      );
+      print(response.body);
+    }
+  } catch (error, stackTrace) {
+    print('Exception occured: $error\nstackTrace: $stackTrace');
+    Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'An error occured. Please try again later!',
+          style: GoogleFonts.raleway(
+            fontSize: 16,
+            color: Colors.black,
+          ),
+        ),
+        backgroundColor: Colors.red[200],
+      ),
+    );
+  }
+}
+
+logout(BuildContext context) async {
+  final config = await AppConfig.forEnvironment(envVar);
+  try {
+    Navigator.pop(context);
+    // ? Clear User session and logout
+    // await ApiService().logout(refreshToken).then((value) {
+    showDialog(
+      context: context,
+      builder: (context) => const ProgressDialog(
+        displayMessage: 'Logging out...',
+      ),
+    );
+
+    Future.delayed(const Duration(seconds: 2));
+    print('Refresh token: ${context.read<AuthProvider>().refreshToken}');
+
+    var jsonBody = {"refresh": context.read<AuthProvider>().accessToken};
+
+    Response? logoutResponse = await ApiService().postData(
+      url: config.logoutUrl,
+      body: jsonEncode(jsonBody),
+      auth: context.read<AuthProvider>().accessToken,
+    );
+
+    print(logoutResponse!.statusCode);
+    if (logoutResponse.statusCode >= 200 && logoutResponse.statusCode < 300) {
+      print('Logout successful');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Login(),
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'You have successfully logged out!',
+            style: GoogleFonts.raleway(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: Colors.teal[200],
+        ),
+      );
+    } else {
+      print('Logout failed');
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'An error occurred! Please try again later!',
+            style: GoogleFonts.raleway(
+              fontSize: 16,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: Colors.red[200],
+        ),
+      );
+    }
+  } catch (error, stacktrace) {
+    print('Exception occured: $error\n stackTrace: $stacktrace');
+  }
 }
