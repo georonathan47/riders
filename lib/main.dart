@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:riders/index.dart';
 
 import 'Splash.dart';
 import 'core/constants/colors.dart';
@@ -219,7 +220,7 @@ class _RidersState extends State<Riders> {
         ),
       ),
       home: const SplashScreen(),
-      // home: const Login(),
+      // home: const Index(),
     );
   }
 }

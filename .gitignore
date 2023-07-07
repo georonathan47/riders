@@ -49,3 +49,4 @@ app.*.map.json
 # configs
 # assets/configs/
 .fvm/
+.vscode/

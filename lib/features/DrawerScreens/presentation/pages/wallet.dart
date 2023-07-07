@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
-import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/widgetFunctions.dart';
 
 class WalletPage extends StatefulWidget {
@@ -12,11 +12,6 @@ class WalletPage extends StatefulWidget {
 }
 
 int? singleValue;
-int? singleValue1;
-int? singleValue2;
-int? singleValue3;
-int? singleValue4;
-int? singleValue5;
 
 class _WalletPageState extends State<WalletPage> {
   final phoneController = TextEditingController();
@@ -28,8 +23,11 @@ class _WalletPageState extends State<WalletPage> {
     });
   }
 
+  List bankList = ["Access Bank", "UMB", "GT Bank", "ADB", "Fidelity Bank", "Republic Bank"];
+
   @override
   Widget build(BuildContext context) {
+    dynamic selectedBank;
     final size = MediaQuery.of(context).size;
     return DefaultTabController(
       length: 2,
@@ -180,8 +178,7 @@ class _WalletPageState extends State<WalletPage> {
                   singleValue == null
                       ? AbsorbPointer(
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 20, left: 20, right: 20),
+                            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                             child: buildTextField(
                               'Phone Number',
                               'Eg: 0201234567',
@@ -193,8 +190,7 @@ class _WalletPageState extends State<WalletPage> {
                           ),
                         )
                       : Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, left: 20, right: 20),
+                          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                           child: buildTextField(
                             'Phone Number',
                             'Eg: 0201234567',
@@ -208,8 +204,7 @@ class _WalletPageState extends State<WalletPage> {
                   // ? Change icon color
                   // ? Add sequencing
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, left: 20, right: 20),
+                    padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                     child: buildTextField1(
                       'Amount to Withdraw',
                       'Eg: 0201234567',
@@ -236,120 +231,36 @@ class _WalletPageState extends State<WalletPage> {
                   fontSize: 14,
                 ),
                 addVertical(10),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 0,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
+                Container(
+                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  height: size.height * 0.0675,
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField2(
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: const EdgeInsets.all(12),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(width: 1),
+                        ),
+                      ),
+                      hint: subText('--- Choose Bank ---'),
+                      value: selectedBank,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedBank = value;
+                        });
+                        print('selectedBank: $selectedBank');
+                      },
+                      items: bankList.map<DropdownMenuItem<String>>((value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: subText(value),
+                        );
+                      }).toList(),
                     ),
-                    mainText16('Access Bank'),
-                  ],
+                  ),
                 ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 1,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
-                    ),
-                    mainText16('GT Bank'),
-                  ],
-                ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 2,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
-                    ),
-                    mainText16('ADB'),
-                  ],
-                ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 3,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
-                    ),
-                    mainText16('Fidelity Bank'),
-                  ],
-                ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 4,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
-                    ),
-                    mainText16('Republic Bank'),
-                  ],
-                ),
-                // RadioButton(
-                //   description: "Access Bank",
-                //   value: "access",
-                //   groupValue: 'Mobile Money',
-                //   textStyle: GoogleFonts.raleway(
-                //     fontWeight: FontWeight.w500,
-                //     letterSpacing: .75,
-                //     fontSize: 18,
-                //   ),
-                //   onChanged: (value) => setState(
-                //     () {
-                //       singleValue3 = value;
-                //       print('value: $value');
-                //     },
-                //   ),
-                //   fillColor: secondColor,
-                //   activeColor: primaryColor,
-                // ),
-                // RadioButton(
-                //   description: "GCB Bank",
-                //   value: "GCB",
-                //   groupValue: 'Mobile Money',
-                //   textStyle: GoogleFonts.raleway(
-                //     fontWeight: FontWeight.w500,
-                //     letterSpacing: .75,
-                //     fontSize: 18,
-                //   ),
-                //   onChanged: (value) => setState(
-                //     () {
-                //       singleValue4 = value;
-                //       print('value: $value');
-                //     },
-                //   ),
-                //   fillColor: secondColor,
-                //   activeColor: primaryColor,
-                // ),
-                // RadioButton(
-                //   description: "Standard Chartered Bank",
-                //   value: "stanchart",
-                //   groupValue: 'Mobile Money',
-                //   textStyle: GoogleFonts.raleway(
-                //     fontWeight: FontWeight.w500,
-                //     letterSpacing: .75,
-                //     fontSize: 18,
-                //   ),
-                //   onChanged: (value) => setState(
-                //     () {
-                //       singleValue5 = value;
-                //       print('value: $value');
-                //     },
-                //   ),
-                //   activeColor: primaryColor,
-                //   fillColor: secondColor,
-                // ),
                 addVertical(20),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
