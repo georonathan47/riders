@@ -7,10 +7,11 @@ class AppConfig extends ChangeNotifier {
   String? baseUrl;
   String? loginUrl;
   String? logoutUrl;
-  String? registerUrl;
   String? ridersUrl;
+  String? registerUrl;
   String? approvalUrl;
   String? ticketingUrl;
+  String? withdrawCashUrl;
   String? fetchRecentRides;
   String? fetchTransactionsUrl;
 
@@ -20,10 +21,11 @@ class AppConfig extends ChangeNotifier {
     this.baseUrl,
     this.loginUrl,
     this.logoutUrl,
+    this.ridersUrl,
     this.registerUrl,
     this.approvalUrl,
-    this.ridersUrl,
     this.ticketingUrl,
+    this.withdrawCashUrl,
     this.fetchRecentRides,
     this.fetchTransactionsUrl,
   });
@@ -44,9 +46,10 @@ class AppConfig extends ChangeNotifier {
       baseUrl: dotenv.env["BASE_URL"],
       loginUrl: dotenv.env['LoginUrl'],
       logoutUrl: dotenv.env["LogoutUrl"],
-      approvalUrl: dotenv.env["ApprovalUrl"],
       ridersUrl: dotenv.env["RidersUrl"],
+      approvalUrl: dotenv.env["ApprovalUrl"],
       ticketingUrl: dotenv.env["TicketingUrl"],
+      withdrawCashUrl: dotenv.env["WithdrawMoney"],
       fetchRecentRides: dotenv.env["FetchRecentRidesUrl"],
       fetchTransactionsUrl: dotenv.env["FetchTransactionsUrl"],
     );
