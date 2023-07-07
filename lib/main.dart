@@ -22,21 +22,8 @@ void main({String? env}) async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => AppConfig()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),
-        ChangeNotifierProvider(
-          create: (context) => AppConfig(
-            env: config.env,
-            version: config.version,
-            baseUrl: config.baseUrl,
-            loginUrl: config.loginUrl,
-            logoutUrl: config.logoutUrl,
-            registerUrl: config.registerUrl,
-            approvalUrl: config.approvalUrl,
-            ridersUrl: config.ridersUrl,
-            fetchRecentRides: config.fetchRecentRides,
-            fetchTransactionsUrl: config.fetchTransactionsUrl,
-          ),
-        ),
       ],
       child: Riders(config: config),
     ),
