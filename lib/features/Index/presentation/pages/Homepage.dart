@@ -1,15 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-// import 'package:platform_maps_flutter/platform_maps_flutter.dart';
 import 'package:riders/core/constants/colors.dart';
 import 'package:riders/core/constants/widgetFunctions.dart';
 import 'package:riders/core/utils/UtilService.dart';
 
-// import '../../../../core/constants/widgetFunctions.dart';
+import '../../../../Splash.dart';
 
 class Homepage extends StatefulWidget {
   final String? username;
@@ -20,73 +19,10 @@ class Homepage extends StatefulWidget {
 }
 
 UtilService util = UtilService();
-LatLng? initialPosition;
-LatLng? currentLocation;
-Set<Marker> markers = {};
-Set<Polyline> polylines = {};
 
 class _HomepageState extends State<Homepage> {
-  Future<Position> determinePosition() async {
-    bool serviceEnabled;
-    LocationPermission permission;
 
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
-    }
-    return await Geolocator.getCurrentPosition();
-  }
-
-  Future getCurrentLocation() async {
-    var position = await GeolocatorPlatform.instance.getCurrentPosition(
-      locationSettings: const LocationSettings(
-        accuracy: LocationAccuracy.bestForNavigation,
-      ),
-    );
-
-    setState(() {
-      initialPosition = LatLng(position.latitude, position.longitude);
-      currentLocation = initialPosition;
-      setMarker(currentLocation!, context);
-
-      print('This is my currentLocation : $currentLocation');
-    });
-  }
-
-  setMarker(LatLng point, BuildContext context) {
-    setState(
-      () {
-        markers.add(
-          Marker(
-            markerId: const MarkerId('marker'),
-            position: point,
-            icon: BitmapDescriptor.defaultMarker,
-            draggable: true,
-            onDragEnd: (newPoint) {
-              print('lat: ${newPoint.latitude}, lng: ${newPoint.longitude}');
-              setMarker(newPoint, context);
-            },
-          ),
-        );
-      },
-    );
-  }
-
-  static CameraPosition koforidua = CameraPosition(
+  static CameraPosition location = CameraPosition(
     target: currentLocation!,
     zoom: 16,
   );
@@ -96,8 +32,6 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    determinePosition();
-    getCurrentLocation();
   }
 
   bool hasBeenTapped = false;
@@ -117,7 +51,7 @@ class _HomepageState extends State<Homepage> {
                     // polylines: polylines,
                     myLocationEnabled: true,
                     myLocationButtonEnabled: false,
-                    initialCameraPosition: koforidua,
+                    initialCameraPosition: location,
                     mapType: MapType.normal,
                     markers: markers,
                     zoomControlsEnabled: false,

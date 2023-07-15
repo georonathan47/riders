@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:riders/index.dart';
 
 import 'Splash.dart';
 import 'core/constants/colors.dart';
@@ -15,7 +14,7 @@ dynamic appVersion;
 void main({String? env}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  env ??= 'dev';
+  env ??= 'prod';
   print('Working from the $env environment');
   final config = await AppConfig.forEnvironment(env);
   envVar = config.env;
@@ -46,7 +45,8 @@ class _RidersState extends State<Riders> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: envVar == 'prod' ? false : true,
+      // debugShowCheckedModeBanner: envVar == 'prod' ? false : true,
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: ThemeData(
         brightness: Brightness.light,

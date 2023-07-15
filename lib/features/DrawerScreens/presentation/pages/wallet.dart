@@ -55,7 +55,7 @@ class _WalletPageState extends State<WalletPage> {
         Navigator.pop(context);
         if (response.statusCode == 200) {
           dynamic information = jsonDecode(response.body);
-          
+          logger.d(information);
         } else if (response.statusCode == 400) {
           dynamic error = jsonDecode(response.body);
           ScaffoldMessenger.of(context).showSnackBar(
