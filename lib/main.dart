@@ -14,7 +14,7 @@ dynamic appVersion;
 void main({String? env}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  env ??= 'prod';
+  env ??= 'dev';
   print('Working from the $env environment');
   final config = await AppConfig.forEnvironment(env);
   envVar = config.env;
