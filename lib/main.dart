@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +15,7 @@ dynamic appVersion;
 void main({String? env}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  env ??= 'dev';
+  env ??= 'prod';
   print('Working from the $env environment');
   final config = await AppConfig.forEnvironment(env);
   envVar = config.env;
@@ -22,21 +23,8 @@ void main({String? env}) async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => AppConfig()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),
-        ChangeNotifierProvider(
-          create: (context) => AppConfig(
-            env: config.env,
-            version: config.version,
-            baseUrl: config.baseUrl,
-            loginUrl: config.loginUrl,
-            logoutUrl: config.logoutUrl,
-            registerUrl: config.registerUrl,
-            approvalUrl: config.approvalUrl,
-            ridersUrl: config.ridersUrl,
-            fetchRecentRides: config.fetchRecentRides,
-            fetchTransactionsUrl: config.fetchTransactionsUrl,
-          ),
-        ),
       ],
       child: Riders(config: config),
     ),
@@ -58,7 +46,8 @@ class _RidersState extends State<Riders> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: envVar == 'prod' ? false : true,
+      // debugShowCheckedModeBanner: envVar == 'prod' ? false : true,
+      debugShowCheckedModeBanner: kDebugMode,
       themeMode: ThemeMode.system,
       theme: ThemeData(
         brightness: Brightness.light,
@@ -232,7 +221,7 @@ class _RidersState extends State<Riders> {
         ),
       ),
       home: const SplashScreen(),
-      // home: const Login(),
+      // home: const Index(),
     );
   }
 }

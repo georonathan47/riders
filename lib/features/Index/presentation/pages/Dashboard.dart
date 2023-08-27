@@ -105,7 +105,7 @@ class _DashboardState extends State<Dashboard> {
       drawer: Sidebar(
         context,
         email: 'rider@gmail.com',
-        name: username,
+        name: username!.toUpperCase(),
         version: appVersion,
       ),
       body: RefreshIndicator(
@@ -118,10 +118,7 @@ class _DashboardState extends State<Dashboard> {
               children: [
                 Expanded(
                   child: Text(
-                    (context.read<AuthProvider>().responseModel!.username !=
-                            null)
-                        ? 'Welcome, ${userName.toUpperCase()}.'
-                        : 'Welcome, Rider!',
+                    (username != null) ? 'Welcome, ${userName.toUpperCase()}.' : 'Welcome, Rider!',
                     style: GoogleFonts.raleway(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

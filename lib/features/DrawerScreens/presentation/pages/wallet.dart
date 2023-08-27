@@ -1,8 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:provider/provider.dart';
+import 'package:riders/core/components/progressDialog.dart';
 
-import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/widgetFunctions.dart';
+import '../../../../core/services/apiService.dart';
+import '../../../../core/utils/appConfig.dart';
+import '../../../../core/utils/loggerConfig.dart';
+import '../../../../main.dart';
+import '../../../Generic/features/authentication/presentation/provider/authProvider.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key});
@@ -12,11 +21,6 @@ class WalletPage extends StatefulWidget {
 }
 
 int? singleValue;
-int? singleValue1;
-int? singleValue2;
-int? singleValue3;
-int? singleValue4;
-int? singleValue5;
 
 class _WalletPageState extends State<WalletPage> {
   final phoneController = TextEditingController();
@@ -28,8 +32,56 @@ class _WalletPageState extends State<WalletPage> {
     });
   }
 
+  List bankList = ["Access Bank", "UMB", "GT Bank", "ADB", "Fidelity Bank", "Republic Bank"];
+
+  withdrawCash(objectToParse) async {
+    final config = await AppConfig.forEnvironment(envVar);
+    try {
+      showDialog(
+        context: context,
+        builder: (_) => ProgressDialog(
+          displayMessage: "Initiating withdrawal... Please wait!",
+        ),
+      );
+      Future.delayed(const Duration(seconds: 2));
+      ApiService()
+          .postDataWithAuth(
+        url: config.withdrawCashUrl!,
+        body: jsonEncode(objectToParse),
+        auth: context.read<AuthProvider>().accessToken,
+      )
+          .then((response) {
+        logger.d(response!.statusCode);
+        Navigator.pop(context);
+        if (response.statusCode == 200) {
+          dynamic information = jsonDecode(response.body);
+          logger.d(information);
+        } else if (response.statusCode == 400) {
+          dynamic error = jsonDecode(response.body);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: subText(error['detail'].toString() + "!", color: Colors.black),
+              backgroundColor: Colors.red[400],
+            ),
+          );
+        }
+      });
+    } catch (err, stacktrace) {
+      logger.e(err);
+      print(stacktrace);
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: subText(err.toString(), color: Colors.black),
+          backgroundColor: Colors.red[400],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String? selectedBank;
     final size = MediaQuery.of(context).size;
     return DefaultTabController(
       length: 2,
@@ -62,8 +114,14 @@ class _WalletPageState extends State<WalletPage> {
             width: size.width * 0.75,
             height: 50,
             child: ElevatedButton(
-              child: subText('Submit', fontSize: 16),
-              onPressed: () {},
+              child: subText('Withdraw', fontSize: 20),
+              onPressed: () {
+                dynamic objectToParse = {
+                  "amount": amountController.text,
+                  "code": selectedBank,
+                };
+                withdrawCash(objectToParse);
+              },
             ),
           ),
         ],
@@ -180,8 +238,7 @@ class _WalletPageState extends State<WalletPage> {
                   singleValue == null
                       ? AbsorbPointer(
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 20, left: 20, right: 20),
+                            padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                             child: buildTextField(
                               'Phone Number',
                               'Eg: 0201234567',
@@ -193,8 +250,7 @@ class _WalletPageState extends State<WalletPage> {
                           ),
                         )
                       : Padding(
-                          padding: const EdgeInsets.only(
-                              top: 20, left: 20, right: 20),
+                          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
                           child: buildTextField(
                             'Phone Number',
                             'Eg: 0201234567',
@@ -208,11 +264,10 @@ class _WalletPageState extends State<WalletPage> {
                   // ? Change icon color
                   // ? Add sequencing
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, left: 20, right: 20),
+                    padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                     child: buildTextField1(
                       'Amount to Withdraw',
-                      'Eg: 0201234567',
+                      'Eg: 123',
                       false,
                       false,
                       amountController,
@@ -236,120 +291,36 @@ class _WalletPageState extends State<WalletPage> {
                   fontSize: 14,
                 ),
                 addVertical(10),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 0,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
+                Container(
+                  padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
+                  height: size.height * 0.0675,
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButtonFormField2(
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: const EdgeInsets.all(12),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(width: 1),
+                        ),
+                      ),
+                      hint: subText('--- Choose Bank ---'),
+                      value: selectedBank,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedBank = value;
+                        });
+                        print('selectedBank: $selectedBank');
+                      },
+                      items: bankList.map<DropdownMenuItem<String>>((value) {
+                        return DropdownMenuItem(
+                          value: value,
+                          child: subText(value),
+                        );
+                      }).toList(),
                     ),
-                    mainText16('Access Bank'),
-                  ],
+                  ),
                 ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 1,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
-                    ),
-                    mainText16('GT Bank'),
-                  ],
-                ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 2,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
-                    ),
-                    mainText16('ADB'),
-                  ],
-                ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 3,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
-                    ),
-                    mainText16('Fidelity Bank'),
-                  ],
-                ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 4,
-                      groupValue: singleValue,
-                      onChanged: _handleRadioValueChange,
-                      activeColor: secondColor,
-                    ),
-                    mainText16('Republic Bank'),
-                  ],
-                ),
-                // RadioButton(
-                //   description: "Access Bank",
-                //   value: "access",
-                //   groupValue: 'Mobile Money',
-                //   textStyle: GoogleFonts.raleway(
-                //     fontWeight: FontWeight.w500,
-                //     letterSpacing: .75,
-                //     fontSize: 18,
-                //   ),
-                //   onChanged: (value) => setState(
-                //     () {
-                //       singleValue3 = value;
-                //       print('value: $value');
-                //     },
-                //   ),
-                //   fillColor: secondColor,
-                //   activeColor: primaryColor,
-                // ),
-                // RadioButton(
-                //   description: "GCB Bank",
-                //   value: "GCB",
-                //   groupValue: 'Mobile Money',
-                //   textStyle: GoogleFonts.raleway(
-                //     fontWeight: FontWeight.w500,
-                //     letterSpacing: .75,
-                //     fontSize: 18,
-                //   ),
-                //   onChanged: (value) => setState(
-                //     () {
-                //       singleValue4 = value;
-                //       print('value: $value');
-                //     },
-                //   ),
-                //   fillColor: secondColor,
-                //   activeColor: primaryColor,
-                // ),
-                // RadioButton(
-                //   description: "Standard Chartered Bank",
-                //   value: "stanchart",
-                //   groupValue: 'Mobile Money',
-                //   textStyle: GoogleFonts.raleway(
-                //     fontWeight: FontWeight.w500,
-                //     letterSpacing: .75,
-                //     fontSize: 18,
-                //   ),
-                //   onChanged: (value) => setState(
-                //     () {
-                //       singleValue5 = value;
-                //       print('value: $value');
-                //     },
-                //   ),
-                //   activeColor: primaryColor,
-                //   fillColor: secondColor,
-                // ),
                 addVertical(20),
                 Padding(
                   padding: const EdgeInsets.only(top: 10, left: 20, right: 20),

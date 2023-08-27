@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 import 'core/constants/colors.dart';
@@ -18,10 +20,16 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
+LatLng? initialPosition;
+LatLng? currentLocation;
+Set<Marker> markers = {};
+
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    determinePosition();
+    getCurrentLocation();
     Future.delayed(
       const Duration(seconds: 5),
       // ? Implement check when integration is done!
@@ -39,6 +47,65 @@ class _SplashScreenState extends State<SplashScreen> {
                   builder: (context) => const Index(),
                 ),
               );
+      },
+    );
+  }
+
+  Future<Position> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Location permissions are permanently denied, we cannot request permissions.');
+    }
+    return await Geolocator.getCurrentPosition();
+  }
+
+  Future getCurrentLocation() async {
+    var position = await GeolocatorPlatform.instance.getCurrentPosition(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.bestForNavigation,
+      ),
+    );
+
+    setState(() {
+      initialPosition = LatLng(position.latitude, position.longitude);
+      currentLocation = initialPosition;
+      setMarker(currentLocation!, context);
+
+      print('This is my currentLocation : $currentLocation');
+    });
+  }
+
+  setMarker(LatLng point, BuildContext context) {
+    setState(
+      () {
+        markers.add(
+          Marker(
+            markerId: const MarkerId('marker'),
+            position: point,
+            icon: BitmapDescriptor.defaultMarker,
+            draggable: true,
+            onDragEnd: (newPoint) {
+              print('lat: ${newPoint.latitude}, lng: ${newPoint.longitude}');
+              setMarker(newPoint, context);
+            },
+          ),
+        );
       },
     );
   }

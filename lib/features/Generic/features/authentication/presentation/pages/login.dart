@@ -48,9 +48,7 @@ class _LoginState extends State<Login> {
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.15,
-                    child: isDarkMode
-                        ? Image.asset('assets/images/logo.png')
-                        : Image.asset('assets/images/darkLogo.png'),
+                    child: isDarkMode ? Image.asset('assets/images/logo.png') : Image.asset('assets/images/darkLogo.png'),
                   ),
                   Row(
                     children: [
@@ -157,8 +155,7 @@ class _LoginState extends State<Login> {
                   addVertical(30),
                   ElevatedButton(
                     onPressed: () async {
-                      if (usernameController.text.isEmpty &&
-                          passwordController.text.isEmpty) {
+                      if (usernameController.text.isEmpty && passwordController.text.isEmpty) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
@@ -231,8 +228,8 @@ class _LoginState extends State<Login> {
       Response? response = await ApiService().postData(
         url: config.loginUrl,
         body: jsonEncode({
-          'username': usernameController.text.trim(),
-          'password': passwordController.text.trim(),
+          'username': usernameController.text,
+          'password': passwordController.text,
         }),
       );
 
@@ -245,15 +242,13 @@ class _LoginState extends State<Login> {
         context.read<AuthProvider>().saveLoginResponseID(loginResponse['id']);
         User user = User(
           id: loginResponse['user']['id'],
+          user: loginResponse['user']['user'],
+          status: loginResponse['user']['status'],
           lincense: loginResponse['user']['lincense'],
           typeOfVehicle: loginResponse['user']['typeOfVehicle'],
-          vehicleRegistrationNumber: loginResponse['user']
-              ['vehicleRegistrationNumber'],
-          status: loginResponse['user']['status'],
-          user: loginResponse['user']['user'],
+          vehicleRegistrationNumber: loginResponse['user']['vehicleRegistrationNumber'],
         );
-        LoginResponseModel initialLoginResponse =
-            LoginResponseModel.fromJson(loginResponse);
+        LoginResponseModel initialLoginResponse = LoginResponseModel.fromJson(loginResponse);
         context.read<AuthProvider>().saveLoginResponse(initialLoginResponse);
 
         print('user: ${user.toJson()}');
