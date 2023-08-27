@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -46,7 +47,7 @@ class _RidersState extends State<Riders> {
   Widget build(BuildContext context) {
     return MaterialApp(
       // debugShowCheckedModeBanner: envVar == 'prod' ? false : true,
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: kDebugMode,
       themeMode: ThemeMode.system,
       theme: ThemeData(
         brightness: Brightness.light,
