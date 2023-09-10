@@ -150,25 +150,21 @@ class LoginResponseModel {
 class User {
   User({
     this.id,
-    this.lincense,
-    this.typeOfVehicle,
-    this.yearsOfDriving,
-    this.vehicleRegistrationNumber,
-    this.residentialAddress,
-    this.emergencyContact,
-    this.status,
-    this.user,
+    this.email,
+    this.gender,
+    this.username,
+    this.last_name,
+    this.first_name,
+    this.phone_number,
   });
 
   int? id;
-  dynamic lincense;
-  dynamic typeOfVehicle;
-  dynamic yearsOfDriving;
-  dynamic vehicleRegistrationNumber;
-  dynamic residentialAddress;
-  dynamic emergencyContact;
-  String? status;
-  int? user;
+  String? email;
+  String? gender;
+  String? username;
+  String? last_name;
+  String? first_name;
+  String? phone_number;
 
   factory User.fromRawJson(String str) => User.fromJson(json.decode(str));
 
@@ -176,25 +172,21 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
-        lincense: json["lincense"],
-        typeOfVehicle: json["type_of_vehicle"],
-        yearsOfDriving: json["years_of_driving"],
-        vehicleRegistrationNumber: json["vehicle_registration_number"],
-        residentialAddress: json["residential_address"],
-        emergencyContact: json["emergency_contact"],
-        status: json["status"],
-        user: json["user"],
+        email: json["email"],
+        gender: json["gender"],
+        username: json["username"],
+        last_name: json["last_name"],
+        first_name: json["first_name"],
+        phone_number: json["phone_number"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "lincense": lincense,
-        "type_of_vehicle": typeOfVehicle,
-        "years_of_driving": yearsOfDriving,
-        "vehicle_registration_number": vehicleRegistrationNumber,
-        "residential_address": residentialAddress,
-        "emergency_contact": emergencyContact,
-        "status": status,
-        "user": user,
+        "email": email,
+        "gender": gender,
+        "username": username,
+        "last_name": last_name,
+        "first_name": first_name,
+        "phone_number": phone_number,
       };
 }
