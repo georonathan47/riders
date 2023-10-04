@@ -68,7 +68,7 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    String userName = context.read<AuthProvider>().responseModel!.username!;
+    String userName = context.read<AuthProvider>().riderModel!.username!;
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -104,9 +104,9 @@ class _DashboardState extends State<Dashboard> {
       ),
       drawer: Sidebar(
         context,
-        email: 'rider@gmail.com',
-        name: username!.toUpperCase(),
         version: appVersion,
+        name: username!.toUpperCase(),
+        email: context.read<AuthProvider>().riderModel!.email,
       ),
       body: RefreshIndicator(
         onRefresh: () => fetchCurrentRides(),

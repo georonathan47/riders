@@ -15,10 +15,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+4
+version: 1.0.1+9
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
+  sdk: ">=3.0.6 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -27,40 +27,33 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  achievement_view: ^1.0.0
+  avatar_glow: ^2.0.2
+  change_app_package_name: ^1.1.0
+  connectivity_plus: ^3.0.2
+  cupertino_icons: ^1.0.2
+  curved_navigation_bar: ^1.0.3
+  dropdown_button2: ^2.1.4
+  equatable: ^2.0.5
+  flex_color_scheme: null
   flutter:
     sdk: flutter
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  platform_maps_flutter: ^1.0.2
-  google_maps_flutter: ^2.2.0
-  google_fonts: ^5.1.0
-  equatable: ^2.0.5
-  shared_preferences: ^2.0.15
-  flex_color_scheme:
-  achievement_view: ^1.0.0
-  curved_navigation_bar: ^1.0.3
-  font_awesome_flutter: ^10.1.0
-  avatar_glow: ^2.0.2
-  url_launcher: ^6.1.5
-  connectivity_plus: ^3.0.2
   flutter_dotenv: ^5.0.2
-  provider: ^6.0.5
-  http: ^1.0.0
+  font_awesome_flutter: ^10.1.0
   geolocator: ^9.0.2
-  change_app_package_name: ^1.1.0
+  google_fonts: ^5.1.0
+  google_maps_flutter: ^2.5.0
+  http: ^1.0.0
   intl: ^0.18.1
-  dropdown_button2: ^2.1.4
-  # group_radio_button: ^1.3.0
-
+  platform_maps_flutter: ^1.0.2
+  provider: ^6.0.5
+  shared_preferences: ^2.0.15
+  url_launcher: ^6.1.5
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.10.0
   flutter_test:
     sdk: flutter
-
-  flutter_launcher_icons: "^0.10.0"
   logger: ^1.4.0
 
 flutter_icons:
@@ -69,7 +62,6 @@ flutter_icons:
   image_path: "assets/images/newLogo.png"
   min_sdk_android: 21
   # remove_alpha_ios: true
-
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -79,10 +71,8 @@ flutter_icons:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
+import 'package:riders/core/utils/loggerConfig.dart';
 
 import '../../../../../../../core/constants/colors.dart';
 import '../../../../../../../core/constants/widgetFunctions.dart';
@@ -27,13 +28,13 @@ String refreshToken = '';
 String? username;
 
 class _LoginState extends State<Login> {
+  bool seePassword = true;
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  bool seePassword = true;
   @override
   Widget build(BuildContext context) {
-    Brightness brightness = MediaQuery.of(context).platformBrightness;
-    bool isDarkMode = brightness == Brightness.light;
+    final brightness = MediaQuery.of(context).platformBrightness;
+    final isDarkMode = brightness == Brightness.light;
 
     return Scaffold(
       body: SafeArea(
@@ -236,27 +237,27 @@ class _LoginState extends State<Login> {
       Future.delayed(const Duration(seconds: 1));
       if (response!.statusCode == 200) {
         var loginResponse = jsonDecode(response.body);
-        print('loginResponse: ${loginResponse}');
+        logger.i('loginResponse: ${loginResponse}');
         accessToken = loginResponse['access'];
         refreshToken = loginResponse['refresh'];
         context.read<AuthProvider>().saveLoginResponseID(loginResponse['id']);
+        final userDetails = loginResponse['user'];
         User user = User(
-          id: loginResponse['user']['id'],
-          user: loginResponse['user']['user'],
-          status: loginResponse['user']['status'],
-          lincense: loginResponse['user']['lincense'],
-          typeOfVehicle: loginResponse['user']['typeOfVehicle'],
-          vehicleRegistrationNumber: loginResponse['user']['vehicleRegistrationNumber'],
+          id: userDetails['user']['id'],
+          email: userDetails['user']['email'],
+          gender: userDetails['user']['gender'],
+          username: userDetails['user']['username'],
+          last_name: userDetails['user']['last_name'],
+          first_name: userDetails['user']['first_name'],
+          phone_number: userDetails['user']['phone_number'],
         );
-        LoginResponseModel initialLoginResponse = LoginResponseModel.fromJson(loginResponse);
-        context.read<AuthProvider>().saveLoginResponse(initialLoginResponse);
 
-        print('user: ${user.toJson()}');
+        logger.d('user: ${user.toJson()}');
         context.read<AuthProvider>().saveAccessToken(accessToken);
         context.read<AuthProvider>().saveRefreshToken(refreshToken);
 
         context.read<AuthProvider>().saveRiderDetails(user);
-        print('Access Token: $accessToken');
+        logger.i('Access Token: $accessToken');
         username = usernameController.text.trim();
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.pushReplacement(
