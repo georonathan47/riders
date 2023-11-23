@@ -46,7 +46,6 @@ class _RidersState extends State<Riders> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // debugShowCheckedModeBanner: envVar == 'prod' ? false : true,
       debugShowCheckedModeBanner: kDebugMode,
       themeMode: ThemeMode.system,
       theme: ThemeData(
@@ -92,6 +91,7 @@ class _RidersState extends State<Riders> {
           style: ElevatedButton.styleFrom(
             elevation: 0.5,
             backgroundColor: primaryColor,
+            foregroundColor: Colors.white,
             padding: const EdgeInsets.fromLTRB(18, 10, 18, 10),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),

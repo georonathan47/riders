@@ -595,7 +595,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       addVertical(6),
                       Container(
                         child: Text(
-                          'Big Danny',
+                          '',
                           style: GoogleFonts.raleway(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,

@@ -12,7 +12,6 @@ class UtilService {
     String? desc,
   }) {
     AchievementView(
-      context,
       title: title ?? 'Success',
       subTitle: desc!,
       elevation: elevation!,
@@ -20,7 +19,7 @@ class UtilService {
       borderRadius: BorderRadius.circular(25),
       iconBackgroundColor: Colors.teal[400]!,
       icon: const Icon(Icons.check_outlined, color: Colors.white),
-    ).show();
+    ).show(context);
   }
 
   showErrorToast(
@@ -30,7 +29,6 @@ class UtilService {
     String? desc,
   }) {
     AchievementView(
-      context,
       title: title!,
       subTitle: desc!,
       elevation: elevation!,
@@ -38,7 +36,7 @@ class UtilService {
       borderRadius: BorderRadius.circular(25),
       iconBackgroundColor: Colors.red[400]!,
       icon: const Icon(Icons.cancel_outlined, color: Colors.white),
-    ).show();
+    ).show(context);
   }
 
   showWarningToast(
@@ -48,7 +46,6 @@ class UtilService {
     String? desc,
   }) {
     AchievementView(
-      context,
       title: title!,
       subTitle: desc!,
       elevation: elevation!,
@@ -56,7 +53,7 @@ class UtilService {
       borderRadius: BorderRadius.circular(25),
       iconBackgroundColor: Colors.amber[400]!,
       icon: const Icon(Icons.warning_amber, color: Colors.white),
-    ).show();
+    ).show(context);
   }
 
   newOrderToast(
@@ -66,7 +63,6 @@ class UtilService {
     String? desc,
   }) {
     AchievementView(
-      context,
       title: title!,
       subTitle: desc!,
       elevation: elevation!,
@@ -78,6 +74,6 @@ class UtilService {
         '😊',
         style: GoogleFonts.lato(fontSize: 20),
       ),
-    ).show();
+    ).show(context);
   }
 }
