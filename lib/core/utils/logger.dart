@@ -14,8 +14,8 @@ Logger logger = Logger(
     info: 'INFO',
     debug: 'DEBUG',
     error: 'ERROR',
+    trace: 'VERBOSE',
     warning: 'WARNING',
-    verbose: 'VERBOSE',
   ),
 );
 

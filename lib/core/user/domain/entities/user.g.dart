@@ -17,42 +17,54 @@ class UserAdapter extends TypeAdapter<User> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return User(
-      gender: fields[0] as String?,
-      address: fields[1] as String?,
-      username: fields[2] as String?,
-      shopName: fields[3] as String?,
-      fullname: fields[4] as String?,
-      phoneNumber: fields[5] as String?,
-      email: fields[6] as String,
-      managersNumber: fields[7] as String?,
-      password: fields[8] as String,
-      numberOfEmployees: fields[9] as String?,
+      id: fields[0] as int?,
+      gender: fields[1] as String?,
+      address: fields[2] as String?,
+      username: fields[3] as String?,
+      shopName: fields[4] as String?,
+      fullname: fields[5] as String?,
+      firstname: fields[6] as String?,
+      accessToken: fields[7] as String?,
+      phoneNumber: fields[8] as String?,
+      refreshToken: fields[9] as String?,
+      email: fields[10] as String,
+      managersNumber: fields[11] as String?,
+      password: fields[12] as String,
+      numberOfEmployees: fields[13] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, User obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(14)
       ..writeByte(0)
-      ..write(obj.gender)
+      ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.address)
+      ..write(obj.gender)
       ..writeByte(2)
-      ..write(obj.username)
+      ..write(obj.address)
       ..writeByte(3)
-      ..write(obj.shopName)
+      ..write(obj.username)
       ..writeByte(4)
-      ..write(obj.fullname)
+      ..write(obj.shopName)
       ..writeByte(5)
-      ..write(obj.phoneNumber)
+      ..write(obj.fullname)
       ..writeByte(6)
-      ..write(obj.email)
+      ..write(obj.firstname)
       ..writeByte(7)
-      ..write(obj.managersNumber)
+      ..write(obj.accessToken)
       ..writeByte(8)
-      ..write(obj.password)
+      ..write(obj.phoneNumber)
       ..writeByte(9)
+      ..write(obj.refreshToken)
+      ..writeByte(10)
+      ..write(obj.email)
+      ..writeByte(11)
+      ..write(obj.managersNumber)
+      ..writeByte(12)
+      ..write(obj.password)
+      ..writeByte(13)
       ..write(obj.numberOfEmployees);
   }
 
@@ -72,12 +84,17 @@ class UserAdapter extends TypeAdapter<User> {
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
+      message: json['message'] as String?,
+      id: json['id'] as int?,
       gender: json['gender'] as String?,
       address: json['address'] as String?,
       username: json['username'] as String?,
       shopName: json['shopName'] as String?,
       fullname: json['fullname'] as String?,
+      firstname: json['firstname'] as String?,
+      accessToken: json['accessToken'] as String?,
       phoneNumber: json['phoneNumber'] as String?,
+      refreshToken: json['refreshToken'] as String?,
       email: json['email'] as String,
       managersNumber: json['managersNumber'] as String?,
       password: json['password'] as String,
@@ -85,12 +102,17 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'message': instance.message,
+      'id': instance.id,
       'gender': instance.gender,
       'address': instance.address,
       'username': instance.username,
       'shopName': instance.shopName,
       'fullname': instance.fullname,
+      'firstname': instance.firstname,
+      'accessToken': instance.accessToken,
       'phoneNumber': instance.phoneNumber,
+      'refreshToken': instance.refreshToken,
       'email': instance.email,
       'managersNumber': instance.managersNumber,
       'password': instance.password,

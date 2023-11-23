@@ -12,16 +12,21 @@ part 'user.freezed.dart';
 @JsonSerializable(explicitToJson: true)
 class User with _$User {
   factory User({
-    @HiveField(0) String? gender,
-    @HiveField(1) String? address,
-    @HiveField(2) String? username,
-    @HiveField(3) String? shopName,
-    @HiveField(4) String? fullname,
-    @HiveField(5) String? phoneNumber,
-    @HiveField(6) required String email,
-    @HiveField(7) String? managersNumber,
-    @HiveField(8) required String password,
-    @HiveField(9) String? numberOfEmployees,
+    String? message,
+    @HiveField(0) int? id,
+    @HiveField(1) String? gender,
+    @HiveField(2) String? address,
+    @HiveField(3) String? username,
+    @HiveField(4) String? shopName,
+    @HiveField(5) String? fullname,
+    @HiveField(6) String? firstname,
+    @HiveField(7) String? accessToken,
+    @HiveField(8) String? phoneNumber,
+    @HiveField(9) String? refreshToken,
+    @HiveField(10) required String email,
+    @HiveField(11) String? managersNumber,
+    @HiveField(12) required String password,
+    @HiveField(13) String? numberOfEmployees,
   }) = _User;
 
   factory User.initial() => User(email: 'rider@d2d.com', password: '');

@@ -1,20 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
-import 'package:provider/provider.dart';
-import 'package:riders/core/utils/loggerConfig.dart';
 
-import '../../../../../../../core/constants/colors.dart';
-import '../../../../../../../core/constants/widgetFunctions.dart';
-import '../../../../../../core/components/progressDialog.dart';
-import '../../../../../../core/services/apiService.dart';
-import '../../../../../../core/utils/appConfig.dart';
-import '../../../../../../index.dart';
-import '../../../../../../main.dart';
-import '../../data/models/UserModel.dart';
-import '../provider/authProvider.dart';
+import '../../../../../core/constants/colors.dart';
+import '../../../../../core/constants/widgetFunctions.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -23,9 +11,6 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-String accessToken = '';
-String refreshToken = '';
-String? username;
 
 class _LoginState extends State<Login> {
   bool seePassword = true;
@@ -49,7 +34,8 @@ class _LoginState extends State<Login> {
                 children: [
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.15,
-                    child: isDarkMode ? Image.asset('assets/images/logo.png') : Image.asset('assets/images/darkLogo.png'),
+                    child:
+                        isDarkMode ? Image.asset('assets/images/logo.png') : Image.asset('assets/images/darkLogo.png'),
                   ),
                   Row(
                     children: [
@@ -196,7 +182,7 @@ class _LoginState extends State<Login> {
                           ),
                         );
                       } else {
-                        await tryLogin(context);
+                        // await tryLogin(context);
                       }
                     },
                     child: Text(
@@ -216,102 +202,102 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Future<void> tryLogin(BuildContext context) async {
-    final config = await AppConfig.forEnvironment(envVar);
-    try {
-      showDialog(
-        context: context,
-        builder: (context) => const ProgressDialog(
-          displayMessage: 'Verifying...\nPlease wait...',
-        ),
-      );
+  // Future<void> tryLogin(BuildContext context) async {
+  //   final config = await AppConfig.forEnvironment(envVar);
+  //   try {
+  //     showDialog(
+  //       context: context,
+  //       builder: (context) => const ProgressDialog(
+  //         displayMessage: 'Verifying...\nPlease wait...',
+  //       ),
+  //     );
 
-      Response? response = await ApiService().postData(
-        url: config.loginUrl,
-        body: jsonEncode({
-          'username': usernameController.text,
-          'password': passwordController.text,
-        }),
-      );
+  //     Response? response = await ApiService().postData(
+  //       url: config.loginUrl,
+  //       body: jsonEncode({
+  //         'username': usernameController.text,
+  //         'password': passwordController.text,
+  //       }),
+  //     );
 
-      Future.delayed(const Duration(seconds: 1));
-      if (response!.statusCode == 200) {
-        var loginResponse = jsonDecode(response.body);
-        logger.i('loginResponse: ${loginResponse}');
-        accessToken = loginResponse['access'];
-        refreshToken = loginResponse['refresh'];
-        context.read<AuthProvider>().saveLoginResponseID(loginResponse['id']);
-        final userDetails = loginResponse['user'];
-        User user = User(
-          id: userDetails['user']['id'],
-          email: userDetails['user']['email'],
-          gender: userDetails['user']['gender'],
-          username: userDetails['user']['username'],
-          last_name: userDetails['user']['last_name'],
-          first_name: userDetails['user']['first_name'],
-          phone_number: userDetails['user']['phone_number'],
-        );
+  //     Future.delayed(const Duration(seconds: 1));
+  //     if (response!.statusCode == 200) {
+  //       var loginResponse = jsonDecode(response.body);
+  //       logger.i('loginResponse: ${loginResponse}');
+  //       accessToken = loginResponse['access'];
+  //       refreshToken = loginResponse['refresh'];
+  //       context.read<AuthProvider>().saveLoginResponseID(loginResponse['id']);
+  //       final userDetails = loginResponse['user'];
+  //       User user = User(
+  //         id: userDetails['user']['id'],
+  //         email: userDetails['user']['email'],
+  //         gender: userDetails['user']['gender'],
+  //         username: userDetails['user']['username'],
+  //         last_name: userDetails['user']['last_name'],
+  //         first_name: userDetails['user']['first_name'],
+  //         phone_number: userDetails['user']['phone_number'],
+  //       );
 
-        logger.d('user: ${user.toJson()}');
-        context.read<AuthProvider>().saveAccessToken(accessToken);
-        context.read<AuthProvider>().saveRefreshToken(refreshToken);
+  //       logger.d('user: ${user.toJson()}');
+  //       context.read<AuthProvider>().saveAccessToken(accessToken);
+  //       context.read<AuthProvider>().saveRefreshToken(refreshToken);
 
-        context.read<AuthProvider>().saveRiderDetails(user);
-        logger.i('Access Token: $accessToken');
-        username = usernameController.text.trim();
-        Navigator.of(context, rootNavigator: true).pop();
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Index(
-              username: usernameController.text,
-            ),
-          ),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'You have successfully logged in!',
-              style: GoogleFonts.raleway(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-            ),
-            backgroundColor: Colors.teal[200],
-          ),
-        );
-      } else {
-        Navigator.of(context, rootNavigator: true).pop();
-        var loginResponse = jsonDecode(response.body);
-        print('Login Response: $loginResponse');
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              '${loginResponse['detail']}!',
-              style: GoogleFonts.raleway(
-                fontSize: 16,
-                color: Colors.black,
-              ),
-            ),
-            backgroundColor: Colors.red[200],
-          ),
-        );
-      }
-    } catch (e, stackTrace) {
-      Navigator.of(context, rootNavigator: true).pop();
-      print('$e\n $stackTrace');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'An error occurred! Please try again later!',
-            style: GoogleFonts.raleway(
-              fontSize: 16,
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: Colors.red[200],
-        ),
-      );
-    }
-  }
+  //       context.read<AuthProvider>().saveRiderDetails(user);
+  //       logger.i('Access Token: $accessToken');
+  //       username = usernameController.text.trim();
+  //       Navigator.of(context, rootNavigator: true).pop();
+  //       Navigator.pushReplacement(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => Index(
+  //             username: usernameController.text,
+  //           ),
+  //         ),
+  //       );
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text(
+  //             'You have successfully logged in!',
+  //             style: GoogleFonts.raleway(
+  //               fontSize: 16,
+  //               color: Colors.black,
+  //             ),
+  //           ),
+  //           backgroundColor: Colors.teal[200],
+  //         ),
+  //       );
+  //     } else {
+  //       Navigator.of(context, rootNavigator: true).pop();
+  //       var loginResponse = jsonDecode(response.body);
+  //       print('Login Response: $loginResponse');
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(
+  //           content: Text(
+  //             '${loginResponse['detail']}!',
+  //             style: GoogleFonts.raleway(
+  //               fontSize: 16,
+  //               color: Colors.black,
+  //             ),
+  //           ),
+  //           backgroundColor: Colors.red[200],
+  //         ),
+  //       );
+  //     }
+  //   } catch (e, stackTrace) {
+  //     Navigator.of(context, rootNavigator: true).pop();
+  //     print('$e\n $stackTrace');
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text(
+  //           'An error occurred! Please try again later!',
+  //           style: GoogleFonts.raleway(
+  //             fontSize: 16,
+  //             color: Colors.black,
+  //           ),
+  //         ),
+  //         backgroundColor: Colors.red[200],
+  //       ),
+  //     );
+  //   }
+  // }
 }

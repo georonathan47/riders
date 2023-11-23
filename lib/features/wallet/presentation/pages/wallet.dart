@@ -1,17 +1,9 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:provider/provider.dart';
-import 'package:riders/core/components/progressDialog.dart';
 
 import '../../../../core/constants/widgetFunctions.dart';
-import '../../../../core/services/apiService.dart';
-import '../../../../core/utils/appConfig.dart';
-import '../../../../core/utils/loggerConfig.dart';
-import '../../../../main.dart';
-import '../../../Generic/features/authentication/presentation/provider/authProvider.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key});
@@ -34,50 +26,50 @@ class _WalletPageState extends State<WalletPage> {
 
   List bankList = ["Access Bank", "UMB", "GT Bank", "ADB", "Fidelity Bank", "Republic Bank"];
 
-  withdrawCash(objectToParse) async {
-    final config = await AppConfig.forEnvironment(envVar);
-    try {
-      showDialog(
-        context: context,
-        builder: (_) => ProgressDialog(
-          displayMessage: "Initiating withdrawal... Please wait!",
-        ),
-      );
-      Future.delayed(const Duration(seconds: 2));
-      ApiService()
-          .postDataWithAuth(
-        url: config.withdrawCashUrl!,
-        body: jsonEncode(objectToParse),
-        auth: context.read<AuthProvider>().accessToken,
-      )
-          .then((response) {
-        logger.d(response!.statusCode);
-        Navigator.pop(context);
-        if (response.statusCode == 200) {
-          dynamic information = jsonDecode(response.body);
-          logger.d(information);
-        } else if (response.statusCode == 400) {
-          dynamic error = jsonDecode(response.body);
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: subText(error['detail'].toString() + "!", color: Colors.black),
-              backgroundColor: Colors.red[400],
-            ),
-          );
-        }
-      });
-    } catch (err, stacktrace) {
-      logger.e(err);
-      print(stacktrace);
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: subText(err.toString(), color: Colors.black),
-          backgroundColor: Colors.red[400],
-        ),
-      );
-    }
-  }
+  // withdrawCash(objectToParse) async {
+  //   final config = await AppConfig.forEnvironment(envVar);
+  //   try {
+  //     showDialog(
+  //       context: context,
+  //       builder: (_) => ProgressDialog(
+  //         displayMessage: "Initiating withdrawal... Please wait!",
+  //       ),
+  //     );
+  //     Future.delayed(const Duration(seconds: 2));
+  //     ApiService()
+  //         .postDataWithAuth(
+  //       url: config.withdrawCashUrl!,
+  //       body: jsonEncode(objectToParse),
+  //       auth: context.read<AuthProvider>().accessToken,
+  //     )
+  //         .then((response) {
+  //       logger.d(response!.statusCode);
+  //       Navigator.pop(context);
+  //       if (response.statusCode == 200) {
+  //         dynamic information = jsonDecode(response.body);
+  //         logger.d(information);
+  //       } else if (response.statusCode == 400) {
+  //         dynamic error = jsonDecode(response.body);
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(
+  //             content: subText(error['detail'].toString() + "!", color: Colors.black),
+  //             backgroundColor: Colors.red[400],
+  //           ),
+  //         );
+  //       }
+  //     });
+  //   } catch (err, stacktrace) {
+  //     logger.e(err);
+  //     print(stacktrace);
+  //     Navigator.pop(context);
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: subText(err.toString(), color: Colors.black),
+  //         backgroundColor: Colors.red[400],
+  //       ),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -116,11 +108,11 @@ class _WalletPageState extends State<WalletPage> {
             child: ElevatedButton(
               child: subText('Withdraw', fontSize: 20),
               onPressed: () {
-                dynamic objectToParse = {
-                  "amount": amountController.text,
+                final objectToParse = {
                   "code": selectedBank,
+                  "amount": amountController.text,
                 };
-                withdrawCash(objectToParse);
+                // withdrawCash(objectToParse);
               },
             ),
           ),

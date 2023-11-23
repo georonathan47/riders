@@ -5,7 +5,7 @@ import '../../../usecases/usecase.dart';
 import '../entities/user.dart';
 import '../repositories/user_repository.dart';
 
-class LogoutUser implements UseCase<User, ObjectParams<User>> {
+class LogoutUser implements UseCase<void, ObjectParams<User>> {
   /// Constructor
   LogoutUser(this.repository);
 
@@ -13,7 +13,7 @@ class LogoutUser implements UseCase<User, ObjectParams<User>> {
   final UserRepository repository;
 
   @override
-  Future<Either<Failure, User>> call(ObjectParams<User> params) {
+  Future<Either<Failure, void>> call(ObjectParams<User> params) {
     return repository.logout(params.value);
   }
 }

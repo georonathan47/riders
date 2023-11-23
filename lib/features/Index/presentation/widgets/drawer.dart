@@ -1,25 +1,20 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart';
-import 'package:provider/provider.dart';
+import 'package:riders/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:riders/injection_container.dart';
 
-import '../../core/components/progressDialog.dart';
-import '../../core/constants/colors.dart';
-import '../../core/services/apiService.dart';
-import '../../core/utils/appConfig.dart';
-import '../../main.dart';
-import '../DrawerScreens/presentation/pages/faqs.dart';
-import '../DrawerScreens/presentation/pages/friend.dart';
-import '../DrawerScreens/presentation/pages/tickets.dart';
-import '../DrawerScreens/presentation/pages/wallet.dart';
-import 'features/authentication/presentation/pages/login.dart';
-import 'features/authentication/presentation/provider/authProvider.dart';
+import '../../../../core/constants/colors.dart';
+import '../../../../core/utils/appConfig.dart';
+import '../../../../main.dart';
+import '../../../DrawerScreens/presentation/pages/faqs.dart';
+import '../../../DrawerScreens/presentation/pages/friend.dart';
+import '../../../wallet/presentation/pages/wallet.dart';
+import '../../../authentication/presentation/pages/login.dart';
 
-Widget Sidebar(BuildContext context,
-    {String? email, String? name, String? version}) {
+Widget Sidebar(BuildContext context, {String? email, String? name, String? version}) {
+  final bloc = sl<AuthenticationBloc>();
   return Drawer(
     elevation: 1.25,
     child: GestureDetector(
@@ -115,8 +110,7 @@ Widget Sidebar(BuildContext context,
                   ),
                   elevation: .5,
                   child: ListTile(
-                    leading: Icon(Icons.wallet_outlined,
-                        size: 25, color: secondColor),
+                    leading: Icon(Icons.wallet_outlined, size: 25, color: secondColor),
                     title: Text(
                       'Wallet',
                       style: GoogleFonts.poppins(
@@ -192,8 +186,7 @@ Widget Sidebar(BuildContext context,
                   color: Theme.of(context).cardColor,
                   elevation: .5,
                   child: ListTile(
-                    leading: FaIcon(FontAwesomeIcons.ticket,
-                        size: 25, color: secondColor),
+                    leading: FaIcon(FontAwesomeIcons.ticket, size: 25, color: secondColor),
                     title: Text(
                       'Open Ticket',
                       style: GoogleFonts.poppins(
@@ -204,7 +197,7 @@ Widget Sidebar(BuildContext context,
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      fetchTickets(context);
+                      // fetchTickets(context);
                     },
                   ),
                 ),
@@ -300,8 +293,7 @@ Widget Sidebar(BuildContext context,
                   color: Theme.of(context).cardColor,
                   elevation: .5,
                   child: ListTile(
-                    leading:
-                        Image.asset('assets/images/logout.png', height: 30),
+                    leading: Image.asset('assets/images/logout.png', height: 30),
                     title: Text(
                       'Logout',
                       style: GoogleFonts.poppins(
@@ -310,7 +302,14 @@ Widget Sidebar(BuildContext context,
                         letterSpacing: .65,
                       ),
                     ),
-                    onTap: () => logout(context),
+                    onTap: () async => await bloc.logout().then(
+                          (value) => Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const Login(),
+                            ),
+                          ),
+                        ),
                   ),
                 ),
               ),
@@ -339,130 +338,63 @@ Widget Sidebar(BuildContext context,
   );
 }
 
-fetchTickets(BuildContext context) async {
-  final config = await AppConfig.forEnvironment(envVar);
-  try {
-    showDialog(
-      context: context,
-      builder: (context) => const ProgressDialog(
-        displayMessage: 'Fetching tickets...\nPlease wait!',
-      ),
-    );
+// fetchTickets(BuildContext context) async {
+//   final config = await AppConfig.forEnvironment(envVar);
+//   try {
+//     showDialog(
+//       context: context,
+//       builder: (context) => const ProgressDialog(
+//         displayMessage: 'Fetching tickets...\nPlease wait!',
+//       ),
+//     );
 
-    Response? response = await ApiService().getDataWithAuth(
-      url:
-          '${config.ticketingUrl}?user_id=${context.read<AuthProvider>().riderModel!.id}',
-      auth: context.read<AuthProvider>().accessToken,
-    );
-    // print('response: ${jsonDecode(response)}');
+//     Response? response = await ApiService().getDataWithAuth(
+//       url: '${config.ticketingUrl}?user_id=${context.read<AuthProvider>().riderModel!.id}',
+//       auth: context.read<AuthProvider>().accessToken,
+//     );
+//     // print('response: ${jsonDecode(response)}');
 
-    if (response!.statusCode == 200) {
-      var fetchTicketsResponse = jsonDecode(response.body);
-      print('fetchTicketsResponse: $fetchTicketsResponse');
+//     if (response!.statusCode == 200) {
+//       var fetchTicketsResponse = jsonDecode(response.body);
+//       print('fetchTicketsResponse: $fetchTicketsResponse');
 
-      Navigator.pop(context);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Tickets(response: fetchTicketsResponse),
-        ),
-      );
-    } else {
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'An error occured. Please try again later!',
-            style: GoogleFonts.raleway(
-              fontSize: 16,
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: Colors.red[200],
-        ),
-      );
-      print(response.body);
-    }
-  } catch (error, stackTrace) {
-    print('Exception occured: $error\nstackTrace: $stackTrace');
-    Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          'An error occured. Please try again later!',
-          style: GoogleFonts.raleway(
-            fontSize: 16,
-            color: Colors.black,
-          ),
-        ),
-        backgroundColor: Colors.red[200],
-      ),
-    );
-  }
-}
-
-logout(BuildContext context) async {
-  final config = await AppConfig.forEnvironment(envVar);
-  try {
-    Navigator.pop(context);
-    // ? Clear User session and logout
-    // await ApiService().logout(refreshToken).then((value) {
-    showDialog(
-      context: context,
-      builder: (context) => const ProgressDialog(
-        displayMessage: 'Logging out...',
-      ),
-    );
-
-    Future.delayed(const Duration(seconds: 2));
-    print('Refresh token: ${context.read<AuthProvider>().refreshToken}');
-
-    var jsonBody = {"refresh": context.read<AuthProvider>().accessToken};
-
-    Response? logoutResponse = await ApiService().postData(
-      url: config.logoutUrl,
-      body: jsonEncode(jsonBody),
-      auth: context.read<AuthProvider>().accessToken,
-    );
-
-    print(logoutResponse!.statusCode);
-    if (logoutResponse.statusCode >= 200 && logoutResponse.statusCode < 300) {
-      print('Logout successful');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const Login(),
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'You have successfully logged out!',
-            style: GoogleFonts.raleway(
-              fontSize: 16,
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: Colors.teal[200],
-        ),
-      );
-    } else {
-      print('Logout failed');
-      Navigator.pop(context);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'An error occurred! Please try again later!',
-            style: GoogleFonts.raleway(
-              fontSize: 16,
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: Colors.red[200],
-        ),
-      );
-    }
-  } catch (error, stacktrace) {
-    print('Exception occured: $error\n stackTrace: $stacktrace');
-  }
-}
+//       Navigator.pop(context);
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (context) => Tickets(response: fetchTicketsResponse),
+//         ),
+//       );
+//     } else {
+//       Navigator.pop(context);
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text(
+//             'An error occured. Please try again later!',
+//             style: GoogleFonts.raleway(
+//               fontSize: 16,
+//               color: Colors.black,
+//             ),
+//           ),
+//           backgroundColor: Colors.red[200],
+//         ),
+//       );
+//       print(response.body);
+//     }
+//   } catch (error, stackTrace) {
+//     print('Exception occured: $error\nstackTrace: $stackTrace');
+//     Navigator.pop(context);
+//     ScaffoldMessenger.of(context).showSnackBar(
+//       SnackBar(
+//         content: Text(
+//           'An error occured. Please try again later!',
+//           style: GoogleFonts.raleway(
+//             fontSize: 16,
+//             color: Colors.black,
+//           ),
+//         ),
+//         backgroundColor: Colors.red[200],
+//       ),
+//     );
+//   }
+// }

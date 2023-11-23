@@ -6,25 +6,28 @@ import 'package:provider/provider.dart';
 
 import 'Splash.dart';
 import 'core/constants/colors.dart';
+import 'core/services/hive_adapters.dart';
 import 'core/utils/appConfig.dart';
-import 'features/Generic/features/authentication/presentation/provider/authProvider.dart';
+import 'injection_container.dart' as di;
 
 dynamic envVar;
 dynamic appVersion;
 
 void main({String? env}) async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  di.init();
   env ??= 'prod';
+  await HiveAdapters.setUp();
   print('Working from the $env environment');
   final config = await AppConfig.forEnvironment(env);
   envVar = config.env;
   appVersion = config.version;
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AppConfig()),
-        ChangeNotifierProvider(create: (context) => AuthProvider()),
       ],
       child: Riders(config: config),
     ),

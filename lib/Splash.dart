@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:riders/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:riders/features/authentication/presentation/pages/login.dart';
+import 'package:riders/features/Index/presentation/pages/Homepage.dart';
 
 import 'core/constants/colors.dart';
 import 'core/constants/widgetFunctions.dart';
-import 'features/Generic/features/authentication/presentation/pages/login.dart';
-import 'features/Generic/features/authentication/presentation/provider/authProvider.dart';
-import 'index.dart';
+import 'core/user/domain/entities/user.dart';
+import 'injection_container.dart' as di;
+import 'core/user/data/datasources/user_local_database.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -24,31 +26,49 @@ LatLng? initialPosition;
 LatLng? currentLocation;
 Set<Marker> markers = {};
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+  bool? proceed;
+  Animation? animation;
+  AnimationController? controller;
+  User initialUser = User.initial();
+  final bloc = di.sl<AuthenticationBloc>();
   @override
   void initState() {
     super.initState();
-    determinePosition();
-    getCurrentLocation();
-    Future.delayed(
-      const Duration(seconds: 5),
-      // ? Implement check when integration is done!
-      () {
-        context.read<AuthProvider>().riderModel == null
-            ? Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Login(),
-                ),
-              )
-            : Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const Index(),
-                ),
-              );
-      },
+    // setupInteractedMessage();
+    controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 5),
     );
+    animation = CurvedAnimation(parent: controller!, curve: Curves.bounceOut);
+    controller!.forward();
+    controller!.addListener(() => setState(() {}));
+
+    // Request permission for receiving push notifications
+
+    controller!.addStatusListener((status) async {
+      if (status == AnimationStatus.completed) {
+        proceed = true;
+        await determinePosition();
+        final authState = await di.sl<UserLocalDatabase>().authenticationStatus();
+        initialUser = await bloc.retrieve();
+        authState ? goToDashboard() : goToLogin();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    controller!.dispose();
+    super.dispose();
+  }
+
+  Future<void> goToLogin() async {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const Login()));
+  }
+
+  Future<void> goToDashboard() async {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const Homepage()));
   }
 
   Future<Position> determinePosition() async {

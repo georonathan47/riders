@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../../core/constants/WidgetFunctions.dart';
+import '../../../../core/constants/WidgetFunctions.dart';
 
 class DashboardCardComponent extends StatelessWidget {
   final Icon? icon;

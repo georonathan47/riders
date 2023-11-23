@@ -11,5 +11,5 @@ abstract class UserRepository {
   Future<Either<Failure, User>> login(User user);
 
   /// Logout User
-  Future<Either<Failure, User>> logout(User user);
+  Future<Either<Failure, void>> logout(User user);
 }
