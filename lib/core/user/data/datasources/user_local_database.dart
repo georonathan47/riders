@@ -48,7 +48,7 @@ class UserLocalDatabaseImpl implements UserLocalDatabase {
   Future<bool> authenticationStatus() async {
     try {
       final user = await _retrieveBox();
-      return user.fullname!.isNotEmpty;
+      return user.id! >= 1;
     } catch (error) {
       return false;
     }
@@ -64,14 +64,14 @@ class UserLocalDatabaseImpl implements UserLocalDatabase {
     }
   }
 
-  @override 
+  @override
   Future<String> localUpdate(User user) async {
     try {
       logger.i('saving user $user');
       final box = await hiveInterface.openBox<User>(_boxName);
       await box.putAt(0, user);
       return "Saved user information";
-    } catch (error){
+    } catch (error) {
       throw DeviceException('Device Error!\nInsufficient storage space');
     }
   }

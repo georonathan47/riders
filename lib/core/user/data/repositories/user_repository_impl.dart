@@ -30,8 +30,12 @@ class UserRepositoryImpl implements UserRepository {
     try {
       await networkInfo.hasInternet();
       final result = await remoteDatabase.login(user);
-      await localDatabase.create(result);
-      return Right(result);
+      if (result.id! >= 1) {
+        await localDatabase.create(result);
+        return Right(result);
+      } else {
+        return Left(Failure(result.message!));
+      }
     } on DeviceException catch (error, stack) {
       logger.e(stack);
       return Left(Failure(error.message));

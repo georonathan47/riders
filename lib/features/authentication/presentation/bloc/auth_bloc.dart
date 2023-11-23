@@ -17,14 +17,14 @@ class AuthenticationBloc {
   final RetrieveUser retrieveUser;
 
   /// Login User
-  Future<User> login(User request) async {
+  Future<String> login(User request) async {
     final result = await loginUser(ObjectParams(request));
     return result.fold(
-      (failure) => User.initial(),
-      (success) => success,
+      (failure) => failure.message,
+      (success) => success.message!,
     );
   }
- 
+
   /// Logout User
   Future<String?> logout() async {
     final result = await logoutUser(ObjectParams(await retrieve()));

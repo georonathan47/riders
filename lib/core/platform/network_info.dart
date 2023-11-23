@@ -16,12 +16,12 @@ class NetworkInfoImpl implements NetworkInfo {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) return true;
       throw DeviceException(
-        'No internet access\nConnect your device to the internet.',
+        '🛜 No internet access!\nPlease connect your device to the internet and try again.',
         statusCode: 500,
       );
     } on SocketException catch (_) {
       throw DeviceException(
-        'No internet access\nConnect your device to the internet.',
+        '🛜 No internet access!\nPlease connect your device to the internet and try again.',
         statusCode: 500,
       );
     }

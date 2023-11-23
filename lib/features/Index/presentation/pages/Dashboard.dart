@@ -74,9 +74,8 @@ class _DashboardState extends State<Dashboard> {
       future: bloc.retrieve(),
       builder: (ctx, snapshot) {
         if (snapshot.hasData && snapshot.requireData.id! > 1) {
-          setState(() {
-            accessToken = snapshot.requireData.accessToken;
-          });
+          accessToken = snapshot.requireData.accessToken;
+
           return Scaffold(
             appBar: AppBar(
               elevation: .75,
@@ -113,7 +112,7 @@ class _DashboardState extends State<Dashboard> {
               context,
               version: appVersion,
               email: snapshot.requireData.email,
-              name: snapshot.requireData.fullname,
+              name: snapshot.requireData.username.toUpperCase(),
             ),
             body: RefreshIndicator(
               onRefresh: () => fetchCurrentRides(),

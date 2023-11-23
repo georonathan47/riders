@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:riders/core/constants/colors.dart';
 import 'package:riders/core/constants/widgetFunctions.dart';
 import 'package:riders/core/utils/UtilService.dart';
+import 'package:riders/core/utils/location.dart';
 
 import '../../../../Splash.dart';
 
@@ -21,12 +22,6 @@ class Homepage extends StatefulWidget {
 UtilService util = UtilService();
 
 class _HomepageState extends State<Homepage> {
-
-  static CameraPosition location = CameraPosition(
-    target: currentLocation!,
-    zoom: 16,
-  );
-
   final Completer<GoogleMapController> _controller = Completer();
 
   @override
@@ -45,37 +40,40 @@ class _HomepageState extends State<Homepage> {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            currentLocation == null
-                ? Center(child: const CircularProgressIndicator())
-                : GoogleMap(
-                    // polylines: polylines,
-                    myLocationEnabled: true,
-                    myLocationButtonEnabled: false,
-                    initialCameraPosition: location,
-                    mapType: MapType.normal,
+            FutureBuilder(
+              future: determinePosition(),
+              builder: (ctx, snapshot) {
+                if (snapshot.hasData) {
+                  final location = CameraPosition(
+                    target: LatLng(
+                      snapshot.requireData.latitude,
+                      snapshot.requireData.longitude,
+                    ),
+                    zoom: 16,
+                  );
+                  return GoogleMap(
                     markers: markers,
+                    myLocationEnabled: true,
+                    mapType: MapType.normal,
                     zoomControlsEnabled: false,
                     zoomGesturesEnabled: false,
-                    onMapCreated: (GoogleMapController controller) {
+                    myLocationButtonEnabled: false,
+                    initialCameraPosition: location,
+                    onMapCreated: (controller) {
                       _controller.complete(controller);
-                      controller.setMapStyle('''
-                      [
-                          {
-                              "featureType": "all",
-                              "elementType": "all",
-                              "stylers": [
-                                  {
-                                      "saturation": -50
-                                  },
-                                  {
-                                      "gamma": 0.75
-                                  }
-                              ]
-                          }
-                    ]
-                  ''');
                     },
-                  ),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.active) {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator.adaptive(),
+                );
+              },
+            ),
             Align(
               alignment: Alignment.bottomCenter,
               child: hasBeenTapped
@@ -142,8 +140,7 @@ class _HomepageState extends State<Homepage> {
                                     util.showSuccessToast(
                                       context,
                                       title: 'Order Cancelled Successfully.',
-                                      desc:
-                                          'You have cancelled order D2D-01235',
+                                      desc: 'You have cancelled order D2D-01235',
                                     );
                                     setState(() {
                                       hasBeenTapped = true;

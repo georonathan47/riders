@@ -19,12 +19,12 @@ class UserRemoteDatabaseImpl implements UserRemoteDatabase {
   final networkService = ApiService();
 
   @override
-  Future<User> login(User user) async {
+  Future<User> login(User request) async {
     try {
       final config = await AppConfig.forEnvironment(envVar);
-      final jsonBody = jsonEncode({'email': user.email, 'password': user.password});
-
+      final jsonBody = jsonEncode({'username': request.username, 'password': request.password});
       final result = await networkService.postData(url: config.loginUrl, body: jsonBody);
+      logger.i(result);
       if (result!.statusCode == 200) {
         final initialResponse = jsonDecode(result.body);
         logger.d(initialResponse);

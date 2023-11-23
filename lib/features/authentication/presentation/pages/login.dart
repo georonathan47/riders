@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:riders/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:riders/index.dart';
 
 import '../../../../../core/constants/colors.dart';
 import '../../../../../core/constants/widgetFunctions.dart';
+import '../../../../core/components/progressDialog.dart';
+import '../../../../core/user/domain/entities/user.dart';
+import '../../../../injection_container.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,9 +16,9 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-
 class _LoginState extends State<Login> {
   bool seePassword = true;
+  final bloc = sl<AuthenticationBloc>();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
   @override
@@ -182,7 +187,41 @@ class _LoginState extends State<Login> {
                           ),
                         );
                       } else {
-                        // await tryLogin(context);
+                        final unsub = User.initial().copyWith(
+                          username: usernameController.text,
+                          password: passwordController.text,
+                        );
+
+                        showDialog(
+                          context: context,
+                          builder: (_) => const ProgressDialog(
+                            displayMessage: 'Logging you in... Please wait!',
+                          ),
+                        );
+                        await bloc.login(unsub).then((value) {
+                          Navigator.pop(context);
+                          if (value.contains('successful')) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const Index(),
+                              ),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  value,
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                backgroundColor: Colors.red[200],
+                              ),
+                            );
+                          }
+                        });
                       }
                     },
                     child: Text(

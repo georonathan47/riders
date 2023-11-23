@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../authentication/presentation/bloc/auth_bloc.dart';
 import '../../../../core/constants/colors.dart';
 import '../../../../core/constants/widgetFunctions.dart';
+import '../../../../injection_container.dart';
 import '../../../DrawerScreens/presentation/pages/faqs.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -15,6 +17,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  final bloc = sl<AuthenticationBloc>();
   Future<void> _makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
@@ -102,8 +105,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                     height: 18,
                                     width: 18,
                                     color: Colors.white,
-                                    image: AssetImage(
-                                        "assets/images/userIcon.png"),
+                                    image: AssetImage("assets/images/userIcon.png"),
                                   ),
                                 ),
                               ),
@@ -450,9 +452,8 @@ class _AccountScreenState extends State<AccountScreen> {
                                 "FAQs",
                                 style: GoogleFonts.raleway(
                                   fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  // color: LABEL_COLOR,
                                   letterSpacing: 1,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ),
@@ -500,9 +501,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       bottom: 8,
                     ),
                     child: GestureDetector(
-                      onTap: () {
-                        _makePhoneCall("+233558665605");
-                      },
+                      onTap: () => _makePhoneCall("+233558665605"),
                       child: Row(
                         children: [
                           Container(
@@ -571,8 +570,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   glowColor: primaryColor.withAlpha(15),
                   child: Container(
                     child: const CircleAvatar(
-                      backgroundColor: Colors.white,
                       maxRadius: 23.5,
+                      backgroundColor: Colors.white,
                       backgroundImage: AssetImage("assets/images/userIcon.png"),
                     ),
                   ),
@@ -593,15 +592,26 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                       ),
                       addVertical(6),
-                      Container(
-                        child: Text(
-                          '',
-                          style: GoogleFonts.raleway(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: .45,
-                          ),
-                        ),
+                      FutureBuilder(
+                        future: bloc.retrieve(),
+                        builder: (context, snap) {
+                          if (snap.connectionState == ConnectionState.active ||
+                              snap.connectionState == ConnectionState.waiting) {
+                            return const Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            );
+                          }
+                          return Container(
+                            child: Text(
+                              snap.requireData.username.toUpperCase(),
+                              style: GoogleFonts.raleway(
+                                fontSize: 16,
+                                letterSpacing: .45,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
@@ -633,15 +643,26 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                 ),
                 addVertical(6),
-                Container(
-                  child: Text(
-                    '0201154679',
-                    style: GoogleFonts.raleway(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      // color: LABEL_COLOR,
-                    ),
-                  ),
+                FutureBuilder(
+                  future: bloc.retrieve(),
+                  builder: (context, snap) {
+                    if (snap.connectionState == ConnectionState.active ||
+                        snap.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(),
+                      );
+                    }
+                    return Container(
+                      child: Text(
+                        snap.requireData.phoneNumber!,
+                        style: GoogleFonts.raleway(
+                          fontSize: 16,
+                          letterSpacing: .45,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

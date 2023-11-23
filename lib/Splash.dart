@@ -5,15 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:riders/features/authentication/presentation/bloc/auth_bloc.dart';
-import 'package:riders/features/authentication/presentation/pages/login.dart';
-import 'package:riders/features/Index/presentation/pages/Homepage.dart';
+import 'package:riders/index.dart';
 
 import 'core/constants/colors.dart';
 import 'core/constants/widgetFunctions.dart';
-import 'core/user/domain/entities/user.dart';
-import 'injection_container.dart' as di;
 import 'core/user/data/datasources/user_local_database.dart';
+import 'features/authentication/presentation/bloc/auth_bloc.dart';
+import 'features/authentication/presentation/pages/login.dart';
+import 'injection_container.dart' as di;
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -30,12 +29,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   bool? proceed;
   Animation? animation;
   AnimationController? controller;
-  User initialUser = User.initial();
   final bloc = di.sl<AuthenticationBloc>();
   @override
   void initState() {
     super.initState();
-    // setupInteractedMessage();
     controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 5),
@@ -44,14 +41,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     controller!.forward();
     controller!.addListener(() => setState(() {}));
 
-    // Request permission for receiving push notifications
-
     controller!.addStatusListener((status) async {
       if (status == AnimationStatus.completed) {
         proceed = true;
-        await determinePosition();
         final authState = await di.sl<UserLocalDatabase>().authenticationStatus();
-        initialUser = await bloc.retrieve();
         authState ? goToDashboard() : goToLogin();
       }
     });
@@ -68,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   }
 
   Future<void> goToDashboard() async {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const Homepage()));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const Index()));
   }
 
   Future<Position> determinePosition() async {

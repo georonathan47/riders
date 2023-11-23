@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:http/http.dart';
+import 'package:riders/features/authentication/auth_injection.dart';
 
 import 'core/platform/launch_info.dart';
 import 'core/platform/network_info.dart';
@@ -34,7 +35,10 @@ void initCore() {
 }
 
 //? Add features injection
-void initFeatures() {}
+void initFeatures() {
+  /// Auth Feature
+  initAuth();
+}
 
 //? Add external packages injection
 void initExternal() {

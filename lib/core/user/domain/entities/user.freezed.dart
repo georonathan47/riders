@@ -22,9 +22,9 @@ mixin _$User {
   @HiveField(1)
   String? get gender => throw _privateConstructorUsedError;
   @HiveField(2)
-  String? get address => throw _privateConstructorUsedError;
+  String? get email => throw _privateConstructorUsedError;
   @HiveField(3)
-  String? get username => throw _privateConstructorUsedError;
+  String? get address => throw _privateConstructorUsedError;
   @HiveField(4)
   String? get shopName => throw _privateConstructorUsedError;
   @HiveField(5)
@@ -38,14 +38,15 @@ mixin _$User {
   @HiveField(9)
   String? get refreshToken => throw _privateConstructorUsedError;
   @HiveField(10)
-  String get email => throw _privateConstructorUsedError;
-  @HiveField(11)
   String? get managersNumber => throw _privateConstructorUsedError;
+  @HiveField(11)
+  String get username => throw _privateConstructorUsedError;
   @HiveField(12)
   String get password => throw _privateConstructorUsedError;
   @HiveField(13)
   String? get numberOfEmployees => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
 }
@@ -59,16 +60,16 @@ abstract class $UserCopyWith<$Res> {
       {String? message,
       @HiveField(0) int? id,
       @HiveField(1) String? gender,
-      @HiveField(2) String? address,
-      @HiveField(3) String? username,
+      @HiveField(2) String? email,
+      @HiveField(3) String? address,
       @HiveField(4) String? shopName,
       @HiveField(5) String? fullname,
       @HiveField(6) String? firstname,
       @HiveField(7) String? accessToken,
       @HiveField(8) String? phoneNumber,
       @HiveField(9) String? refreshToken,
-      @HiveField(10) String email,
-      @HiveField(11) String? managersNumber,
+      @HiveField(10) String? managersNumber,
+      @HiveField(11) String username,
       @HiveField(12) String password,
       @HiveField(13) String? numberOfEmployees});
 }
@@ -89,16 +90,16 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? message = freezed,
     Object? id = freezed,
     Object? gender = freezed,
+    Object? email = freezed,
     Object? address = freezed,
-    Object? username = freezed,
     Object? shopName = freezed,
     Object? fullname = freezed,
     Object? firstname = freezed,
     Object? accessToken = freezed,
     Object? phoneNumber = freezed,
     Object? refreshToken = freezed,
-    Object? email = null,
     Object? managersNumber = freezed,
+    Object? username = null,
     Object? password = null,
     Object? numberOfEmployees = freezed,
   }) {
@@ -115,13 +116,13 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String?,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
               as String?,
       shopName: freezed == shopName
           ? _value.shopName
@@ -147,14 +148,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
       managersNumber: freezed == managersNumber
           ? _value.managersNumber
           : managersNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -178,16 +179,16 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       {String? message,
       @HiveField(0) int? id,
       @HiveField(1) String? gender,
-      @HiveField(2) String? address,
-      @HiveField(3) String? username,
+      @HiveField(2) String? email,
+      @HiveField(3) String? address,
       @HiveField(4) String? shopName,
       @HiveField(5) String? fullname,
       @HiveField(6) String? firstname,
       @HiveField(7) String? accessToken,
       @HiveField(8) String? phoneNumber,
       @HiveField(9) String? refreshToken,
-      @HiveField(10) String email,
-      @HiveField(11) String? managersNumber,
+      @HiveField(10) String? managersNumber,
+      @HiveField(11) String username,
       @HiveField(12) String password,
       @HiveField(13) String? numberOfEmployees});
 }
@@ -205,16 +206,16 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? message = freezed,
     Object? id = freezed,
     Object? gender = freezed,
+    Object? email = freezed,
     Object? address = freezed,
-    Object? username = freezed,
     Object? shopName = freezed,
     Object? fullname = freezed,
     Object? firstname = freezed,
     Object? accessToken = freezed,
     Object? phoneNumber = freezed,
     Object? refreshToken = freezed,
-    Object? email = null,
     Object? managersNumber = freezed,
+    Object? username = null,
     Object? password = null,
     Object? numberOfEmployees = freezed,
   }) {
@@ -231,13 +232,13 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.gender
           : gender // ignore: cast_nullable_to_non_nullable
               as String?,
+      email: freezed == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String?,
       address: freezed == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String?,
-      username: freezed == username
-          ? _value.username
-          : username // ignore: cast_nullable_to_non_nullable
               as String?,
       shopName: freezed == shopName
           ? _value.shopName
@@ -263,14 +264,14 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String?,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
       managersNumber: freezed == managersNumber
           ? _value.managersNumber
           : managersNumber // ignore: cast_nullable_to_non_nullable
               as String?,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
       password: null == password
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
@@ -284,24 +285,27 @@ class __$$UserImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$UserImpl with DiagnosticableTreeMixin implements _User {
   _$UserImpl(
       {this.message,
       @HiveField(0) this.id,
       @HiveField(1) this.gender,
-      @HiveField(2) this.address,
-      @HiveField(3) this.username,
+      @HiveField(2) this.email,
+      @HiveField(3) this.address,
       @HiveField(4) this.shopName,
       @HiveField(5) this.fullname,
       @HiveField(6) this.firstname,
       @HiveField(7) this.accessToken,
       @HiveField(8) this.phoneNumber,
       @HiveField(9) this.refreshToken,
-      @HiveField(10) required this.email,
-      @HiveField(11) this.managersNumber,
+      @HiveField(10) this.managersNumber,
+      @HiveField(11) required this.username,
       @HiveField(12) required this.password,
       @HiveField(13) this.numberOfEmployees});
+
+  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserImplFromJson(json);
 
   @override
   final String? message;
@@ -313,10 +317,10 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
   final String? gender;
   @override
   @HiveField(2)
-  final String? address;
+  final String? email;
   @override
   @HiveField(3)
-  final String? username;
+  final String? address;
   @override
   @HiveField(4)
   final String? shopName;
@@ -337,10 +341,10 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
   final String? refreshToken;
   @override
   @HiveField(10)
-  final String email;
+  final String? managersNumber;
   @override
   @HiveField(11)
-  final String? managersNumber;
+  final String username;
   @override
   @HiveField(12)
   final String password;
@@ -350,7 +354,7 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(message: $message, id: $id, gender: $gender, address: $address, username: $username, shopName: $shopName, fullname: $fullname, firstname: $firstname, accessToken: $accessToken, phoneNumber: $phoneNumber, refreshToken: $refreshToken, email: $email, managersNumber: $managersNumber, password: $password, numberOfEmployees: $numberOfEmployees)';
+    return 'User(message: $message, id: $id, gender: $gender, email: $email, address: $address, shopName: $shopName, fullname: $fullname, firstname: $firstname, accessToken: $accessToken, phoneNumber: $phoneNumber, refreshToken: $refreshToken, managersNumber: $managersNumber, username: $username, password: $password, numberOfEmployees: $numberOfEmployees)';
   }
 
   @override
@@ -361,16 +365,16 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
       ..add(DiagnosticsProperty('message', message))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('gender', gender))
+      ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('address', address))
-      ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('shopName', shopName))
       ..add(DiagnosticsProperty('fullname', fullname))
       ..add(DiagnosticsProperty('firstname', firstname))
       ..add(DiagnosticsProperty('accessToken', accessToken))
       ..add(DiagnosticsProperty('phoneNumber', phoneNumber))
       ..add(DiagnosticsProperty('refreshToken', refreshToken))
-      ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('managersNumber', managersNumber))
+      ..add(DiagnosticsProperty('username', username))
       ..add(DiagnosticsProperty('password', password))
       ..add(DiagnosticsProperty('numberOfEmployees', numberOfEmployees));
   }
@@ -383,9 +387,8 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
             (identical(other.message, message) || other.message == message) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.address, address) || other.address == address) &&
-            (identical(other.username, username) ||
-                other.username == username) &&
             (identical(other.shopName, shopName) ||
                 other.shopName == shopName) &&
             (identical(other.fullname, fullname) ||
@@ -398,31 +401,33 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
                 other.phoneNumber == phoneNumber) &&
             (identical(other.refreshToken, refreshToken) ||
                 other.refreshToken == refreshToken) &&
-            (identical(other.email, email) || other.email == email) &&
             (identical(other.managersNumber, managersNumber) ||
                 other.managersNumber == managersNumber) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
             (identical(other.password, password) ||
                 other.password == password) &&
             (identical(other.numberOfEmployees, numberOfEmployees) ||
                 other.numberOfEmployees == numberOfEmployees));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
       message,
       id,
       gender,
+      email,
       address,
-      username,
       shopName,
       fullname,
       firstname,
       accessToken,
       phoneNumber,
       refreshToken,
-      email,
       managersNumber,
+      username,
       password,
       numberOfEmployees);
 
@@ -431,6 +436,13 @@ class _$UserImpl with DiagnosticableTreeMixin implements _User {
   @pragma('vm:prefer-inline')
   _$$UserImplCopyWith<_$UserImpl> get copyWith =>
       __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _User implements User {
@@ -438,18 +450,20 @@ abstract class _User implements User {
       {final String? message,
       @HiveField(0) final int? id,
       @HiveField(1) final String? gender,
-      @HiveField(2) final String? address,
-      @HiveField(3) final String? username,
+      @HiveField(2) final String? email,
+      @HiveField(3) final String? address,
       @HiveField(4) final String? shopName,
       @HiveField(5) final String? fullname,
       @HiveField(6) final String? firstname,
       @HiveField(7) final String? accessToken,
       @HiveField(8) final String? phoneNumber,
       @HiveField(9) final String? refreshToken,
-      @HiveField(10) required final String email,
-      @HiveField(11) final String? managersNumber,
+      @HiveField(10) final String? managersNumber,
+      @HiveField(11) required final String username,
       @HiveField(12) required final String password,
       @HiveField(13) final String? numberOfEmployees}) = _$UserImpl;
+
+  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
   @override
   String? get message;
@@ -461,10 +475,10 @@ abstract class _User implements User {
   String? get gender;
   @override
   @HiveField(2)
-  String? get address;
+  String? get email;
   @override
   @HiveField(3)
-  String? get username;
+  String? get address;
   @override
   @HiveField(4)
   String? get shopName;
@@ -485,10 +499,10 @@ abstract class _User implements User {
   String? get refreshToken;
   @override
   @HiveField(10)
-  String get email;
+  String? get managersNumber;
   @override
   @HiveField(11)
-  String? get managersNumber;
+  String get username;
   @override
   @HiveField(12)
   String get password;
